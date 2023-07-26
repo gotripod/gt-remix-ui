@@ -1,27 +1,26 @@
-import styled, { css } from 'styled-components'
+import { RemixLinkProps, RemixNavLinkProps } from '@remix-run/react/dist/components'
 import Link from './link'
 
-const ButtonStyles = css`
-  display: inline-block;
-  position: relative;
-  text-align: center;
-  font-weight: 700;
-  cursor: pointer;
-  border: 0;
-  border-bottom: 3px solid #262626;
-  transition: background-color 0.1s cubic-bezier(0.4, 0, 0.2, 1);
-  padding: 6.5px 30px;
-  padding: 0.3611111111rem 1.6666666667rem;
-  color: #fff;
-  background-color: #62bead;
-`
+const DefaultButtonStyles: React.CSSProperties = {
+  display: 'inline-block',
+  position: 'relative',
+  textAlign: 'center',
+  fontWeight: 700,
+  cursor: 'pointer',
+  border: 0,
+  borderBottom: '3px solid #262626',
+  transition: 'background-color 0.1s cubic-bezier(0.4, 0, 0.2, 1)',
+  padding: '6.5px 30px',
+  color: '#fff',
+  backgroundColor: '#62bead',
+}
 
-const LinkButton = styled(Link)`
-  ${ButtonStyles}
-`
+const LinkButton = ({children, ...props}: RemixLinkProps) => (
+  <Link style={DefaultButtonStyles} {...props}>{children}</Link>
+)
 
-const Button = styled.button`
-  ${ButtonStyles}
-`
+const Button = ({children, ...props}: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+  <button style={DefaultButtonStyles} {...props}>{children}</button>
+)
 
 export { LinkButton, Button }

@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* 
+let theme = {
+    zIndex: {
+      backToTop: 103,
+      top: 102,
+      middle: 101
+    },
+    colours: {
+      linkBlue: '#62bead',
+      headingBlue: '#4291ce',
+      linkOrange: '#ef7852',
+      highlightBlue: '#4eace0'
+    },
+    gutter: 13,
+    fontSize: {
+      aside: 14,
+      base: 18,
+      prominentText: 20,
+      h2: 40
+    },
+    lineHeight: 26,
+    cardFlare: css`
+      &:before {
+        content: '';
+        background: linear-gradient(to bottom, rgba(98, 190, 173, 0.9), rgba(66, 145, 206, 0.9));
+        ${mqLess(Breakpoint.medium)} {
+          width: ${px2rem(5)};
+        }
+  
+        ${mqMore(Breakpoint.medium)} {
+          width: ${px2rem(13)};
+        }
+        height: 100%;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    `,
+    greyCardFlare: css`
+      border-bottom: 5px solid rgba(200, 200, 200);
+    `
+  
+    a {
+      color: ${theme.colours.linkOrange};
+      text-decoration: underline;
+    }
+  } */
+  

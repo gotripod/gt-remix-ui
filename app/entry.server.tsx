@@ -1,29 +1,40 @@
-import type { EntryContext } from "@remix-run/cloudflare";
+/**
+ * By default, Remix will handle generating the HTTP Response for you.
+ * You are free to delete this file if you'd like to, but if you ever want it revealed again, you can run `npx remix reveal` ✨
+ * For more information, see https://remix.run/file-conventions/entry.server
+ */
+
+import type { AppLoadContext, EntryContext } from "@remix-run/cloudflare";
 import { RemixServer } from "@remix-run/react";
-import { renderToString } from "react-dom/server";
-import { ServerStyleSheet } from "styled-components";
+import isbot from "isbot";
+import { renderToReadableStream } from "react-dom/server";
 
 export default async function handleRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
-  remixContext: EntryContext
+  remixContext: EntryContext,
+  loadContext: AppLoadContext
 ) {
-  const sheet = new ServerStyleSheet();
-
-  let markup = renderToString(
-    sheet.collectStyles(
-      <RemixServer context={remixContext} url={request.url} />
-    )
+  const body = await renderToReadableStream(
+    <RemixServer context={remixContext} url={request.url} />,
+    {
+      signal: request.signal,
+      onError(error: unknown) {
+        // Log streaming rendering errors from inside the shell
+        console.error(error);
+        responseStatusCode = 500;
+      },
+    }
   );
-  const styles = sheet.getStyleTags();
 
-  markup = markup.replace("__STYLES__", styles);
+  if (isbot(request.headers.get("user-agent"))) {
+    await body.allReady;
+  }
 
   responseHeaders.set("Content-Type", "text/html");
-
-  return new Response("<!DOCTYPE html>" + markup, {
-    status: responseStatusCode,
+  return new Response(body, {
     headers: responseHeaders,
+    status: responseStatusCode,
   });
 }

@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import styled from 'styled-components'
+
 import { useScrollPosition } from '~/hooks/scroll'
-import theme from '~/theme'
+
 
 interface Props {
     
@@ -16,7 +16,7 @@ const ToTop = (props: Props) => {
       if (isShow !== hideOnScroll) setHideOnScroll(isShow)
     }, [hideOnScroll])
     return (
-        <Button hide={hideOnScroll} onClick={() => {
+        <button className='hidden' onClick={() => {
             window.scrollTo({
                top: 0, behavior: 'smooth' 
             })
@@ -30,28 +30,28 @@ const ToTop = (props: Props) => {
 </svg>
 
 
-        </Button>
+        </button>
 
         )
 }
 
-const Button = styled.button<{hide: boolean}>`
-    display: ${props => props.hide ? 'none' : 'block'};
-    border-radius:50%;
-    padding: 7px 10px;
-    border: 0;
-    cursor: pointer;
-    position: fixed;
-    bottom: 94px;
-right: 30px;
-    background: white;
-    box-shadow: 0 1.5px 4px rgba(0,0,0,.24),0 1.5px 6px rgba(0,0,0,.12);
-    z-index: ${theme.zIndex.backToTop};
-    svg {
-        fill: #62bead;
-        width: 25px;
-        height: 25px
-    }
-`
+// const Button = styled.button<{hide: boolean}>`
+//     display: ${props => props.hide ? 'none' : 'block'};
+//     border-radius:50%;
+//     padding: 7px 10px;
+//     border: 0;
+//     cursor: pointer;
+//     position: fixed;
+//     bottom: 94px;
+// right: 30px;
+//     background: white;
+//     box-shadow: 0 1.5px 4px rgba(0,0,0,.24),0 1.5px 6px rgba(0,0,0,.12);
+//     z-index: ${theme.zIndex.backToTop};
+//     svg {
+//         fill: #62bead;
+//         width: 25px;
+//         height: 25px
+//     }
+// `
 
 export default ToTop

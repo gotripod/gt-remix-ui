@@ -13,8 +13,10 @@ const ac = new ApolloClient({
 const fetchAPI = async (query: string, { variables }: any = {}) => {
   const headers = { 'Content-Type': 'application/json' } as any
 
-  if (process.env.WORDPRESS_AUTH_REFRESH_TOKEN) {
-    headers['Authorization'] = `Bearer ${process.env.WORDPRESS_AUTH_REFRESH_TOKEN}`
+  const WORDPRESS_AUTH_REFRESH_TOKEN = ''
+
+  if (WORDPRESS_AUTH_REFRESH_TOKEN) {
+    headers['Authorization'] = `Bearer ${WORDPRESS_AUTH_REFRESH_TOKEN}`
   }
 
   const res = await fetch(API_URL, {

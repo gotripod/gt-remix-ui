@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import theme, { px2rem } from '~/theme'
+
+
 
 interface Props {
   title: string

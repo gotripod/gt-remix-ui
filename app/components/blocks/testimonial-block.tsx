@@ -1,6 +1,6 @@
-import styled from 'styled-components'
+
 import Testimonials from '~/components/home/testimonials'
-import theme, { px2rem } from '~/theme'
+
 import { Testimonial } from '~/types'
 
 interface Props {

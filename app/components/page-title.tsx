@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { breakpoints, default as Theme, default as theme, mqLess, px2rem } from '~/theme'
+
+
 const S = {
   Wrapper: styled.header<{ slim: boolean }>`
     position: relative;

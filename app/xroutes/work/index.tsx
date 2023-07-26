@@ -1,13 +1,21 @@
 import { json, LoaderArgs } from '@remix-run/cloudflare'
 import { Link, useLoaderData } from '@remix-run/react'
 import { useLayoutEffect, useRef, useState } from 'react'
-import styled from 'styled-components'
+import { AProps, DivProps } from 'react-html-props'
 import { getPageBySlug, getProjects, getTestimonial } from '~/api'
 import Column from '~/components/column'
 import Layout from '~/components/layout'
 import PageTitle from '~/components/page-title'
-import theme, { breakpoints, mqLess } from '~/theme'
 
+
+const Wrapper = (props: DivProps) => (
+  <div {...props}>{props.children}</div>
+)
+
+
+const ProjectItemLink = (props: AProps & { width: number}) => (
+  <a {...props}>{props.children}</a>
+)
 
 const Index = () => {
   const { projects, testimonial, page } = useLoaderData<typeof loader>()
@@ -55,61 +63,61 @@ const Index = () => {
   )
 }
 
-const Wrapper = styled.section`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+// const Wrapper = styled.section`
+//   display: grid;
+//   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 
-  margin: 0 0 ${theme.gutter * 4}px 0;
+//   margin: 0 0 ${theme.gutter * 4}px 0;
 
-  div {
-    padding: 13px;
-    box-sizing: border-box;
-  }
+//   div {
+//     padding: 13px;
+//     box-sizing: border-box;
+//   }
 
-  ${mqLess(breakpoints.medium)} {
-    display: block;
+//   ${mqLess(breakpoints.medium)} {
+//     display: block;
 
-    div {
-      flex-basis: 100%;
-      max-width: 100%;
-    }
-  }
-`
+//     div {
+//       flex-basis: 100%;
+//       max-width: 100%;
+//     }
+//   }
+// `
 
-const ProjectItemLink = styled.a<{ width: number }>`
-  display: block;
-  ${theme.greyCardFlare}
+// const ProjectItemLink = styled.a<{ width: number }>`
+//   display: block;
+//   ${theme.greyCardFlare}
 
-  font-size: 0;
-  line-height: 0;
+//   font-size: 0;
+//   line-height: 0;
 
-  :hover {
-    cursor: pointer;
-    img:nth-child(2) {
-      display: block;
-    }
+//   :hover {
+//     cursor: pointer;
+//     img:nth-child(2) {
+//       display: block;
+//     }
 
-    img:nth-child(1) {
-      display: none;
-    }
-  }
+//     img:nth-child(1) {
+//       display: none;
+//     }
+//   }
 
-  img:nth-child(1) {
-    object-position: top;
-  }
+//   img:nth-child(1) {
+//     object-position: top;
+//   }
 
-  img:nth-child(2) {
-    object-position: bottom;
-    display: none;
-  }
+//   img:nth-child(2) {
+//     object-position: bottom;
+//     display: none;
+//   }
 
-  img {
-    max-height: ${(props) => props.width / 1.39087947883}px;
-    width: 100%;
-    object-fit: cover;
-    height: ${614 / 2}px;
-  }
-`
+//   img {
+//     max-height: ${(props) => props.width / 1.39087947883}px;
+//     width: 100%;
+//     object-fit: cover;
+//     height: ${614 / 2}px;
+//   }
+// `
 
 export const loader = async (ctx: LoaderArgs) => {
   const testimonial = await getTestimonial()

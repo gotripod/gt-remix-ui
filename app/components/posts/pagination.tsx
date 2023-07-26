@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import styled from 'styled-components'
+
 import { Pagination as PaginationType } from '~/types'
 import { LinkButton } from '../button'
 

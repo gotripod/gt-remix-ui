@@ -1,8 +1,8 @@
-import styled from 'styled-components'
+
 import Column from '~/components/column'
 import PageTitle from '~/components/page-title'
 import { PostListProps } from '~/routes/insights/$slug'
-import { breakpoints, mqLess } from '~/theme'
+
 import Item from './list-item'
 import Pagination from './pagination'
 

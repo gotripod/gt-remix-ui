@@ -22,7 +22,6 @@
 	"extensions": [
 		"dbaeumer.vscode-eslint",
 		"esbenp.prettier-vscode",
-		"jpoissonnier.vscode-styled-components"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.

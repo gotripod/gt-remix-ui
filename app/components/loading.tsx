@@ -1,6 +1,6 @@
 import React from 'react'
 //import Loader from "react-spinners/ScaleLoader";
-import styled from 'styled-components'
+
 
 const Loading = () => (
   <Container>

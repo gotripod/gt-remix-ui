@@ -1,33 +1,38 @@
-import styled from 'styled-components'
-import { px2rem } from '~/theme'
+
+
+import { RemixLinkProps } from '@remix-run/react/dist/components'
 import Link from '../link'
 
-const Enquire = styled(Link)`
-  display: inline-block;
 
-  position: relative;
 
-  text-align: center;
+// const Enquire = styled(Link)`
+//   display: inline-block;
 
-  font-weight: 700;
+//   position: relative;
 
-  cursor: pointer;
+//   text-align: center;
 
-  border: 0;
+//   font-weight: 700;
 
-  border-bottom-color: currentcolor;
-  border-bottom-style: none;
-  border-bottom-width: 0px;
+//   cursor: pointer;
 
-  border-bottom: 3px solid #262626;
+//   border: 0;
 
-  transition: background-color 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+//   border-bottom-color: currentcolor;
+//   border-bottom-style: none;
+//   border-bottom-width: 0px;
 
-  padding: ${px2rem(6.5)} ${px2rem(30)};
+//   border-bottom: 3px solid #262626;
 
-  color: #fff !important;
+//   transition: background-color 0.1s cubic-bezier(0.4, 0, 0.2, 1);
 
-  background-color: #62bead;
-`
+//   padding: ${px2rem(6.5)} ${px2rem(30)};
 
-export default Enquire
+//   color: #fff !important;
+
+//   background-color: #62bead;
+// `
+
+export default (props: RemixLinkProps) => (
+  <Link {...props}>{props.children}</Link>
+)

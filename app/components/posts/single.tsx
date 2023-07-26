@@ -1,6 +1,6 @@
 import React from 'react'
-import styled from 'styled-components'
-import theme, { breakpoints, mqLess, px2rem } from '~/theme'
+
+
 import Column from '../column'
 // import parse, { domToReact } from 'html-react-parser'
 // import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'

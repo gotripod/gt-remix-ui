@@ -8,11 +8,13 @@ import {
   ScrollRestoration
 } from "@remix-run/react";
 import styles from "~/styles.css";
-export const meta: MetaFunction = () => ({
-  charset: "utf-8",
-  title: "New Remix App",
-  viewport: "width=device-width,initial-scale=1",
-});
+import stylesheet from "~/tailwind.css";
+
+export const meta = () => [
+  {charset: "utf-8"},
+  {title: "New Remix App"},
+  {viewport: "width=device-width,initial-scale=1"},
+];
 
 export const links: LinksFunction = () => {
   return [
@@ -23,7 +25,7 @@ export const links: LinksFunction = () => {
     {
       rel: "preconnect",
       href: "https://fonts.gstatic.com",
-      crossorigin: true,
+      crossOrigin: true,
     },
     {
       rel: "stylesheet",
@@ -33,6 +35,7 @@ export const links: LinksFunction = () => {
       rel: "stylesheet",
       href: styles,
     },
+    { rel: "stylesheet", href: stylesheet },
   ];
 };
 
@@ -42,9 +45,6 @@ export default function App() {
       <head>
         <Meta />
         <Links />
-        {typeof document === "undefined"
-          ? "__STYLES__"
-          : null}
       </head>
       <body>
         <Outlet />

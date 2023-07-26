@@ -1,9 +1,9 @@
 import { LoaderArgs } from '@remix-run/cloudflare'
 import { useLoaderData } from '@remix-run/react'
-import styled from 'styled-components'
+
 import { getPageBySlug } from '~/api'
 import BaseCard from '~/components/home/base-card'
-import theme from '~/theme'
+
 import Column from '../../components/column'
 import Layout from '../../components/layout'
 import PageTitle from '../../components/page-title'
@@ -42,22 +42,17 @@ const {page} = useLoaderData()
         />
       </Column>
       <Column>
-        <Card>
-          <Main dangerouslySetInnerHTML={{ __html: page.body }}></Main>
-        </Card>
+        <BaseCard>
+          <main dangerouslySetInnerHTML={{ __html: page.body }}></main>
+        </BaseCard>
       </Column>
     </Layout>
   )
 }
 
-const Card = styled(BaseCard)`
-  padding: ${theme.gutter * 8}px;
-  margin-bottom: ${theme.gutter * 6}px;
-`
-
-const Main = styled.div`
-  ${theme.contentStyles}
-`
+// const Main = styled.div`
+//   ${theme.contentStyles}
+// `
 
 export const loader = async ({}: LoaderArgs) => {
   const page = await getPageBySlug('privacy-policy')

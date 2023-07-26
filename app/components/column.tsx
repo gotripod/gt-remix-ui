@@ -1,13 +1,15 @@
-import styled from 'styled-components'
+import classNames from "classnames"
 
-const Column = styled.div<{ slim?: boolean }>`
-  max-width: ${(props) => (props.slim ? 1000 : 1140)}px;
-  margin: 0 auto;
-  position: relative;
+export type ColumnProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> & {
+  slim?:boolean
+}
 
-  img {
-    max-width: 100%;
-  }
-`
+const Column = ({slim, children, ...props}: ColumnProps) => <div
+{...props}
+className={classNames(`max-w-[1140px] mx-auto my-0 relative
+  [&>img]:max-w-full
+  `, props.className)}
+>{children}</div>
+
 
 export default Column

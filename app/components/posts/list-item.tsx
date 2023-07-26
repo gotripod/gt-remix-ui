@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
-import styled from 'styled-components'
-import Theme, { breakpoints, mqLess, px2rem } from '~/theme'
+
+
 import { Post } from '~/types'
 import { BlueLink } from '../link'
 
