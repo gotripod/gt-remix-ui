@@ -1,0 +1,86 @@
+//#region imports
+import { json, LoaderArgs } from '@remix-run/cloudflare'
+import { useLoaderData } from '@remix-run/react'
+import styled from 'styled-components'
+import { getProjectBySlug } from '~/api'
+import Renderer from '~/components/blocks/renderer'
+import Column from '~/components/column'
+import Layout from '~/components/layout'
+import MediaImage from '~/components/media-image'
+import theme, { breakpoints, mqLess, px2rem } from '~/theme'
+import { Project } from '~/types'
+//#endregion
+
+//#region component
+interface Props {
+  project: Project
+}
+
+const SinglePostPage = () => {
+  const {project} = useLoaderData()
+
+  return project ? (
+    <Layout>
+      {/* <Head>
+        <title>{project.title} | Go Tripod</title>
+      </Head> */}
+
+      <Column>
+        <StyledMediaImage media={project.heroMedia} />
+        <Content>
+          {project.blocks.map((block: any, i: number) => (
+            <Renderer key={i} block={block} />
+          ))}
+        </Content>
+      </Column>
+    </Layout>
+  ) : null
+        }
+export default SinglePostPage
+//#endregion
+
+//#region styles
+const StyledMediaImage = styled(MediaImage)`
+  width: 100%;
+  margin: -${px2rem(theme.gutter * 4)} 0 0 0;
+  position: relative;
+  z-index: 1;
+  display: block;
+`
+
+const Content = styled.div`
+  background-color: #fff;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+  padding: ${px2rem(theme.gutter * 8)} ${px2rem(theme.gutter * 8)};
+
+  ${mqLess(breakpoints.medium)} {
+    padding: ${px2rem(theme.gutter)} ${px2rem(theme.gutter * 2)};
+  }
+`
+
+//#endregion
+
+//#region data
+
+export const loader = async (context: LoaderArgs) => {
+  const project = await getProjectBySlug(
+    Array.isArray(context.params.slug) ? context.params.slug[0] : context.params.slug
+  )
+  return json({ project })
+}
+
+// This function gets called at BUILD time
+// export const getStaticPaths: GetStaticPaths = async () => {
+//   const projects = await getProjects()
+
+//   // Get the paths we want to pre-render
+//   const paths = projects.map((post) => ({
+//     params: { slug: post.link }
+//   }))
+
+//   // We'll pre-render only these paths at build time.
+//   // { fallback: false } means other routes should 404.
+//   return { paths, fallback: true }
+// }
+
+//#endregion

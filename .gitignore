@@ -6,3 +6,6 @@ node_modules
 .vercel
 public/*.xml
 public/robots.txt
+.cache
+build
+public/build
