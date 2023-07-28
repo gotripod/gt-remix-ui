@@ -2,6 +2,7 @@
 
 import { RemixLinkProps } from '@remix-run/react/dist/components'
 import Link from '../link'
+import { LinkButton } from '../button'
 
 
 
@@ -34,5 +35,5 @@ import Link from '../link'
 // `
 
 export default (props: RemixLinkProps) => (
-  <Link {...props}>{props.children}</Link>
+  <LinkButton {...props}>{props.children}</LinkButton>
 )

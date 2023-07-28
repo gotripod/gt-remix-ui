@@ -7,15 +7,15 @@ interface Props {
   testimonial: Testimonial
 }
 
-const StyledTestimonials = styled(Testimonials)`
-  background: #ededed;
-  border-bottom: 0;
-  margin: ${px2rem(theme.gutter * 6)} -${px2rem(theme.gutter * 8)};
-`
+// const StyledTestimonials = styled(Testimonials)`
+//   background: #ededed;
+//   border-bottom: 0;
+//   margin: ${px2rem(theme.gutter * 6)} -${px2rem(theme.gutter * 8)};
+// `
 
 const TestimonialBlock = ({ testimonial }: Props) => {
   return (
-    <StyledTestimonials testimonial={testimonial} />
+    <Testimonials testimonial={testimonial} />
   )
 }
 

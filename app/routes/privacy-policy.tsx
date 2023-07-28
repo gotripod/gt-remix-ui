@@ -4,9 +4,9 @@ import { useLoaderData } from '@remix-run/react'
 import { getPageBySlug } from '~/api'
 import BaseCard from '~/components/home/base-card'
 
-import Column from '../../components/column'
-import Layout from '../../components/layout'
-import PageTitle from '../../components/page-title'
+import Column from '../components/column'
+import Layout from '../components/layout'
+import PageTitle from '../components/page-title'
 
 const nth = function (d: number) {
   if (d > 3 && d < 21) return 'th'
@@ -58,10 +58,7 @@ export const loader = async ({}: LoaderArgs) => {
   const page = await getPageBySlug('privacy-policy')
   console.log(page)
   return {
-    revalidate: 30,
-    props: {
       page
-    }
   }
 }
 

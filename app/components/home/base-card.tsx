@@ -1,10 +1,15 @@
 import classNames from "classnames"
 import { DivProps } from "react-html-props"
 
+export const cardClasses = 'bg-white cardflare border-b-4 border-b-gray-400 shadow-card'
 
-const BaseCard = (props: DivProps) => (
-  <div className={classNames('bg-white', props.className)} {...props}>{props.children}</div>
-)
+const BaseCard = (props: DivProps) => {
+  return <div {...props} className={classNames(cardClasses, props.className)} >
+    <div className="py-4 px-12 overflow-hidden relative">
+      {props.children}
+    </div>
+  </div>
+}
 
 // const BaseCard = styled.div`
 //   background-color: #fff;

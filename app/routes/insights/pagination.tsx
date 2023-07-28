@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 
 import { Pagination as PaginationType } from '~/types'
-import { LinkButton } from '../button'
+import { LinkButton } from '~/components/button'
 
 const newerLink = (pagination: PaginationType) => {
   const { currentPage, totalItems, pageCount } = pagination
@@ -18,26 +18,26 @@ const olderLink = (pagination: PaginationType) => {
 const Pagination = (props: PaginationType): ReactElement => {
   const { currentPage } = props
   return (
-    <Container>
+    <div className='flex justify-between'>
       {/* If there's a next page, render this link */}
-      {<SLinkButton href={olderLink(props)}>← Older posts</SLinkButton>}
+      {<LinkButton to={olderLink(props)}>← Older posts</LinkButton>}
 
       {/* If there's a previous page, render this link */}
-      {currentPage ? <SLinkButton href={newerLink(props)}>Newer posts →</SLinkButton> : null}
-    </Container>
+      {currentPage ? <LinkButton to={newerLink(props)}>Newer posts →</LinkButton> : null}
+    </div>
   )
 }
 
 export default Pagination
 
-const Container = styled.div`
-  display: flex;
-  justify-content: space-between;
-`
+// const Container = styled.div`
+//   display: flex;
+//   justify-content: space-between;
+// `
 
-const SLinkButton = styled(LinkButton)`
-  color: white !important;
-  display: inline-block;
-  margin: 13px 0;
-  padding: 13px;
-`
+// const SLinkButton = styled(LinkButton)`
+//   color: white !important;
+//   display: inline-block;
+//   margin: 13px 0;
+//   padding: 13px;
+// `

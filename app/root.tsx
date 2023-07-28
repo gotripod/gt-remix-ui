@@ -9,6 +9,7 @@ import {
 } from "@remix-run/react";
 import styles from "~/styles.css";
 import stylesheet from "~/tailwind.css";
+import { cssBundleHref } from "@remix-run/css-bundle";
 
 export const meta = () => [
   {charset: "utf-8"},
@@ -25,16 +26,19 @@ export const links: LinksFunction = () => {
     {
       rel: "preconnect",
       href: "https://fonts.gstatic.com",
-      crossOrigin: true,
+      crossOrigin: 'anonymous',
     },
     {
       rel: "stylesheet",
       href: "https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&display=swap",
     },
-    {
-      rel: "stylesheet",
-      href: styles,
-    },
+    ...(cssBundleHref
+      ? [{ rel: "stylesheet", href: cssBundleHref }]
+      : []),
+    // {
+    //   rel: "stylesheet",
+    //   href: styles,
+    // },
     { rel: "stylesheet", href: stylesheet },
   ];
 };

@@ -11,26 +11,26 @@ import { DivProps, FooterProps, NavProps, PProps, ULProps } from 'react-html-pro
 const Footer = () => (
   <Foot>
     <Nav>
-      <ul>
-        <li>
+      <ul className='flex justify-center'>
+        <li className='px-6 py-6'>
           {' '}
           <Link to="/">
             <span>Home</span>
           </Link>
         </li>
-        <li>
+        <li className='px-6 py-6'>
           {' '}
           <Link to="/work/">
             <span>Work</span>
           </Link>
         </li>
-        <li>
+        <li className='px-6 py-6'>
           {' '}
           <Link to="/insights/">
             <span>Insights</span>
           </Link>
         </li>
-        <li>
+        <li className='px-6 py-6'>
           {' '}
           <Link to="/contact/">
             <span>Contact</span>
@@ -38,8 +38,8 @@ const Footer = () => (
         </li>
       </ul>
     </Nav>
-    <Top>
-      <div>
+    <div className='bg-footer-texture bg-no-repeat bg-right border-b border-b-[#626262] py-12'>
+      <div className='flex max-w-[1140px] justify-between mx-auto'>
         <Link to="/">
           <img
 
@@ -59,26 +59,26 @@ const Footer = () => (
           />
         </div>
       </div>
-    </Top>
+    </div>
 
-    <ContactDetails>
-      <address className="postal">
+    <div className='flex justify-between max-w-[1140px] my-12 mx-auto'>
+      <address className="flex-1 not-italic text-left">
         Tremough Innovation Centre,
         <br />
         Penryn, Cornwall, TR10 9TA, UK
       </address>
 
-      <address className="email">
-        <a href="mailto:hello@gotripod.com">hello@gotripod.com</a>
+      <address className="flex-1 not-italic">
+        <a href="mailto:hello@gotripod.com" className='text-highlightBlue text-center font-bold'>hello@gotripod.com</a>
       </address>
 
-      <a className="phone" href="tel:+448454752487">
+      <a className="flex-1 font-bold text-right text-lg" href="tel:+448454752487">
         0845 475 2487
       </a>
-    </ContactDetails>
+    </div>
 
-    <Social>
-      <li>
+    <ul className='list-none p-0 flex lg:justify-start max-w-[1140px] mx-auto mb-4 mt-0 justify-center'>
+      <li className='mr-2'>
         <a
           href="https://twitter.com/gotripod"
           target="_blank"
@@ -87,7 +87,7 @@ const Footer = () => (
           <Twitter size={18} color={'white'} />
         </a>
       </li>
-      <li>
+      <li className='mr-2'>
         <a
           href="https://www.facebook.com/gotripod"
           target="_blank"
@@ -96,7 +96,7 @@ const Footer = () => (
           <Facebook size={18} color={'white'} />
         </a>
       </li>
-      <li>
+      <li className='mr-2'>
         <a
           href="https://www.linkedin.com/company/go-tripod-ltd"
           target="_blank"
@@ -105,9 +105,9 @@ const Footer = () => (
           <Linkedin size={18} color={'white'} />
         </a>
       </li>
-    </Social>
+    </ul>
 
-    <Rights>
+    <Rights className='bg-zinc-800 text-sm py-4'>
       © {new Date().getFullYear()} Go Tripod. All rights reserved. Registered in the UK company
       number 6912029. VAT No. 972 5228 06. Get with our{' '}
       <Link to="/privacy-policy/">Privacy&nbsp;Policy</Link>.
@@ -117,154 +117,15 @@ const Footer = () => (
 
 export default Footer
 
-// const SLink = styled(Link)`
-//   text-decoration: underline;
-
-//   &:hover {
-//     text-decoration: none;
-//   }
-// `
-
-
-const Social = (props: ULProps) => (
-  <ul {...props}>{props.children}</ul>
-)
-
-// const Social = styled.ul`
-//   list-style: none;
-//   padding: 0;
-//   display: flex;
-//   justify-content: flex-start;
-//   max-width: 1140px;
-//   margin: 0 auto ${px2rem(theme.gutter * 4)} auto;
-
-//   li {
-//     margin-right: ${px2rem(Theme.gutter * 2)};
-//   }
-
-//   ${mqLess(breakpoints.medium)} {
-//     justify-content: center;
-//   }
-// `
-
-
-const ContactDetails = (props: DivProps) => (
-  <div {...props}>{props.children}</div>
-)
-
-// const ContactDetails = styled.div`
-//   display: flex;
-//   justify-content: space-between;
-//   max-width: 1140px;
-//   margin: 50px auto;
-
-//   address,
-//   a {
-//     flex: 1;
-//     font-style: normal;
-//   }
-
-//   .phone {
-//     text-align: right;
-//     font-size: ${px2rem(30)};
-//     font-weight: bold;
-//   }
-
-//   .email {
-//     text-align: center;
-//     color: #4eace0;
-//     font-size: ${px2rem(30)};
-//     font-weight: bold;
-//   }
-
-//   ${mqLess(breakpoints.medium)} {
-//     display: block;
-//     text-align: center;
-//   }
-// `
-
-
 const Foot = (props: FooterProps) => (
-  <footer {...props}>{props.children}</footer>
+  <footer className='bg-[#424242] text-neutral-100 text-center' {...props}>{props.children}</footer>
 )
-
-// const Foot = styled.footer`
-//   background: #424242;
-//   color: #f7f7f7;
-// `
-
 
 const Rights = (props: PProps) => (
   <p {...props}>{props.children}</p>
 )
 
-// const Rights = styled.p`
-//   padding: 20px;
-//   text-align: center;
-//   background: #2c2c2c;
-//   font-size: 13px;
-// `
-
 
 const Nav = (props: NavProps) => (
-  <nav {...props}>{props.children}</nav>
+  <nav className='bg-gradient-to-l from-[#62bead] to-[#86cdc0] text-black uppercase p-1' {...props}>{props.children}</nav>
 )
-
-// const Nav = styled.nav`
-//   background: linear-gradient(to left, #62bead, #86cdc0);
-//   font-size: 16px;
-//   color: black;
-//   text-transform: uppercase;
-//   padding: ${px2rem(Theme.gutter)};
-
-//   ul {
-//     list-style: none;
-//     display: flex;
-//     padding: 0;
-//     justify-content: center;
-//   }
-
-//   li {
-//     padding: ${px2rem(theme.gutter)} ${px2rem(theme.gutter * 2)};
-//   }
-
-//   ${mqLess(breakpoints.medium)} {
-//     ul {
-//       flex-wrap: wrap;
-//     }
-//   }
-// `
-
-
-const Top = (props: DivProps) => (
-  <div {...props}>{props.children}</div>
-)
-
-// const Top = styled.div`
-//   background-image: url('https://content.gotripod.com/wp-content/themes/go-tripod/WPGulp/assets/img/bg-footer-stripes.svg');
-
-//   border-bottom: 1px solid #626262;
-
-//   background-repeat: no-repeat;
-
-//   background-position: right;
-
-//   padding: 39px;
-
-//   > div {
-//     max-width: 1140px;
-//     margin: 0 auto;
-//     display: flex;
-//     justify-content: space-between;
-
-//     ${mqLess(breakpoints.medium)} {
-//       justify-content: center;
-//     }
-//   }
-
-//   .yus {
-//     ${mqLess(breakpoints.medium)} {
-//       display: none;
-//     }
-//   }
-// `

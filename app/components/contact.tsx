@@ -3,13 +3,14 @@ import { Link } from '@remix-run/react'
 import { Button } from './button'
 import Column from './column'
 import { DivProps, InputProps, LabelProps, TextAreaProps } from 'react-html-props'
+import classNames from 'classnames'
 
 const Field = (props: DivProps) => (
-  <div {...props}>{props.children}</div>
+  <div {...props} className={classNames('', props.className)}>{props.children}</div>
 )
 
-const Input = (props: InputProps) => (<input {...props} />)
-const TextArea = (props: TextAreaProps) => (<textarea {...props} />)
+const Input = (props: InputProps) => (<input {...props} className={classNames('p-4 text-lg text-white bg-white/30')} />)
+const TextArea = (props: TextAreaProps) => (<textarea {...props} className={classNames('p-4 text-lg text-white bg-white/30')} />)
 
 
 const Wrapper = (props: DivProps) => (
@@ -18,7 +19,7 @@ const Wrapper = (props: DivProps) => (
 
 
 const Label = (props: LabelProps) => (
-  <label {...props}>{props.children}</label>
+  <label {...props} className='block text-left'>{props.children}</label>
 )
 
 const GridContainer = (props: DivProps) => (
@@ -27,14 +28,14 @@ const GridContainer = (props: DivProps) => (
 
 const Contact = () => (
   <Column>
-    <Wrapper>
-      <h1>Got an idea for a project?</h1>
+    <div className='bg-gradient-to-r from-[#4291ce] to-[#6ba9d9] text-[#ededed] text-center my-16'>
+      <h1 className='font-bold text-3xl'>Got an idea for a project?</h1>
 
       <p>Need a website? Web-enabled software to streamline your business? Just some advice?</p>
 
       <form acceptCharset="UTF-8" action="https://usebasin.com/f/608feeaf0fac" method="POST">
         <fieldset>
-          <GridContainer>
+          <div className='grid grid-cols-2 gap-2'>
             <div>
               <Field>
                 <Label htmlFor="message">Message*</Label>
@@ -66,32 +67,17 @@ const Contact = () => (
                 </Label>
               </Field>
             </div>
-          </GridContainer>
+          </div>
 
           <input type="hidden" name="source" value="https://gotripod.com/" />
           <button type="submit">Send it</button>
         </fieldset>
       </form>
-    </Wrapper>
+    </div>
   </Column>
 )
 
 export default Contact
-
-// const GridContainer = styled.div`
-//   padding: ${px2rem(Theme.gutter * 4)} ${px2rem(Theme.gutter)};
-//   display: grid;
-
-//   ${mqMore(breakpoints.medium)} {
-//     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-//     gap: 2em;
-//   }
-
-//   ${mqLess(breakpoints.medium)} {
-//     padding: ${px2rem(Theme.gutter)} ${px2rem(Theme.gutter)};
-//   }
-// `
-
 // const SButton = styled(Button)`
 //   background: #666;
 //   font-size: 18px;

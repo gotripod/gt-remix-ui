@@ -4,29 +4,20 @@ import { useLayoutEffect, useRef, useState } from 'react'
 import { AProps, DivProps } from 'react-html-props'
 import { getPageBySlug, getProjects, getTestimonial } from '~/api'
 import Column from '~/components/column'
+import { cardClasses } from '~/components/home/base-card'
 import Layout from '~/components/layout'
 import PageTitle from '~/components/page-title'
 
 
-const Wrapper = (props: DivProps) => (
-  <div {...props}>{props.children}</div>
-)
 
-
-const ProjectItemLink = (props: AProps & { width: number}) => (
-  <a {...props}>{props.children}</a>
+const ProjectItemLink = (props: DivProps) => (
+  <div {...props} className={`
+    ${cardClasses} before:hidden
+  `}>{props.children}</div>
 )
 
 const Index = () => {
   const { projects, testimonial, page } = useLoaderData<typeof loader>()
-  const [pageWidth, setPageWidth] = useState<number>(0)
-  const ref = useRef<HTMLImageElement>(null)
-
-  useLayoutEffect(() => {
-    if (ref.current) {
-      setPageWidth(ref.current.clientWidth)
-    }
-  }, [ref])
 
   return (
     <Layout testimonial={testimonial}>
@@ -37,59 +28,26 @@ const Index = () => {
 
       <Column>
         <PageTitle slim title="Work" subTitle="A selection of recent projects" />
-        <Wrapper>
+        <div className='grid grid-cols-3 gap-8 mt-12'>
           {projects.map((project) => (
-            <div key={project.id}>
-              <Link to={`/work/${project.link}`}>
-                <ProjectItemLink width={pageWidth}>
-                  <img
-                    src={project.logoUrl}
-                    alt={`Logo for ${project.title}`}
-                    title={`View the case study for ${project.title}`}
-                    ref={ref}
-                  />
-                  <img
+              <Link to={`/work/${project.link}`} key={project.id}>
+                <ProjectItemLink>
+                <img
+                  className='block object-cover w-full h-[256px] object-top hover:object-bottom'
                     src={project.logoUrl}
                     alt={`Logo for ${project.title}`}
                     title={`View the case study for ${project.title}`}
                   />
                 </ProjectItemLink>
               </Link>
-            </div>
           ))}
-        </Wrapper>
+        </div>
       </Column>
     </Layout>
   )
 }
 
-// const Wrapper = styled.section`
-//   display: grid;
-//   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-
-//   margin: 0 0 ${theme.gutter * 4}px 0;
-
-//   div {
-//     padding: 13px;
-//     box-sizing: border-box;
-//   }
-
-//   ${mqLess(breakpoints.medium)} {
-//     display: block;
-
-//     div {
-//       flex-basis: 100%;
-//       max-width: 100%;
-//     }
-//   }
-// `
-
 // const ProjectItemLink = styled.a<{ width: number }>`
-//   display: block;
-//   ${theme.greyCardFlare}
-
-//   font-size: 0;
-//   line-height: 0;
 
 //   :hover {
 //     cursor: pointer;

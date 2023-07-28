@@ -23,23 +23,26 @@ const formatDate = (stringDate: string): string => {
 
 const Articles = ({ articles }: Props) => (
   <Column>
-    <BaseCard>
+    <BaseCard className='before:hidden'>
       <>
-        <h1>Here&apos;s what we&apos;ve been up to recently...</h1>
-        <div className="grid articles">
+        <h1 className='text-3xl text-center font-bold'>Here&apos;s what we&apos;ve been up to recently...</h1>
+        <div className="grid articles grid-cols-3">
           {articles.map((article: Article) => {
             return (
-              <article key={`article-${article.id}`}>
-                <div className="date">{formatDate(article.date)}</div>
-                <h2>
+              <article key={`article-${article.id}`} className='text-center my-16'>
+                <div className="text-neutral-400">{formatDate(article.date)}</div>
+                <h2 className='font-bold my-4 text-lg'>
                   <Link to={article.link}>{article.title}</Link>
                 </h2>
-                  <Link to={article.link}>Read More</Link>
+                  <Link className='text-linkBlue underline hover:no-underline text-lg' to={article.link}>Read More</Link>
               </article>
             )
           })}
         </div>
-        <LinkButton to="/insights">See them all</LinkButton>
+          <div className="flex justify-center">
+          <LinkButton to="/insights">See them all</LinkButton>
+
+          </div>
       </>
     </BaseCard>
   </Column>

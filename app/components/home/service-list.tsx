@@ -10,18 +10,18 @@ interface Props {
 
 const ServiceList = ({ services }: Props) => {
   return (
-    <ul className='list-none z-100 relative mt-4'>
+    <ul className='list-none z-100 relative -mt-4'>
       {services.map((service, idx) => (
-        <li key={idx}>
+        <li key={idx}  className='mb-10'>
           <BaseCard {...(idx % 2 !== 0 && { alternate: true })}>
-            <div className="contentWrap">
-              {idx === 0 && <h1>We are Go Tripod.</h1>}
-              <h2>{service.title}</h2>
-              <div className="body" dangerouslySetInnerHTML={{ __html: service.body }} />
+            <div className="z-10 relative py-8">
+              {idx === 0 && <h1 className='text-headingBlue text-4xl font-bold'>We are Go Tripod.</h1>}
+              <h2 className='text-4xl font-bold'>{service.title}</h2>
+              <div className='mt-8 mb-8 text-gray-400 w-1/3' dangerouslySetInnerHTML={{ __html: service.body }} />
               <Enquire to="/contact">Enquire</Enquire>
             </div>
 
-            <img src={service.imageUrl} alt={service.title} loading="lazy" />
+            <img className='w-2/3 absolute bottom-0 right-0 z-0' src={service.imageUrl} alt={service.title} loading="lazy" />
           </BaseCard>
         </li>
       ))}
@@ -30,15 +30,6 @@ const ServiceList = ({ services }: Props) => {
 }
 
 export default ServiceList
-
-// const StyledServiceList = styled.ul`
-//   list-style: none;
-//   padding: 0;
-//   margin: 0;
-//   margin-top: -${px2rem(Theme.gutter * 4)};
-//   z-index: ${Theme.zIndex.top};
-//   position: relative;
-// `
 
 // const Item = styled(BaseCard)<{ alternate?: boolean }>`
 //   ${Theme.cardFlare}

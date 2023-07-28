@@ -33,11 +33,11 @@ const SinglePostPage = () => {
 
       <Column>
         <MediaImage media={project.heroMedia} />
-        <Content>
+        <div className='bg-white shadow-card p-8'>
           {project.blocks.map((block: any, i: number) => (
             <Renderer key={i} block={block} />
           ))}
-        </Content>
+        </div>
       </Column>
     </Layout>
   ) : null
@@ -69,6 +69,7 @@ export default SinglePostPage
 //#region data
 
 export const loader = async (context: LoaderArgs) => {
+  console.log('work subpage')
   const project = await getProjectBySlug(
     Array.isArray(context.params.slug) ? context.params.slug[0] : context.params.slug
   )

@@ -17,7 +17,7 @@ const SColumn = (props: ColumnProps) => (
 const PrecisBlock = ({ technologies, services, links }: Props) => {
   return (
     <SColumn>
-      <div className='grid gap-1'>
+      <div className='grid grid-cols-3 gap-1'>
       <div>
         <p>Our involvement in this project included the following:</p>
         <ul>

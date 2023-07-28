@@ -1,7 +1,7 @@
 
 import Column from '~/components/column'
 import PageTitle from '~/components/page-title'
-import { PostListProps } from '~/routes/insights/$slug'
+import { PostListProps } from '~/routes/insights.($slug).(page).($page)'
 
 import Item from './list-item'
 import Pagination from './pagination'
@@ -19,22 +19,22 @@ const List = ({ insightsPage, posts, pagination, extraTitle }: PostListProps) =>
     </Column>
     <Column>
       <>
-        <Container>{posts && posts.map((post) => <Item key={post.id} post={post} />)}</Container>
+        <div className='mt-16 mb-16 grid grid-cols-3 gap-8'>{posts && posts.map((post) => <Item key={post.id} post={post} />)}</div>
         <Pagination pageCount={pagination?.pageCount || 0} totalItems={pagination?.totalItems || 0} currentPage={pagination?.currentPage}  />
       </>
     </Column>
   </>
 )
 
-const Container = styled.ul`
-  display: flex;
+// const Container = styled.ul`
+//   display: flex;
 
-  flex-flow: row wrap;
-  padding: 0;
+//   flex-flow: row wrap;
+//   padding: 0;
 
-  ${mqLess(breakpoints.medium)} {
-    display: block;
-  }
-`
+//   ${mqLess(breakpoints.medium)} {
+//     display: block;
+//   }
+// `
 
 export default List

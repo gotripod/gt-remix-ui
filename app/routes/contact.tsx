@@ -1,19 +1,19 @@
-import { json, LoaderArgs, MetaFunction } from '@remix-run/cloudflare'
+import { json, LoaderArgs, MetaFunction, V2_MetaFunction } from '@remix-run/cloudflare'
 import { useLoaderData } from '@remix-run/react'
 
 import { getPageBySlug } from '~/api'
 import BaseCard from '~/components/home/base-card'
 
-import Column from '../../components/column'
-import Map from '../../components/contact/map'
-import Layout from '../../components/layout'
-import PageTitle from '../../components/page-title'
+import Column from '../components/column'
+import Map from '../components/contact/map'
+import Layout from '../components/layout'
+import PageTitle from '../components/page-title'
 import { AddressProps, DivProps, PProps, ULProps } from 'react-html-props'
 
 
-export const meta: MetaFunction<typeof loader> = ({data}) => ({
-  title: data.page.yoastTitle,
-})
+export const meta: V2_MetaFunction<typeof loader> = ({data}) => ([{
+  title: data ? data.page.yoastTitle : '',
+}])
 
 const Contact = () => {
   const {page} = useLoaderData()
