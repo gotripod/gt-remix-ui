@@ -44,7 +44,7 @@ const Layout = ({ children, testimonial, heroHtml }: Props) => {
 
       <div className='z-[102] top-0 w-full absolute md:flex md:h-52 items-stretch '>
         <div className='hidden md:block bg-black/50 h-64 flex-1'></div>
-        <div className='md:w-[1140px] h-[50px] md:h-[155px] md:flex md:items-center md:justify-center go-gradient md:bg-none md:bg-black/50'>
+        <div className='fixed md:static w-full md:w-[1140px] h-[50px] md:h-[155px] flex items-center justify-end md:justify-center go-gradient md:bg-none md:bg-black/50'>
           <Link to="/" className='float-right p-4 md:float-none md:p-0'>
             <img
               width="250"
