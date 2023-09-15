@@ -38,7 +38,7 @@ const Footer = () => (
         </li>
       </ul>
     </Nav>
-    <div className='bg-footer-texture bg-no-repeat bg-right border-b border-b-[#626262] py-12 md:px-8'>
+    <div className='bg-footer-texture bg-no-repeat bg-right border-b border-b-[#626262] py-12 px-8'>
       <div className='flex max-w-[1140px] justify-between mx-auto'>
         <Link to="/">
           <img
@@ -61,8 +61,8 @@ const Footer = () => (
       </div>
     </div>
 
-    <div className='flex justify-between max-w-[1140px] my-12 mx-auto md:px-8 lg:px-0'>
-      <address className="flex-1 not-italic text-left">
+    <div className='md:flex justify-between max-w-[1140px] text-lg md:text-base my-12 mx-auto px-8 xl:px-0'>
+      <address className="flex-1 not-italic md:text-left">
         Tremough Innovation Centre,
         <br />
         Penryn, Cornwall, TR10 9TA, UK
@@ -77,7 +77,7 @@ const Footer = () => (
       </a>
     </div>
 
-    <ul className='list-none p-0 flex md:justify-start max-w-[1140px] mx-auto mb-4 mt-0 justify-center md:px-8'>
+    <ul className='list-none px-8 xl:p-0 flex md:justify-start max-w-[1140px] md:text-base mx-auto mb-4 mt-0 justify-center'>
       <li className='mr-2'>
         <a
           href="https://twitter.com/gotripod"
@@ -107,10 +107,10 @@ const Footer = () => (
       </li>
     </ul>
 
-    <Rights className='bg-zinc-800 text-sm py-4 md:px-8'>
+    <Rights className='bg-zinc-800 text-sm py-4 px-4 md:px-8'>
       © {new Date().getFullYear()} Go Tripod. All rights reserved. Registered in the UK company
       number 6912029. VAT No. 972 5228 06. Get with our{' '}
-      <Link to="/privacy-policy/">Privacy&nbsp;Policy</Link>.
+      <Link className='underline hover:no-underline' to="/privacy-policy/">Privacy&nbsp;Policy</Link>.
     </Rights>
   </Foot>
 )

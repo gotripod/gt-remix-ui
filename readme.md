@@ -7,7 +7,6 @@ npm run dev
 TODO:
 
 - mobile
-    - footer padding
     - work header
     - work cards
     - work single layout
