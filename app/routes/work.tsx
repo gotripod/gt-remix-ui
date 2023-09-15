@@ -12,7 +12,7 @@ import PageTitle from '~/components/page-title'
 
 const ProjectItemLink = (props: DivProps) => (
   <div {...props} className={`
-    ${cardClasses} before:hidden
+    ${cardClasses()} before:hidden
   `}>{props.children}</div>
 )
 
@@ -28,7 +28,7 @@ const Index = () => {
 
       <Column>
         <PageTitle slim title="Work" subTitle="A selection of recent projects" />
-        <div className='grid grid-cols-3 gap-8 mt-12'>
+        <div className='md:grid grid-cols-3 gap-8 mt-12'>
           {projects.map((project) => (
               <Link to={`/work/${project.link}`} key={project.id}>
                 <ProjectItemLink>

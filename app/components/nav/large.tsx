@@ -10,11 +10,11 @@ interface Props {
 }
 
 const LargeNav = ({ className }: Props) => (
-  <nav className={classNames('hidden lg:block', className)}>
+  <nav className={classNames('hidden md:block', className)}>
     <ul className='list-none flex max-w-full px-24 m-0 overflow-x-auto justify-center'>
       {menu.map(({ text, link }) => {
         return (
-          <li className='px-10 mt-10 mb-16 text-gray-150 font-bold' key={link}>
+          <li className="px-14 mt-12 mb-12 text-gray-150 text-lg font-bold font-['Cabin']" key={link}>
             <NavLink className={({ isActive, isPending }) =>
               classNames(isPending ? "pending" : isActive ? "border-b-white" : "", 'relative inline-block border-b-2 border-b-transparent hover:border-b-white transition-all')
             } to={link}>{text}</NavLink>

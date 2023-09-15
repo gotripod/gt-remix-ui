@@ -1,7 +1,7 @@
 import { ApolloClient, gql, InMemoryCache } from '@apollo/client/core'
 import he from 'he'
 import { keysToCamelDeep } from '~/helpers/keys-to-camel'
-import { Category, MediaItem, Post, Project, ProjectListItem, Testimonial, WPPage } from '~/types'
+import { Category, MediaItem, Pagination, Post, Project, ProjectListItem, Testimonial, WPPage } from '~/types'
 
 const API_URL = 'https://content.gotripod.com/graphql'
 
@@ -276,8 +276,7 @@ const getPostsPage = async (
   params: Params = {}
 ): Promise<{
   posts: Post[]
-  totalCount: number
-  pageCount: number
+  pagination: Pagination
 }> => {
   const { categoryId, tagId, page, perPage = 18 } = params
 
@@ -297,8 +296,11 @@ const getPostsPage = async (
       slug: post.slug,
       link: post.link
     })),
-    totalCount: Number(response.headers.get('x-wp-total')),
-    pageCount: Number(response.headers.get('x-wp-totalpages'))
+    pagination: {
+     currentPage: page,
+    totalItems: Number(response.headers.get('x-wp-total')),
+    pageCount: Number(response.headers.get('x-wp-totalpages')) 
+    }
   }
 }
 

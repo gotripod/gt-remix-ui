@@ -27,19 +27,19 @@ const Contact = () => {
       <Column slim>
         <PageTitle title="Want the internet to work for you?" subTitle="Let's talk" />
       </Column>
-      <Column>
-        <BaseCard>
-          <Intro>
+      <Column className='mt-12'>
+        <BaseCard cardflare={false} className='py-12 px-8'>
+          <p className='text-xl mb-20' >
             Give us a call, or fill in the form or drop us an email. Heck, come visit us! Or we can
             come visit you? Let&apos;s have a coffee, let&apos;s do lunch. It&apos;s up to you.
-          </Intro>
-          <Main>
+          </p>
+          <div className='grid grid-cols-[65%_auto] gap-16'>
             <div style={{ flex: 1 }}>
               <Map />
             </div>
             <div>
               <img
-              className='ml-4 md:mt-1'
+              className='md:mt-1'
                 height={40}
                 width={193}
                 src="https://content.gotripod.com/wp-content/themes/go-tripod/WPGulp/assets/img/gt-logo-colour-on-white.svg"
@@ -57,17 +57,17 @@ const Contact = () => {
                     England, UK
                   </PostalAddress>
                 </li>
-                <li className="highlight">
+                <li className="highlight text-2xl font-bold text-headingBlue">
                   {' '}
                   <a href="mailto:hello@gotripod.com">hello@gotripod.com</a>
                 </li>
-                <li className="highlight">
+                <li className="highlight text-2xl font-bold text-headingBlue">
                   {' '}
                   <a href="tel:+448454752487">0845 475 2487</a>
                 </li>
               </AddressList>
             </div>
-          </Main>
+          </div>
         </BaseCard>
       </Column>
     </Layout>
@@ -112,7 +112,7 @@ const AddressList = (props: ULProps) => (
 
 
 const PostalAddress = (props: AddressProps) => (
-  <address className='mb-2 font-normal' {...props}>{props.children}</address>
+  <address className='mb-2 text-lg not-italic' {...props}>{props.children}</address>
 )
 
 // const PostalAddress = styled.address`
@@ -131,9 +131,6 @@ const PostalAddress = (props: AddressProps) => (
 // `
 
 
-const Main = (props: DivProps) => (
-  <div {...props}>{props.children}</div>
-)
 
 // const Main = styled.div`
 //   ${mqMore(breakpoints.medium)} {
@@ -145,9 +142,6 @@ const Main = (props: DivProps) => (
 
 
 
-const Intro = (props: PProps) => (
-  <p {...props}>{props.children}</p>
-)
 
 // const Intro = styled.p`
 //   margin: 0 0 ${px2rem(theme.gutter * 6)};

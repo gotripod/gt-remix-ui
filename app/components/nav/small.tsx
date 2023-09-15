@@ -9,12 +9,12 @@ interface Props {
 }
 
 const SmallNav = ({ className }: Props) => (
-  <nav className={classNames(className, 'hidden fixed top-4 left-4 z-101')}>
-    <input type="checkbox" />
-    <span></span>
-    <span></span>
-    <span></span>
-    <ul>
+  <nav className={classNames(className, 'md:hidden fixed top-[16px] left-[13px] z-[200] select-none')}>
+    <input type="checkbox" className='peer/menu block w-[40px] h-[32px] absolute -top-[7px] -left-[5px] opacity-0 cursor-pointer z-2' />
+    <span className='block w-[26px] h-[3px] mb-[4px] relative bg-white z-10'></span>
+    <span className='block w-[26px] h-[3px] mb-[4px] relative bg-white z-10'></span>
+    <span className='block w-[26px] h-[3px] mb-[4px] relative bg-white z-10'></span>
+    <ul className='peer-checked/menu:left-0 -left-[200px] block bg-white fixed top-[52px] text-black h-screen w-[200px] m-0 list-0 px-[24px]'>
       {menu.map(({ text, link }) => {
         const isCurrentPage = false
         return (
@@ -30,27 +30,6 @@ const SmallNav = ({ className }: Props) => (
 export default SmallNav
 
 // const NavContainer = styled.nav`
-//   ${mqMore(breakpoints.medium)} {
-//     display: none;
-//   }
-//   user-select: none;
-//   display: block;
-//   position: fixed;
-//   top: 16px;
-//   left: 13px;
-//   z-index: ${theme.zIndex.top + 1};
-
-//   input {
-//     display: block;
-//     width: 40px;
-//     height: 32px;
-//     position: absolute;
-//     top: -7px;
-//     left: -5px;
-//     cursor: pointer;
-//     opacity: 0;
-//     z-index: 2;
-//   }
 
 //   span {
 //     display: block;

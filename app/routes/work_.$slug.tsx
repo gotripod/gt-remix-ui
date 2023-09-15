@@ -31,9 +31,9 @@ const SinglePostPage = () => {
         <title>{project.title} | Go Tripod</title>
       </Head> */}
 
-      <Column>
+      <Column className='-mt-12'>
         <MediaImage media={project.heroMedia} />
-        <div className='bg-white shadow-card p-8'>
+        <div className='bg-white shadow-card py-24 text-lg'>
           {project.blocks.map((block: any, i: number) => (
             <Renderer key={i} block={block} />
           ))}

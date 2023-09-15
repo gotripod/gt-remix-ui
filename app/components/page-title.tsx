@@ -35,7 +35,7 @@ interface Props {
 }
 
 const PageTitle = ({ slim, title, subTitle }: Props) => (
-  <header className={`relative bg-white border-b-4 border-b-black/30 text-center py-12 ${cardClasses}`}>
+  <header className={`relative bg-white border-b-4 border-b-black/30 text-center py-12 ${cardClasses()} -mt-12 ${slim ? 'max-w-[1000px] mx-auto' : ''}`}>
     <h1 className="text-3xl font-bold">{title}</h1>
     {subTitle && <p className="text-neutral-400 text-lg">{subTitle}</p>}
   </header>

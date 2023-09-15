@@ -1,20 +1,15 @@
 import classNames from "classnames"
 import { DivProps } from "react-html-props"
 
-export const cardClasses = 'bg-white cardflare border-b-4 border-b-gray-400 shadow-card'
+export const cardClasses = (alternate = false, cardflare = true) => `bg-white relative ${cardflare ? 'cardflare' : ''} ${alternate ? 'before:right-0' : ''} border-b-4 border-b-gray-400 shadow-card`
 
-const BaseCard = (props: DivProps) => {
-  return <div {...props} className={classNames(cardClasses, props.className)} >
-    <div className="py-4 px-12 overflow-hidden relative">
+const BaseCard = (props: DivProps & { alternate?: boolean, cardflare?: boolean}) => {
+  console.log('cardflare', props.cardflare)
+  return <div {...props} className={classNames(cardClasses(props.alternate, props.cardflare), props.className)} >
+    <div className=" py-6 px-8 md:py-10 md:px-20 overflow-hidden relative">
       {props.children}
     </div>
   </div>
 }
-
-// const BaseCard = styled.div`
-//   background-color: #fff;
-//   border-bottom: ${px2rem(5)} solid rgba(0, 0, 0, 0.3);
-//   box-shadow: 0 0 ${px2rem(1)} rgba(0, 0, 0, 0.1);
-// `
 
 export default BaseCard

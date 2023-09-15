@@ -11,6 +11,10 @@ const Menu = [
     text: "Insights",
     link: "/insights/",
   },
+  // {
+  //   text: 'About',
+  //   link: '/about'
+  // },
   {
     text: "Contact",
     link: "/contact/",

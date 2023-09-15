@@ -7,14 +7,20 @@ import {
   Scripts,
   ScrollRestoration
 } from "@remix-run/react";
-import styles from "~/styles.css";
 import stylesheet from "~/tailwind.css";
 import { cssBundleHref } from "@remix-run/css-bundle";
+import { lazy, Suspense } from "react";
+import rdtStylesheet from "remix-development-tools/stylesheet.css";
+const RemixDevTools =
+  process.env.NODE_ENV === "development"
+    ? lazy(() => import("remix-development-tools"))
+    : undefined;
+
 
 export const meta = () => [
   {charset: "utf-8"},
-  {title: "New Remix App"},
-  {viewport: "width=device-width,initial-scale=1"},
+  {title: "Software development Cornwall from Go Tripod. Web app & software development in Falmouth"},
+  { name: 'viewport', content: "width=device-width,initial-scale=1"},
 ];
 
 export const links: LinksFunction = () => {
@@ -40,6 +46,8 @@ export const links: LinksFunction = () => {
     //   href: styles,
     // },
     { rel: "stylesheet", href: stylesheet },
+    ...(rdtStylesheet && process.env.NODE_ENV === "development" ? [{ rel: "stylesheet", href: rdtStylesheet }] : []),
+
   ];
 };
 
@@ -55,6 +63,7 @@ export default function App() {
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
+        {RemixDevTools && <Suspense><RemixDevTools /></Suspense>}
       </body>
     </html>
   );

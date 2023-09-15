@@ -23,7 +23,7 @@ interface Props {
 
 const TitleBlock = ({ title, body }: Props) => {
   return (
-    <div className="grid grid-cols-[30%_auto] my-12">
+    <div className="grid grid-cols-[40%_auto] px-28 my-12">
       <h2 className="text-headingBlue text-3xl font-bold">{title}</h2>
 
       <div dangerouslySetInnerHTML={{ __html: body }} />

@@ -2,7 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@layer base {
+  
+h1,
+h2 {
+  font-family: 'Cabin';
+}
+}
+
 @layer utilities {
+  .go-gradient {
+    @apply bg-gradient-to-r from-[#62beade6] to-[#4291cee6];
+  }
 
   .clip-work-image {
       shape-outside: polygon(0 0, 100% 0, 100% 50%, 0 50%);
@@ -10,17 +22,34 @@
   }
 
 
-.cardflare::before {
-  content: '';
-  background: linear-gradient(to bottom, rgba(98, 190, 173, 0.9), rgba(66, 145, 206, 0.9));
+  .cardflare::before {
+    content: '';
+    background: linear-gradient(to bottom, rgba(98, 190, 173, 0.9), rgba(66, 145, 206, 0.9));
 
-  height: 100%;
-  display: block;
-  position: absolute;
-  top: 0;
-  width: 10px;
-}
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
 
+    @apply w-[5px] md:w-[13px]
+  }
+
+  .work-bullet::before {
+      top: 8px;
+    
+      left: 0px;
+    
+      position: relative;
+    
+      content: "⋆";
+    
+      color: orange;
+    
+      font-size: 50px;
+    
+      line-height: 0;
+    
+  }
 }
 
 /* 

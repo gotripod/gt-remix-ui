@@ -1,10 +1,18 @@
 
 import Column from '~/components/column'
 import PageTitle from '~/components/page-title'
-import { PostListProps } from '~/routes/insights.($slug).(page).($page)'
 
 import Item from './list-item'
 import Pagination from './pagination'
+import { Pagination as PaginationType, Post, WPPage } from '~/types'
+
+
+interface PostListProps {
+  posts: Post[]
+  extraTitle: String | null
+  insightsPage: WPPage
+  pagination?: PaginationType
+}
 
 const List = ({ insightsPage, posts, pagination, extraTitle }: PostListProps) => (
   <>

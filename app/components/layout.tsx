@@ -42,19 +42,20 @@ const Layout = ({ children, testimonial, heroHtml }: Props) => {
       <SmallNav />
       <Header />
 
-      <div className='z-[102] top-0 w-full absolute flex h-52 items-stretch '>
-        <div className='bg-black/50 h-64 flex-1'></div>
-        <div className='w-[1000px] lg:w-[1140px] h-36 flex items-center justify-center bg-black/50'>
-          <Link to="/">
+      <div className='z-[102] top-0 w-full absolute md:flex md:h-52 items-stretch '>
+        <div className='hidden md:block bg-black/50 h-64 flex-1'></div>
+        <div className='md:w-[1140px] h-[50px] md:h-[155px] md:flex md:items-center md:justify-center go-gradient md:bg-none md:bg-black/50'>
+          <Link to="/" className='float-right p-4 md:float-none md:p-0'>
             <img
               width="250"
               height="52"
+              className='w-[150px] md:w-[250px]'
               src="https://content.gotripod.com/wp-content/themes/go-tripod/WPGulp/assets/img/gt-logo-colour-on-black.svg"
               alt="Go Tripod"
             />
           </Link>
         </div>
-        <div className='bg-black/50 h-64 flex-1'></div>
+        <div className='hidden md:block bg-black/50 h-64 flex-1'></div>
       </div>
 
       <div className='relative z-50'>{children}</div>

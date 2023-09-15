@@ -1,6 +1,4 @@
-
-
-import { Service } from '~/types'
+import { type Service } from '~/types'
 import BaseCard from './base-card'
 import Enquire from './enquire'
 
@@ -10,18 +8,21 @@ interface Props {
 
 const ServiceList = ({ services }: Props) => {
   return (
-    <ul className='list-none z-100 relative -mt-4'>
+    <ul className='list-none z-100 relative -mt-14 px-6 md:px-0'>
       {services.map((service, idx) => (
-        <li key={idx}  className='mb-10'>
-          <BaseCard {...(idx % 2 !== 0 && { alternate: true })}>
-            <div className="z-10 relative py-8">
-              {idx === 0 && <h1 className='text-headingBlue text-4xl font-bold'>We are Go Tripod.</h1>}
-              <h2 className='text-4xl font-bold'>{service.title}</h2>
-              <div className='mt-8 mb-8 text-gray-400 w-1/3' dangerouslySetInnerHTML={{ __html: service.body }} />
-              <Enquire to="/contact">Enquire</Enquire>
-            </div>
+        <li key={idx}  className='mb-16'>
+          <BaseCard alternate={idx % 2 !== 0}>
+            <div className="">
 
-            <img className='w-2/3 absolute bottom-0 right-0 z-0' src={service.imageUrl} alt={service.title} loading="lazy" />
+              <div className="z-10 relative py-2 md:py-8 md:w-[50%]">
+                {idx === 0 && <h1 className='text-headingBlue text-3xl md:text-4xl font-bold'>We are Go Tripod.</h1>}
+                <h2 className='text-3xl md:text-4xl font-bold'>{service.title}</h2>
+                <div className='text-lg mt-8 mb-8 text-gray-400' dangerouslySetInnerHTML={{ __html: service.body }} />
+                <Enquire to="/contact">Enquire</Enquire>
+              </div>
+
+                <img className='hidden md:block absolute right-0 bottom-0 w-[60%] z-0' src={service.imageUrl} alt={service.title} loading="lazy" />
+            </div>
           </BaseCard>
         </li>
       ))}

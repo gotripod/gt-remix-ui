@@ -10,9 +10,9 @@ const Header = React.memo(() => {
   const router = useLocation()
   const [loaded, setLoaded] = useState(router.pathname !== '/')
   return (
-    <header className='bg-black text-center relative overflow-hidden pb-8 z-50'>
+    <header className='bg-black text-center relative overflow-hidden pb-28 z-50'>
       <img
-        style={{position: 'absolute', boxSizing: 'border-box', top: 0, left: 0, width: '100%', height: '100%'}}
+        style={{objectFit: 'cover', position: 'absolute', boxSizing: 'border-box', top: 0, left: 0, width: '100%', height: '100%'}}
         data-loaded={loaded}
         onLoad={() => {
           console.log('hero image loaded')
@@ -22,14 +22,13 @@ const Header = React.memo(() => {
         alt=""
         src={heroImage}
       />
-
-      <Column style={{ zIndex: 10 }} className='mt-[162px]'>
-        <div className="mt-12 bg-gradient-to-r from-[#62beade6] to-[#4291cee6]">
+      <Column style={{ zIndex: 10 }} className='mt-[80px] md:mt-[155px]'>
+        <div className="p-8 md:p-0 md:mt-16 mx-6 md:mx-0 go-gradient">
           <LargeNav />
           {router.pathname == '/' && (
             <>
-              <h1 className='text-4xl font-bold text-gray-200 mb-3'>Looking for software development in Cornwall?</h1>
-              <h2 className='text-4xl font-bold text-gray-200 pb-36'> We&apos;ll make it as easy as one, two, three.</h2>
+              <h1 className='text-3xl md:text-5xl font-bold text-gray-175 mb-3 md:mt-8'>Let&apos;s talk about software...</h1>
+              <h2 className='hidden md:block text-5xl font-bold text-gray-175 pb-40'> And then, let&apos;s build it.</h2>
             </>
           )}
         </div>

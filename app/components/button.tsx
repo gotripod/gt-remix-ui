@@ -1,5 +1,6 @@
 import { RemixLinkProps, RemixNavLinkProps } from '@remix-run/react/dist/components'
 import Link from './link'
+import classNames from 'classnames'
 
 const DefaultButtonStyles: React.CSSProperties = {
   display: 'inline-block',
@@ -12,15 +13,14 @@ const DefaultButtonStyles: React.CSSProperties = {
   transition: 'background-color 0.1s cubic-bezier(0.4, 0, 0.2, 1)',
   padding: '6.5px 30px',
   color: '#fff',
-  backgroundColor: '#62bead',
 }
 
 const LinkButton = ({children, ...props}: RemixLinkProps) => (
-  <Link style={DefaultButtonStyles} {...props}>{children}</Link>
+  <Link style={DefaultButtonStyles} {...props} className={classNames(props.className, 'bg-linkBlue')}>{children}</Link>
 )
 
 const Button = ({children, ...props}: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
-  <button style={DefaultButtonStyles} {...props}>{children}</button>
+  <button style={DefaultButtonStyles} {...props} className={classNames(props.className, 'bg-linkBlue')}>{children}</button>
 )
 
 export { LinkButton, Button }

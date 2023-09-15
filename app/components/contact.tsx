@@ -1,48 +1,38 @@
 import { Link } from '@remix-run/react'
 
-import { Button } from './button'
 import Column from './column'
 import { DivProps, InputProps, LabelProps, TextAreaProps } from 'react-html-props'
 import classNames from 'classnames'
+import { Button } from './button'
 
 const Field = (props: DivProps) => (
-  <div {...props} className={classNames('', props.className)}>{props.children}</div>
+  <div {...props} className={classNames('w-full', props.className)}>{props.children}</div>
 )
 
-const Input = (props: InputProps) => (<input {...props} className={classNames('p-4 text-lg text-white bg-white/30')} />)
-const TextArea = (props: TextAreaProps) => (<textarea {...props} className={classNames('p-4 text-lg text-white bg-white/30')} />)
-
-
-const Wrapper = (props: DivProps) => (
-  <div {...props}>{props.children}</div>
-)
-
+const Input = (props: InputProps) => (<input {...props} className={classNames('w-full p-4 text-lg text-white bg-white/30 border-0')} />)
+const TextArea = (props: TextAreaProps) => (<textarea {...props} className={classNames('w-full p-4 text-lg text-white bg-white/30 border-0')} />)
 
 const Label = (props: LabelProps) => (
-  <label {...props} className='block text-left'>{props.children}</label>
-)
-
-const GridContainer = (props: DivProps) => (
-  <div {...props}>{props.children}</div>
+  <label {...props} className={classNames('font-bold block text-left', props.className)}>{props.children}</label>
 )
 
 const Contact = () => (
   <Column>
-    <div className='bg-gradient-to-r from-[#4291ce] to-[#6ba9d9] text-[#ededed] text-center my-16'>
-      <h1 className='font-bold text-3xl'>Got an idea for a project?</h1>
+    <div className='bg-gradient-to-r from-[#4291ce] to-[#6ba9d9] text-[#ededed] text-center my-16 py-24'>
+      <h1 className='font-bold text-4xl'>Got an idea for a project?</h1>
 
       <p>Need a website? Web-enabled software to streamline your business? Just some advice?</p>
 
       <form acceptCharset="UTF-8" action="https://usebasin.com/f/608feeaf0fac" method="POST">
         <fieldset>
-          <div className='grid grid-cols-2 gap-2'>
-            <div>
+          <div className='grid grid-cols-2 gap-8 px-24 py-12'>
+            <div className='flex justify-stretch'>
               <Field>
                 <Label htmlFor="message">Message*</Label>
                 <TextArea id="message" name="message" rows={9} required></TextArea>
               </Field>
             </div>
-            <div>
+            <div className='flex justify-stretch items-stretch flex-col gap-8'>
               <Field>
                 <Label htmlFor="name">Name</Label>
                 <Input type="text" id="name" name="name" />
@@ -53,24 +43,25 @@ const Contact = () => (
                 <Input type="email" id="email" name="email" required />
               </Field>
 
-              <Field className="checkbox">
-                <Input
+              <Field className="flex gap-4 items-start">
+                <input
                   type="checkbox"
                   id="contact-permission"
                   name="contact-permission"
                   value="Granted"
                   required
+                  className='h-[40px] w-[40px] bg-white/30 border-0'
                 />
-                <Label style={{fontWeight: 'normal'}} htmlFor="contact-permission">
+                <Label className='text-lg font-normal flex-1 -mt-[8px]' htmlFor="contact-permission">
                   Please get back to me ASAP and treat my details with respect in line with your{' '}
-                  <Link to="/privacy-policy/">privacy policy</Link>.
+                  <Link className='underline' to="/privacy-policy/">privacy policy</Link>.
                 </Label>
               </Field>
             </div>
           </div>
 
           <input type="hidden" name="source" value="https://gotripod.com/" />
-          <button type="submit">Send it</button>
+          <Button className='!bg-neutral-500' type="submit">Send it</Button>
         </fieldset>
       </form>
     </div>

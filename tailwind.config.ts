@@ -13,7 +13,8 @@ export default {
       },
       colors: {
         gray: {
-          150: '#f7f7f7'
+          150: '#f7f7f7',
+          175: '#ededed'
         },
         linkBlue: '#62bead',
         headingBlue: '#4291ce',
@@ -22,6 +23,9 @@ export default {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
+  ],
 } satisfies Config
 

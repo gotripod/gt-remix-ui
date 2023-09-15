@@ -16,8 +16,9 @@ export default async function handleRequest(
   remixContext: EntryContext,
   loadContext: AppLoadContext
 ) {
+  const context = process.env.NODE_ENV === "development" ? await import("remix-development-tools").then(({ initRouteBoundariesServer }) => initRouteBoundariesServer(remixContext)) : remixContext;
   const body = await renderToReadableStream(
-    <RemixServer context={remixContext} url={request.url} />,
+    <RemixServer context={context} url={request.url} />,
     {
       signal: request.signal,
       onError(error: unknown) {

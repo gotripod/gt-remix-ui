@@ -19,14 +19,28 @@ import List from './insights/list'
 import Single from './insights/single'
 import { useLoaderData } from '@remix-run/react'
 import { loader as insightsLoader } from './insights/loader'
+import { LoaderArgs, json } from '@remix-run/cloudflare'
+import { getPageBySlug, getPostsPage, getTestimonial } from '~/api'
 
-export const loader = insightsLoader
+export const loader = async({params}: LoaderArgs) => {
+    
+    const { posts, pagination } = await getPostsPage(params)
+      const insightsPage = await getPageBySlug('insights')
+      const testimonial = await getTestimonial()
+
+      return json({
+        testimonial,
+        insightsPage,
+        posts,
+        pagination
+      })
+}
 
 const Index = () => {
-  const {...props} = useLoaderData<typeof loader>()
+  const {testimonial,insightsPage,posts,pagination} = useLoaderData<typeof loader>()
   return (
-    <Layout testimonial={'testimonial' in props ? props.testimonial : undefined}>
-      <Column>{'post' in props ? <Single {...props} /> : <List {...props} />}</Column>
+    <Layout testimonial={testimonial}>
+      <Column><List insightsPage={insightsPage} posts={posts} pagination={pagination} extraTitle={''} /></Column>
     </Layout>
   )
 }
@@ -35,12 +49,6 @@ export interface PostBaseProps {
   testimonial: Testimonial
 }
 
-export interface PostListProps {
-  posts: Post[]
-  extraTitle: String | null
-  insightsPage: WPPage
-  pagination?: PaginationType
-}
 
 export interface SinglePostProps {
   post: Post

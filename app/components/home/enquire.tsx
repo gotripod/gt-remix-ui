@@ -35,5 +35,5 @@ import { LinkButton } from '../button'
 // `
 
 export default (props: RemixLinkProps) => (
-  <LinkButton {...props}>{props.children}</LinkButton>
+  <LinkButton className='' {...props}>{props.children}</LinkButton>
 )

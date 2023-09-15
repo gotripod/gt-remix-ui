@@ -6,9 +6,12 @@ export type ColumnProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivEl
 
 const Column = ({slim, children, ...props}: ColumnProps) => <div
 {...props}
-className={classNames(`max-w-[1140px] mx-auto my-0 relative
+className={classNames(` mx-auto my-0 relative
   [&>img]:max-w-full
-  `, props.className)}
+  `, props.className, {
+    'max-w-[1140px]': !slim,
+    'max-w-[1000px]': slim,
+  })}
 >{children}</div>
 
 

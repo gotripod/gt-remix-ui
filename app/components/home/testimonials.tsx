@@ -2,6 +2,7 @@
 import { BlueLink } from '~/components/link'
 
 import { Testimonial } from '~/types'
+import { cardClasses } from './base-card'
 
 interface Props {
   testimonial: Testimonial
@@ -9,9 +10,9 @@ interface Props {
 }
 
 const Testimonials = ({ testimonial, className }: Props) => (
-  <section className={"bg-white py-4"}>
-    <blockquote>&ldquo;{testimonial.quote}&rdquo;</blockquote>
-    <p>&mdash; {testimonial.quoteAuthor} {testimonial.projectUrl !== '' && <>&emsp;<BlueLink to={testimonial.projectUrl}>Read the case study</BlueLink></>}</p>
+  <section className={`${cardClasses} before:hidden bg-white py-12 px-24 text-center ${className}`}>
+    <blockquote className='italic text-2xl text-[#333333]'>&ldquo;{testimonial.quote}&rdquo;</blockquote>
+    <p className='text-neutral-400 text-lg mt-8'>&mdash; {testimonial.quoteAuthor} {testimonial.projectUrl !== '' && <><br/><BlueLink to={testimonial.projectUrl}>Read the case study</BlueLink></>}</p>
 
     
   </section>

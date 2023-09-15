@@ -13,7 +13,7 @@ const Item = ({ post }: Props): ReactElement => {
   const date = new Date(post.date)
 
   return (
-    <li className={`list-none ${cardClasses} before:hidden p-6`}>
+    <li className={`list-none ${cardClasses()} before:hidden p-6`}>
       <article className='flex flex-col justify-between h-full'>
         <span className='text-lg text-neutral-400'>{date.toLocaleDateString()}</span>
 

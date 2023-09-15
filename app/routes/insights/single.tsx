@@ -8,8 +8,13 @@ import Column from '~/components/column'
 import { AiOutlineMail } from 'react-icons/ai'
 import { FaFacebookF, FaGooglePlusG, FaLinkedinIn, FaTwitter } from 'react-icons/fa'
 import Link from '~/components/link'
-import { Taxonomy } from '~/types'
+import { Post, Taxonomy } from '~/types'
+import PageTitle from '~/components/page-title'
 // import { SinglePostProps } from 'pages/insights/[[...slug]]'
+
+interface SinglePostProps {
+  post: Post
+}
 
 const Single = ({ children, post, link }: any) => {
   //  const link = encodeURIComponent(post.link)
@@ -18,17 +23,16 @@ const Single = ({ children, post, link }: any) => {
     <>
       {/* <Head><title>{post.title} - Go Tripod</title></Head> */}
       <Column slim>
-        {/* <PageTitle title={post.title} subTitle={new Date(post.date).toDateString()} /> */}
+      <PageTitle title={post.title} subTitle={new Date(post.date).toDateString()} />
       </Column>
       <Column>
         {
           <>
-            <div className='m-0 mb-6 max-w-[1000px] w-full bg-white shadow-card p-4'>
-              {children}
-
-              <div>
+            <div className='m-0 mb-6 max-w-[1000px] mx-auto mt-8 w-full bg-white shadow-card p-8'>
+            <div className='prose max-w-full' dangerouslySetInnerHTML={{__html: post.content}}></div>
+              <div className='mt-4'>
                 Sharing is caring:
-                <ul>
+                <ul className='flex gap-4 py-4'>
                   <li>
                     <a
                       href={`https://twitter.com/intent/tweet/?url=${link}`}

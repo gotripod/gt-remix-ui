@@ -43,7 +43,7 @@ const {page} = useLoaderData()
       </Column>
       <Column>
         <BaseCard>
-          <main dangerouslySetInnerHTML={{ __html: page.body }}></main>
+          <main className='prose' dangerouslySetInnerHTML={{ __html: page.body }}></main>
         </BaseCard>
       </Column>
     </Layout>
