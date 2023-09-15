@@ -18,28 +18,28 @@ const Label = (props: LabelProps) => (
 
 const Contact = () => (
   <Column>
-    <div className='bg-gradient-to-r from-[#4291ce] to-[#6ba9d9] text-[#ededed] text-center my-16 py-24'>
+    <div className='bg-gradient-to-r from-[#4291ce] to-[#6ba9d9] text-[#ededed] text-center my-8 py-8 md:my-16 md:py-24'>
       <h1 className='font-bold text-4xl'>Got an idea for a project?</h1>
 
-      <p>Need a website? Web-enabled software to streamline your business? Just some advice?</p>
+      <p className='mx-8 my-8 md:my-0 md:mx-0'>Need a website? Web-enabled software to streamline your business? Just some advice?</p>
 
       <form acceptCharset="UTF-8" action="https://usebasin.com/f/608feeaf0fac" method="POST">
         <fieldset>
-          <div className='grid grid-cols-2 gap-8 px-24 py-12'>
+          <div className='grid md:grid-cols-2 gap-8 px-8 md:px-24 md:py-12'>
             <div className='flex justify-stretch'>
               <Field>
-                <Label htmlFor="message">Message*</Label>
+                <Label className='mb-4 md:mb-0' htmlFor="message">Message*</Label>
                 <TextArea id="message" name="message" rows={9} required></TextArea>
               </Field>
             </div>
             <div className='flex justify-stretch items-stretch flex-col gap-8'>
               <Field>
-                <Label htmlFor="name">Name</Label>
+                <Label className='mb-4 md:mb-0' htmlFor="name">Name</Label>
                 <Input type="text" id="name" name="name" />
               </Field>
 
               <Field>
-                <Label htmlFor="email">Email*</Label>
+                <Label className='mb-4 md:mb-0' htmlFor="email">Email*</Label>
                 <Input type="email" id="email" name="email" required />
               </Field>
 
@@ -61,7 +61,7 @@ const Contact = () => (
           </div>
 
           <input type="hidden" name="source" value="https://gotripod.com/" />
-          <Button className='!bg-neutral-500' type="submit">Send it</Button>
+          <Button className='!bg-neutral-500 mt-8 md:mt-0' type="submit">Send it</Button>
         </fieldset>
       </form>
     </div>
