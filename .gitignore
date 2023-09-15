@@ -9,3 +9,4 @@ public/robots.txt
 .cache
 build
 public/build
+.wrangler
