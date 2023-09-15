@@ -7,7 +7,6 @@ npm run dev
 TODO:
 
 - mobile
-    - menu layout
     - shared contact form
     - footer padding
     - work header

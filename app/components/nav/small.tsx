@@ -14,12 +14,12 @@ const SmallNav = ({ className }: Props) => (
     <span className='block w-[26px] h-[3px] mb-[4px] relative bg-white z-10'></span>
     <span className='block w-[26px] h-[3px] mb-[4px] relative bg-white z-10'></span>
     <span className='block w-[26px] h-[3px] mb-[4px] relative bg-white z-10'></span>
-    <ul className='peer-checked/menu:left-0 -left-[200px] block bg-white fixed top-[52px] text-black h-screen w-[200px] m-0 list-0 px-[24px]'>
+    <ul className='pt-4 peer-checked/menu:left-0 -left-[200px] transition-all block bg-white fixed top-[50px] text-black h-screen w-[200px] m-0 list-0 px-[24px] shadow-xl'>
       {menu.map(({ text, link }) => {
         const isCurrentPage = false
         return (
-          <li key={link}>
-            <Link to={link}>{text}</Link>
+          <li key={link} className='py-4 pl-4'>
+            <Link className="font-bold" to={link}>{text}</Link>
           </li>
         )
       })}
