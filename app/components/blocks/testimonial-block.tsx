@@ -15,7 +15,7 @@ interface Props {
 
 const TestimonialBlock = ({ testimonial }: Props) => {
   return (
-    <Testimonials className='border-b-0 bg-gray-175 mx-0' testimonial={testimonial} />
+    <Testimonials className='!border-b-0 !bg-gray-175 !mx-0' testimonial={testimonial} />
   )
 }
 

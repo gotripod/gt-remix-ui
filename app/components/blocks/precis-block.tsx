@@ -16,9 +16,9 @@ const SColumn = (props: ColumnProps) => (
 
 const PrecisBlock = ({ technologies, services, links }: Props) => {
   return (
-    <SColumn className='px-28 text-base pt-20'>
-      <div className='grid grid-cols-3 gap-1'>
-      <div>
+    <SColumn className='px-8 md:px-28 text-base pt-8 md:pt-20'>
+      <div className='md:grid grid-cols-3 gap-1'>
+      <div className='mt-4 md:mt-0'>
         <p className='mb-4'>Our involvement in this project included the following:</p>
         <ul>
           {services.map((t, i) => (
@@ -27,7 +27,7 @@ const PrecisBlock = ({ technologies, services, links }: Props) => {
         </ul>
       </div>
 
-      <div>
+      <div className='mt-4 md:mt-0'>
         <p className='mb-4'>We made use of these technologies along the way:</p>
         <ul>
           {technologies.map((t, i) => (
@@ -36,7 +36,7 @@ const PrecisBlock = ({ technologies, services, links }: Props) => {
         </ul>
       </div>
 
-      <div className={'next'}>
+      <div className='mt-4 md:mt-0 mb-8 md:mb-0'>
         <p className='mb-4'>So, what would you like to do next?</p>
         <ul className="list">
           {
