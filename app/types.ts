@@ -69,7 +69,9 @@ export interface Project {
 
 export interface ProjectListItem {
   id: string
+  logoSpriteUrl: string
   logoUrl: string
+  logoHoverUrl: string
   link: string
   title: string
 }

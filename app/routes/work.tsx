@@ -12,7 +12,7 @@ import PageTitle from '~/components/page-title'
 
 const ProjectItemLink = (props: DivProps) => (
   <div {...props} className={`
-    ${cardClasses()} before:hidden
+    ${cardClasses()} before:hidden ${props.className}
   `}>{props.children}</div>
 )
 
@@ -26,15 +26,21 @@ const Index = () => {
         {parse(page.yoastHtml)}
       </Head> */}
 
-      <Column>
+      <Column className='px-4 md:px-0 -mt-28 md:mt-0'>
         <PageTitle slim title="Work" subTitle="A selection of recent projects" />
         <div className='md:grid grid-cols-3 gap-8 mt-12'>
           {projects.map((project) => (
-              <Link to={`/work/${project.link}`} key={project.id}>
-                <ProjectItemLink>
+              <Link to={`/work/${project.link}`} key={project.id} className='block mb-8 md:mb-0'>
+                <ProjectItemLink className='group'>
                 <img
-                  className='block object-cover w-full h-[256px] object-top hover:object-bottom'
+                  className='block aspect-auto group-hover:hidden'
                     src={project.logoUrl}
+                    alt={`Logo for ${project.title}`}
+                    title={`View the case study for ${project.title}`}
+                  />
+                  <img
+                  className='hidden group-hover:block'
+                    src={project.logoHoverUrl}
                     alt={`Logo for ${project.title}`}
                     title={`View the case study for ${project.title}`}
                   />

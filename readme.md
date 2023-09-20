@@ -7,8 +7,6 @@ npm run dev
 TODO:
 
 - mobile
-    - work header
-    - work cards
     - work single layout
     - insights header
     - insights index layout

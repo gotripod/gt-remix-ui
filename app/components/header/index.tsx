@@ -8,7 +8,9 @@ import heroImage from './hero-min.jpg'
 
 const Header = React.memo(() => {
   const router = useLocation()
-  const [loaded, setLoaded] = useState(router.pathname !== '/')
+  const isHome = router.pathname == '/'
+  const [loaded, setLoaded] = useState(!isHome)
+
   return (
     <header className='bg-black text-center relative overflow-hidden pb-28 z-50'>
       <img
@@ -23,9 +25,9 @@ const Header = React.memo(() => {
         src={heroImage}
       />
       <Column style={{ zIndex: 10 }} className='mt-[80px] md:mt-[155px]'>
-        <div className="p-8 md:p-0 md:mt-16 mx-6 md:mx-0 go-gradient">
+        <div className={`p-8 md:p-0 md:mt-16 mx-6 md:mx-0 go-gradient ${!isHome ? 'hidden' : ''} md:block`}>
           <LargeNav />
-          {router.pathname == '/' && (
+          {isHome && (
             <>
               <h1 className='text-3xl md:text-5xl font-bold text-gray-175 mb-3 md:mt-8'>Let&apos;s talk about software...</h1>
               <h2 className='hidden md:block text-5xl font-bold text-gray-175 pb-40'> And then, let&apos;s build it.</h2>
