@@ -1,7 +1,6 @@
-import { ReactElement } from 'react'
+import type { ReactElement } from 'react'
 
-
-import { Post } from '~/types'
+import type { Post } from '~/types'
 import { BlueLink } from '../../components/link'
 import { cardClasses } from '../../components/home/base-card'
 
@@ -13,13 +12,15 @@ const Item = ({ post }: Props): ReactElement => {
   const date = new Date(post.date)
 
   return (
-    <li className={`list-none ${cardClasses()} before:hidden p-6`}>
-      <article className='flex flex-col justify-between h-full'>
-        <span className='text-lg text-neutral-400'>{date.toLocaleDateString()}</span>
+    <li className={`list-none ${cardClasses()} before:hidden p-6 mb-6 md:mb-0`}>
+      <article className="flex flex-col justify-between h-full">
+        <span className="text-lg text-neutral-400">{date.toLocaleDateString()}</span>
 
-        <h1 className='text-lg font-bold my-8'>{post.title}</h1>
+        <h1 className="text-lg font-bold my-8">{post.title}</h1>
 
-        <BlueLink className='text-lg' to={post.link.replace('https://gotripod.com', '')}>Read More</BlueLink>
+        <BlueLink className="text-lg" to={post.link.replace('https://gotripod.com', '')}>
+          Read More
+        </BlueLink>
       </article>
     </li>
   )

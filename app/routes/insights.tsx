@@ -12,35 +12,35 @@
  * /insights/topic/topic-name/page/2
  **/
 
-import type { Pagination as PaginationType, Post, Testimonial, WPPage } from '~/types'
+import type { Post, Testimonial } from '~/types'
 import Column from '../components/column'
 import Layout from '../components/layout'
 import List from './insights/list'
-import Single from './insights/single'
 import { useLoaderData } from '@remix-run/react'
-import { loader as insightsLoader } from './insights/loader'
-import { LoaderArgs, json } from '@remix-run/cloudflare'
+import type { LoaderArgs } from '@remix-run/cloudflare'
+import { json } from '@remix-run/cloudflare'
 import { getPageBySlug, getPostsPage, getTestimonial } from '~/api'
 
-export const loader = async({params}: LoaderArgs) => {
-    
-    const { posts, pagination } = await getPostsPage(params)
-      const insightsPage = await getPageBySlug('insights')
-      const testimonial = await getTestimonial()
+export const loader = async ({ params }: LoaderArgs) => {
+  const { posts, pagination } = await getPostsPage(params)
+  const insightsPage = await getPageBySlug('insights')
+  const testimonial = await getTestimonial()
 
-      return json({
-        testimonial,
-        insightsPage,
-        posts,
-        pagination
-      })
+  return json({
+    testimonial,
+    insightsPage,
+    posts,
+    pagination
+  })
 }
 
 const Index = () => {
-  const {testimonial,insightsPage,posts,pagination} = useLoaderData<typeof loader>()
+  const { testimonial, insightsPage, posts, pagination } = useLoaderData<typeof loader>()
   return (
     <Layout testimonial={testimonial}>
-      <Column><List insightsPage={insightsPage} posts={posts} pagination={pagination} extraTitle={''} /></Column>
+      <Column className="-mt-28 md:mt-0">
+        <List insightsPage={insightsPage} posts={posts} pagination={pagination} extraTitle={''} />
+      </Column>
     </Layout>
   )
 }
@@ -48,7 +48,6 @@ const Index = () => {
 export interface PostBaseProps {
   testimonial: Testimonial
 }
-
 
 export interface SinglePostProps {
   post: Post

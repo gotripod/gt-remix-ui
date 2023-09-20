@@ -1,7 +1,7 @@
 //#region imports
-import { json, LoaderArgs } from '@remix-run/cloudflare'
+import type { LoaderArgs } from '@remix-run/cloudflare'
+import { json } from '@remix-run/cloudflare'
 import { useLoaderData } from '@remix-run/react'
-import { DivProps } from 'react-html-props'
 
 import { getProjectBySlug } from '~/api'
 import Renderer from '~/components/blocks/renderer'
@@ -9,21 +9,12 @@ import Column from '~/components/column'
 import Layout from '~/components/layout'
 import MediaImage from '~/components/media-image'
 
-import { Project } from '~/types'
 //#endregion
 
 //#region component
-interface Props {
-  project: Project
-}
-
-
-const Content = (props: DivProps) => (
-  <div {...props}>{props.children}</div>
-)
 
 const SinglePostPage = () => {
-  const {project} = useLoaderData()
+  const { project } = useLoaderData()
 
   return project ? (
     <Layout>
@@ -31,17 +22,17 @@ const SinglePostPage = () => {
         <title>{project.title} | Go Tripod</title>
       </Head> */}
 
-      <Column className='-mt-24 md:-mt-12'>
+      <Column className="-mt-24 md:-mt-12">
         <MediaImage media={project.heroMedia} />
-        <div className='bg-white shadow-card py-4 md:py-24 text-lg'>
-          {project.blocks.map((block: any, i: number) => (
+        <div className="bg-white shadow-card py-4 md:py-24 text-lg">
+          {project.blocks.map((block: unknown, i: number) => (
             <Renderer key={i} block={block} />
           ))}
         </div>
       </Column>
     </Layout>
   ) : null
-        }
+}
 export default SinglePostPage
 //#endregion
 

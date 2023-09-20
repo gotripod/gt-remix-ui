@@ -1,23 +1,24 @@
-import { json, LoaderArgs } from '@remix-run/cloudflare'
+import { json } from '@remix-run/cloudflare'
 import { Link, useLoaderData } from '@remix-run/react'
-import { useLayoutEffect, useRef, useState } from 'react'
-import { AProps, DivProps } from 'react-html-props'
+import type { DivProps } from 'react-html-props'
 import { getPageBySlug, getProjects, getTestimonial } from '~/api'
 import Column from '~/components/column'
 import { cardClasses } from '~/components/home/base-card'
 import Layout from '~/components/layout'
 import PageTitle from '~/components/page-title'
 
-
-
 const ProjectItemLink = (props: DivProps) => (
-  <div {...props} className={`
+  <div
+    {...props}
+    className={`
     ${cardClasses()} before:hidden ${props.className}
-  `}>{props.children}</div>
+  `}>
+    {props.children}
+  </div>
 )
 
 const Index = () => {
-  const { projects, testimonial, page } = useLoaderData<typeof loader>()
+  const { projects, testimonial } = useLoaderData<typeof loader>()
 
   return (
     <Layout testimonial={testimonial}>
@@ -26,26 +27,26 @@ const Index = () => {
         {parse(page.yoastHtml)}
       </Head> */}
 
-      <Column className='px-4 md:px-0 -mt-28 md:mt-0'>
+      <Column className="px-4 md:px-0 -mt-28 md:mt-0">
         <PageTitle slim title="Work" subTitle="A selection of recent projects" />
-        <div className='md:grid grid-cols-3 gap-8 mt-12'>
+        <div className="md:grid grid-cols-3 gap-8 mt-12">
           {projects.map((project) => (
-              <Link to={`/work/${project.link}`} key={project.id} className='block mb-8 md:mb-0'>
-                <ProjectItemLink className='group'>
+            <Link to={`/work/${project.link}`} key={project.id} className="block mb-8 md:mb-0">
+              <ProjectItemLink className="group">
                 <img
-                  className='block aspect-auto group-hover:hidden'
-                    src={project.logoUrl}
-                    alt={`Logo for ${project.title}`}
-                    title={`View the case study for ${project.title}`}
-                  />
-                  <img
-                  className='hidden group-hover:block'
-                    src={project.logoHoverUrl}
-                    alt={`Logo for ${project.title}`}
-                    title={`View the case study for ${project.title}`}
-                  />
-                </ProjectItemLink>
-              </Link>
+                  className="block aspect-auto group-hover:hidden"
+                  src={project.logoUrl}
+                  alt={`Logo for ${project.title}`}
+                  title={`View the case study for ${project.title}`}
+                />
+                <img
+                  className="hidden group-hover:block"
+                  src={project.logoHoverUrl}
+                  alt={`Logo for ${project.title}`}
+                  title={`View the case study for ${project.title}`}
+                />
+              </ProjectItemLink>
+            </Link>
           ))}
         </div>
       </Column>
@@ -83,7 +84,7 @@ const Index = () => {
 //   }
 // `
 
-export const loader = async (ctx: LoaderArgs) => {
+export const loader = async () => {
   const testimonial = await getTestimonial()
   const projects = await getProjects()
   const page = await getPageBySlug('work')

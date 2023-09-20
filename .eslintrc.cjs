@@ -21,10 +21,11 @@ module.exports = {
             jsx: true,
         },
         ecmaVersion: 12,
-        sourceType: 'module',
+        sourceType: 'commonjs',
     },
-    plugins: ['react', '@typescript-eslint'],
+    plugins: ['react', '@typescript-eslint', 'unused-imports'],
     rules: {
+        "unused-imports/no-unused-imports": "error",
         '@typescript-eslint/consistent-type-imports': 'error',
         '@typescript-eslint/no-non-null-assertion': 'off',
 
