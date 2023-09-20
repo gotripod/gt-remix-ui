@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 import Column from '~/components/column'
 // import parse, { domToReact } from 'html-react-parser'
 // import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
@@ -8,31 +7,35 @@ import Column from '~/components/column'
 import { AiOutlineMail } from 'react-icons/ai'
 import { FaFacebookF, FaGooglePlusG, FaLinkedinIn, FaTwitter } from 'react-icons/fa'
 import Link from '~/components/link'
-import { Post, Taxonomy } from '~/types'
+import type { Post, Taxonomy } from '~/types'
 import PageTitle from '~/components/page-title'
 // import { SinglePostProps } from 'pages/insights/[[...slug]]'
 
-interface SinglePostProps {
+interface Props {
   post: Post
 }
 
-const Single = ({ children, post, link }: any) => {
-  //  const link = encodeURIComponent(post.link)
+const Single = ({ post }: Props) => {
+  const link = encodeURIComponent(post.link)
 
   return (
     <>
       {/* <Head><title>{post.title} - Go Tripod</title></Head> */}
       <Column slim>
-      <PageTitle title={post.title} subTitle={new Date(post.date).toDateString()} />
+        <div className="mx-6 md:mx-auto -mt-28 md:mt-0">
+          <PageTitle title={post.title} subTitle={new Date(post.date).toDateString()} />
+        </div>
       </Column>
       <Column>
         {
           <>
-            <div className='m-0 mb-6 max-w-[1000px] mx-auto mt-8 w-full bg-white shadow-card p-8'>
-            <div className='prose max-w-full' dangerouslySetInnerHTML={{__html: post.content}}></div>
-              <div className='mt-4'>
+            <div className="m-0 mb-6 max-w-[1000px] mx-auto mt-8 w-full bg-white shadow-card p-8">
+              <div
+                className="prose max-w-full"
+                dangerouslySetInnerHTML={{ __html: post.content }}></div>
+              <div className="mt-4">
                 Sharing is caring:
-                <ul className='flex gap-4 py-4'>
+                <ul className="flex gap-4 py-4">
                   <li>
                     <a
                       href={`https://twitter.com/intent/tweet/?url=${link}`}
@@ -82,9 +85,14 @@ const Single = ({ children, post, link }: any) => {
               </div>
 
               {post.teamMember && (
-                <div className='flex justify-center m-0 mt-4'>
-                  <img className='rounded-full mr-4 block' src={post.teamMember.imageUrl} width={100} height={100} />
-                  <div className='ml-10 text-gray-300'>
+                <div className="flex justify-center m-0 mt-4">
+                  <img
+                    className="rounded-full mr-4 block"
+                    src={post.teamMember.imageUrl}
+                    width={100}
+                    height={100}
+                  />
+                  <div className="ml-10 text-gray-300">
                     By {post.teamMember.name}, {post.teamMember.position}
                     <br />
                     Filed under:{' '}
@@ -204,7 +212,7 @@ const Single = ({ children, post, link }: any) => {
 
 //   ${theme.contentStyles}
 //   ${theme.greyCardFlare}
- 
+
 //    ${mqLess(breakpoints.medium)} {
 //     padding: ${px2rem(theme.gutter * 2)};
 //   }

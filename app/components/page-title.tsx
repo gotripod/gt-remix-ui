@@ -1,5 +1,3 @@
-
-
 // const S = {
 //   Wrapper: styled.header<{ slim: boolean }>`
 //     position: relative;
@@ -13,7 +11,7 @@
 //       4}px ${(props) => (props.slim ? Theme.gutter * 6 : 0)}px;
 //     ${Theme.cardFlare}
 
-import { cardClasses } from "./home/base-card"
+import { cardClasses } from './home/base-card'
 
 //     ${mqLess(breakpoints.medium)} {
 //       margin-top: -${px2rem(Theme.gutter * 6)};
@@ -35,9 +33,12 @@ interface Props {
 }
 
 const PageTitle = ({ slim, title, subTitle }: Props) => (
-  <header className={`relative bg-white border-b-4 border-b-black/30 text-center py-12 ${cardClasses()} -mt-12 ${slim ? 'max-w-[1000px] mx-auto' : ''}`}>
-    <h1 className="text-3xl font-bold">{title}</h1>
-    {subTitle && <p className="text-neutral-400 text-lg">{subTitle}</p>}
+  <header
+    className={`relative bg-white border-b-4 border-b-black/30 text-center py-12 ${cardClasses()} -mt-12 ${
+      slim ? 'max-w-[1000px] mx-auto' : ''
+    }`}>
+    <h1 className="px-4 text-3xl font-bold">{title}</h1>
+    {subTitle && <p className="px-4 text-neutral-400 text-lg">{subTitle}</p>}
   </header>
 )
 
