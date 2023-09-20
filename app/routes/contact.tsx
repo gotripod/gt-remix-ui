@@ -1,4 +1,5 @@
-import { json, LoaderArgs, MetaFunction, V2_MetaFunction } from '@remix-run/cloudflare'
+import type { V2_MetaFunction } from '@remix-run/cloudflare'
+import { json } from '@remix-run/cloudflare'
 import { useLoaderData } from '@remix-run/react'
 
 import { getPageBySlug } from '~/api'
@@ -8,15 +9,16 @@ import Column from '../components/column'
 import Map from '../components/contact/map'
 import Layout from '../components/layout'
 import PageTitle from '../components/page-title'
-import { AddressProps, DivProps, PProps, ULProps } from 'react-html-props'
+import type { AddressProps, ULProps } from 'react-html-props'
 
-
-export const meta: V2_MetaFunction<typeof loader> = ({data}) => ([{
-  title: data ? data.page.yoastTitle : '',
-}])
+export const meta: V2_MetaFunction<typeof loader> = ({ data }) => [
+  {
+    title: data ? data.page.yoastTitle : 'beans'
+  }
+]
 
 const Contact = () => {
-  const {page} = useLoaderData()
+  const { page } = useLoaderData<typeof loader>()
   return (
     <Layout>
       {/* <Head>
@@ -24,22 +26,21 @@ const Contact = () => {
         {parse(page.yoastHtml)}
       </Head> */}
 
-      <Column slim>
-        <PageTitle title="Want the internet to work for you?" subTitle="Let's talk" />
+      <Column slim className="-mt-28 md:mt-0">
+        <div className="mx-4 md:mx-0">
+          <PageTitle title="Want the internet to work for you?" subTitle="Let's talk" />
+        </div>
       </Column>
-      <Column className='mt-12'>
-        <BaseCard cardflare={false} className='py-12 px-8'>
-          <p className='text-xl mb-20' >
-            Give us a call, or fill in the form or drop us an email. Heck, come visit us! Or we can
-            come visit you? Let&apos;s have a coffee, let&apos;s do lunch. It&apos;s up to you.
-          </p>
-          <div className='grid grid-cols-[65%_auto] gap-16'>
+      <Column className="mt-12">
+        <BaseCard cardflare={false} className="py-12 px-8">
+          <div className="text-xl mb-20" dangerouslySetInnerHTML={{ __html: page.body }}></div>
+          <div className="md:grid grid-cols-[65%_auto] gap-16">
             <div style={{ flex: 1 }}>
               <Map />
             </div>
-            <div>
+            <div className="mt-8 md:mt-0">
               <img
-              className='md:mt-1'
+                className="md:mt-1"
                 height={40}
                 width={193}
                 src="https://content.gotripod.com/wp-content/themes/go-tripod/WPGulp/assets/img/gt-logo-colour-on-white.svg"
@@ -76,9 +77,9 @@ const Contact = () => {
 
 export default Contact
 
-export const loader = async ({}: LoaderArgs) => {
-  const page = await getPageBySlug('privacy-policy')
-  return json({page})
+export const loader = async () => {
+  const page = await getPageBySlug('contact')
+  return json({ page })
 }
 
 // const StyledImage = styled.img`
@@ -89,10 +90,7 @@ export const loader = async ({}: LoaderArgs) => {
 //   }
 // `
 
-
-const AddressList = (props: ULProps) => (
-  <ul {...props}>{props.children}</ul>
-)
+const AddressList = (props: ULProps) => <ul {...props}>{props.children}</ul>
 
 // const AddressList = styled.ul`
 //   list-style: none;
@@ -110,9 +108,10 @@ const AddressList = (props: ULProps) => (
 //   }
 // `
 
-
 const PostalAddress = (props: AddressProps) => (
-  <address className='mb-2 text-lg not-italic' {...props}>{props.children}</address>
+  <address className="mb-2 text-lg not-italic" {...props}>
+    {props.children}
+  </address>
 )
 
 // const PostalAddress = styled.address`
@@ -130,18 +129,12 @@ const PostalAddress = (props: AddressProps) => (
 //   }
 // `
 
-
-
 // const Main = styled.div`
 //   ${mqMore(breakpoints.medium)} {
 //     display: flex;
 //     flex-wrap: wrap;
 //   }
 // `
-
-
-
-
 
 // const Intro = styled.p`
 //   margin: 0 0 ${px2rem(theme.gutter * 6)};
@@ -152,4 +145,3 @@ const PostalAddress = (props: AddressProps) => (
 //     margin: 0 0 ${px2rem(theme.gutter * 2)};
 //   }
 // `
-
