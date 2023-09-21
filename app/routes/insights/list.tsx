@@ -34,7 +34,7 @@ const buildTitle = (
   }${pt}`.trim()
 }
 
-const List = ({ insightsPage, posts, pagination, category, tag, pageNumber }: PostListProps) => {
+const List = ({ posts, pagination, category, tag, pageNumber }: PostListProps) => {
   const location = useLocation()
   let rootUrl = location.pathname
 

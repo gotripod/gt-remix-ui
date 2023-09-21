@@ -1,4 +1,4 @@
-import { json, LoaderArgs } from '@remix-run/cloudflare'
+import { json } from '@remix-run/cloudflare'
 import { useLoaderData } from '@remix-run/react'
 import he from 'he'
 import { keysToCamelDeep } from '~/helpers/keys-to-camel'
@@ -9,13 +9,7 @@ import ServiceList from '../components/home/service-list'
 import Layout from '../components/layout'
 
 const Index = () => {
-  const {
-    services,
-    articles,
-    testimonial,
-    heroHtml,
-    page
-  } = useLoaderData<typeof loader>()
+  const { services, articles, testimonial, heroHtml, page } = useLoaderData<typeof loader>()
 
   return (
     <Layout testimonial={testimonial} heroHtml={heroHtml}>
@@ -31,12 +25,12 @@ const Index = () => {
   )
 }
 
-export const loader = async (_: LoaderArgs) => {
+export const loader = async () => {
   const page = await getPageBySlug('home')
   const postResponse = await fetch('https://content.gotripod.com/wp-json/wp/v2/posts?per_page=3')
-  const postData = await postResponse.json() as any
+  const postData = (await postResponse.json()) as any
   const acfResponse = await fetch('https://content.gotripod.com/wp-json/acf/v3/pages/5')
-  let acfData = await acfResponse.json() as any
+  let acfData = (await acfResponse.json()) as any
 
   acfData = keysToCamelDeep(acfData.acf)
 

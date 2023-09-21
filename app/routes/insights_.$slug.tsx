@@ -16,10 +16,19 @@ import Column from '../components/column'
 import Layout from '../components/layout'
 import Single from './insights/single'
 import { useLoaderData } from '@remix-run/react'
-import type { LoaderArgs} from '@remix-run/cloudflare';
+import type { LoaderArgs, V2_MetaFunction } from '@remix-run/cloudflare'
 import { json } from '@remix-run/cloudflare'
 import { getPostBySlug, getTestimonial } from '~/api'
 import { invariant } from '@apollo/client/utilities/globals'
+import { parentTitles } from '~/helpers/seo'
+
+export const meta: V2_MetaFunction<typeof loader> = ({ data, matches }) => {
+  return [
+    {
+      title: (data ? data.post.title : '') + ' | ' + parentTitles(matches)
+    }
+  ]
+}
 
 export const loader = async ({ params }: LoaderArgs) => {
   invariant(params.slug)

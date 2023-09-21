@@ -1,5 +1,5 @@
 //#region imports
-import type { LoaderArgs } from '@remix-run/cloudflare'
+import type { LoaderArgs, V2_MetaFunction } from '@remix-run/cloudflare'
 import { json } from '@remix-run/cloudflare'
 import { useLoaderData } from '@remix-run/react'
 
@@ -8,8 +8,17 @@ import Renderer from '~/components/blocks/renderer'
 import Column from '~/components/column'
 import Layout from '~/components/layout'
 import MediaImage from '~/components/media-image'
+import { parentTitles } from '~/helpers/seo'
 
 //#endregion
+
+export const meta: V2_MetaFunction<typeof loader> = ({ data, matches }) => {
+  return [
+    {
+      title: (data?.project?.title || '') + ' | ' + parentTitles(matches)
+    }
+  ]
+}
 
 //#region component
 

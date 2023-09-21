@@ -6,6 +6,4 @@ npm run dev
 
 TODO:
 
-- background stripes
-- review all page titles
 - address pagespeed concerns

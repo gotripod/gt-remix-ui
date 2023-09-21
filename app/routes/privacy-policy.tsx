@@ -1,4 +1,4 @@
-import { LoaderArgs } from '@remix-run/cloudflare'
+import type { V2_MetaFunction } from '@remix-run/cloudflare'
 import { useLoaderData } from '@remix-run/react'
 
 import { getPageBySlug } from '~/api'
@@ -7,6 +7,7 @@ import BaseCard from '~/components/home/base-card'
 import Column from '../components/column'
 import Layout from '../components/layout'
 import PageTitle from '../components/page-title'
+import { parentTitles } from '~/helpers/seo'
 
 const nth = function (d: number) {
   if (d > 3 && d < 21) return 'th'
@@ -22,9 +23,16 @@ const nth = function (d: number) {
   }
 }
 
-const Privacy = () => {
+export const meta: V2_MetaFunction<typeof loader> = ({ data, matches }) => {
+  return [
+    {
+      title: (data?.page?.yoastTitle || '') + ' | ' + parentTitles(matches)
+    }
+  ]
+}
 
-const {page} = useLoaderData()
+const Privacy = () => {
+  const { page } = useLoaderData()
 
   const date = new Date(page.date)
   return (
@@ -43,7 +51,7 @@ const {page} = useLoaderData()
       </Column>
       <Column>
         <BaseCard>
-          <main className='prose' dangerouslySetInnerHTML={{ __html: page.body }}></main>
+          <main className="prose" dangerouslySetInnerHTML={{ __html: page.body }}></main>
         </BaseCard>
       </Column>
     </Layout>
@@ -54,11 +62,11 @@ const {page} = useLoaderData()
 //   ${theme.contentStyles}
 // `
 
-export const loader = async ({}: LoaderArgs) => {
+export const loader = async () => {
   const page = await getPageBySlug('privacy-policy')
   console.log(page)
   return {
-      page
+    page
   }
 }
 

@@ -17,10 +17,19 @@ import Column from '../components/column'
 import Layout from '../components/layout'
 import List from './insights/list'
 import { useLoaderData } from '@remix-run/react'
-import type { LoaderArgs } from '@remix-run/cloudflare'
+import type { LoaderArgs, V2_MetaFunction } from '@remix-run/cloudflare'
 import { json } from '@remix-run/cloudflare'
 import type { PostPageParams } from '~/api'
 import { getCategoryBySlug, getPageBySlug, getPostsPage, getTagBySlug, getTestimonial } from '~/api'
+import { parentTitles } from '~/helpers/seo'
+
+export const meta: V2_MetaFunction<typeof loader> = ({ data, matches }) => {
+  return [
+    {
+      title: (data?.insightsPage?.yoastTitle || '') + ' | ' + parentTitles(matches)
+    }
+  ]
+}
 
 export const loader = async ({ params }: LoaderArgs) => {
   const postParams: PostPageParams = {}
@@ -42,9 +51,13 @@ export const loader = async ({ params }: LoaderArgs) => {
     postParams.page = Number(params.page)
   }
 
-  const { posts, pagination } = await getPostsPage(postParams)
-  const insightsPage = await getPageBySlug('insights')
-  const testimonial = await getTestimonial()
+  const [postPage, insightsPage, testimonial] = await Promise.all([
+    getPostsPage(postParams),
+    getPageBySlug('insights'),
+    getTestimonial()
+  ])
+
+  const { posts, pagination } = postPage
 
   return json({
     testimonial,

@@ -10,12 +10,15 @@ import Map from '../components/contact/map'
 import Layout from '../components/layout'
 import PageTitle from '../components/page-title'
 import type { AddressProps, ULProps } from 'react-html-props'
+import { parentTitles } from '~/helpers/seo'
 
-export const meta: V2_MetaFunction<typeof loader> = ({ data }) => [
-  {
-    title: data ? data.page.yoastTitle : 'beans'
-  }
-]
+export const meta: V2_MetaFunction<typeof loader> = ({ data, matches }) => {
+  return [
+    {
+      title: (data?.page?.yoastTitle || '') + ' | ' + parentTitles(matches)
+    }
+  ]
+}
 
 const Contact = () => {
   const { page } = useLoaderData<typeof loader>()
