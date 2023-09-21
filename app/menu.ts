@@ -5,11 +5,11 @@ const Menu = [
   },
   {
     text: "Work",
-    link: "/work/",
+    link: "/work",
   },
   {
     text: "Insights",
-    link: "/insights/",
+    link: "/insights",
   },
   // {
   //   text: 'About',
@@ -17,7 +17,7 @@ const Menu = [
   // },
   {
     text: "Contact",
-    link: "/contact/",
+    link: "/contact",
   },
 ];
 

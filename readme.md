@@ -6,4 +6,4 @@ npm run dev
 
 TODO:
 
-- address pagespeed concerns
+- sitemap

@@ -3,7 +3,7 @@ import type { LoaderArgs } from '@remix-run/cloudflare'
 import { json } from '@remix-run/cloudflare'
 import { useLoaderData } from '@remix-run/react'
 
-import { getProjectBySlug } from '~/api'
+import { getPageBySlug, getProjectBySlug } from '~/api'
 import Renderer from '~/components/blocks/renderer'
 import Column from '~/components/column'
 import Layout from '~/components/layout'
@@ -12,17 +12,19 @@ import { mergeMeta } from '~/helpers/seo'
 
 //#endregion
 
-export const meta = mergeMeta(
+export const meta = mergeMeta<typeof loader>(
   () => {
     return []
   },
 
   ({ data }) => {
+    const title = (data?.project?.title || '') + ' | ' + data?.page.yoastTitle
+    const description = (data?.project?.title || '') + ' | ' + data?.page.yoast.metaDesc
     return [
-      { title: data?.project?.title || '' },
+      { title },
       {
         name: 'description',
-        content: data?.project?.title
+        content: description
       }
     ]
   }
@@ -76,11 +78,11 @@ export default SinglePostPage
 //#region data
 
 export const loader = async (context: LoaderArgs) => {
-  console.log('work subpage')
-  const project = await getProjectBySlug(
-    Array.isArray(context.params.slug) ? context.params.slug[0] : context.params.slug
-  )
-  return json({ project })
+  const slug = Array.isArray(context.params.slug) ? context.params.slug[0] : context.params.slug
+
+  const [project, page] = await Promise.all([getProjectBySlug(slug), getPageBySlug('work')])
+
+  return json({ project, page })
 }
 
 // This function gets called at BUILD time

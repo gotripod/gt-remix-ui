@@ -102,9 +102,11 @@ const Index = () => {
 // `
 
 export const loader = async () => {
-  const testimonial = await getTestimonial()
-  const projects = await getProjects()
-  const page = await getPageBySlug('work')
+  const [testimonial, projects, page] = await Promise.all([
+    getTestimonial(),
+    getProjects(),
+    getPageBySlug('work')
+  ])
 
   return json({
     page,

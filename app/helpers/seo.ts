@@ -15,9 +15,9 @@ export const parentTitles = (matches: V2_MetaMatches) =>{
 
 import type { V2_HtmlMetaDescriptor, V2_MetaFunction } from "@remix-run/cloudflare";
 
-export const mergeMeta = (
-  overrideFn: V2_MetaFunction,
-  appendFn?: V2_MetaFunction,
+export const mergeMeta = <LT = unknown,>(
+  overrideFn: V2_MetaFunction<LT>,
+  appendFn?: V2_MetaFunction<LT>,
 ): V2_MetaFunction => {
   return arg => {
     // get meta from parent routes
