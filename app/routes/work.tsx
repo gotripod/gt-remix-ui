@@ -1,4 +1,3 @@
-import type { V2_MetaFunction} from '@remix-run/cloudflare';
 import { json } from '@remix-run/cloudflare'
 import { Link, useLoaderData } from '@remix-run/react'
 import type { DivProps } from 'react-html-props'
@@ -7,7 +6,7 @@ import Column from '~/components/column'
 import { cardClasses } from '~/components/home/base-card'
 import Layout from '~/components/layout'
 import PageTitle from '~/components/page-title'
-import { parentTitles } from '~/helpers/seo'
+import { mergeMeta } from '~/helpers/seo'
 
 const ProjectItemLink = (props: DivProps) => (
   <div
@@ -19,13 +18,21 @@ const ProjectItemLink = (props: DivProps) => (
   </div>
 )
 
-export const meta: V2_MetaFunction<typeof loader> = ({ data, matches }) => {
-  return [
-    {
-      title: (data?.page?.yoastTitle || '') + ' | ' + parentTitles(matches)
-    }
-  ]
-}
+export const meta = mergeMeta(
+  () => {
+    return []
+  },
+
+  ({ data }) => {
+    return [
+      { title: data?.page?.yoastTitle || '' },
+      {
+        name: 'description',
+        content: data?.page?.yoast.metaDesc
+      }
+    ]
+  }
+)
 
 const Index = () => {
   const { projects, testimonial } = useLoaderData<typeof loader>()

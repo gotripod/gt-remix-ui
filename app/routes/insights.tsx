@@ -17,19 +17,38 @@ import Column from '../components/column'
 import Layout from '../components/layout'
 import List from './insights/list'
 import { useLoaderData } from '@remix-run/react'
-import type { LoaderArgs, V2_MetaFunction } from '@remix-run/cloudflare'
+import type { LoaderArgs } from '@remix-run/cloudflare'
 import { json } from '@remix-run/cloudflare'
 import type { PostPageParams } from '~/api'
 import { getCategoryBySlug, getPageBySlug, getPostsPage, getTagBySlug, getTestimonial } from '~/api'
-import { parentTitles } from '~/helpers/seo'
+import { mergeMeta } from '~/helpers/seo'
 
-export const meta: V2_MetaFunction<typeof loader> = ({ data, matches }) => {
-  return [
-    {
-      title: (data?.insightsPage?.yoastTitle || '') + ' | ' + parentTitles(matches)
+export const meta = mergeMeta<typeof loader>(
+  () => [],
+  ({ data }) => {
+    let suffix = ''
+
+    if (data?.category) {
+      suffix += `| ${data.category.name}`
     }
-  ]
-}
+
+    if (data?.tag) {
+      suffix += `| ${data.tag.name}`
+    }
+
+    if (data?.pageNumber) {
+      suffix += ` | page ${data.pageNumber}`
+    }
+
+    return [
+      {
+        name: 'description',
+        content: data?.page?.yoast.metaDesc + `${suffix ? suffix : ''}`
+      },
+      { title: (data?.page?.yoastTitle || '') + `${suffix ? suffix : ''}` }
+    ]
+  }
+)
 
 export const loader = async ({ params }: LoaderArgs) => {
   const postParams: PostPageParams = {}
@@ -61,7 +80,7 @@ export const loader = async ({ params }: LoaderArgs) => {
 
   return json({
     testimonial,
-    insightsPage,
+    page: insightsPage,
     posts,
     pagination,
     category,
@@ -71,7 +90,7 @@ export const loader = async ({ params }: LoaderArgs) => {
 }
 
 const Index = () => {
-  const { category, tag, pageNumber, testimonial, insightsPage, posts, pagination } =
+  const { category, tag, pageNumber, testimonial, page, posts, pagination } =
     useLoaderData<typeof loader>()
   return (
     <Layout testimonial={testimonial}>
@@ -80,7 +99,7 @@ const Index = () => {
           category={category}
           tag={tag}
           pageNumber={pageNumber}
-          insightsPage={insightsPage}
+          insightsPage={page}
           posts={posts}
           pagination={pagination}
         />

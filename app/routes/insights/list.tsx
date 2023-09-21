@@ -23,12 +23,10 @@ const buildTitle = (
   const ct = category ? ` ${category.name} ` : ''
   const tt = tag ? ` ${tag.name} ` : ''
 
-  console.log(tag)
-
   const pt = pageNumber ? ` Page ${pageNumber} ` : ''
 
   const prefix = `${ct}${tt}`
-  console.log('prefix "%s"', prefix)
+
   return `${prefix}${
     prefix.trim().toLowerCase().endsWith('insights') ? 'Posts' : 'Insights'
   }${pt}`.trim()

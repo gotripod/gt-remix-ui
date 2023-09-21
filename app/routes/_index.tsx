@@ -7,9 +7,27 @@ import Column from '../components/column'
 import Articles from '../components/home/articles'
 import ServiceList from '../components/home/service-list'
 import Layout from '../components/layout'
+import { mergeMeta } from '~/helpers/seo'
+
+export const links = () => {
+  return [{ rel: 'canonical', href: 'https://gotripod.com' }]
+}
+
+export const meta = mergeMeta(
+  () => [],
+  ({ data }) => {
+    return [
+      {
+        name: 'description',
+        content: data?.page?.yoast.metaDesc
+      },
+      { title: data?.page?.yoastTitle || '' }
+    ]
+  }
+)
 
 const Index = () => {
-  const { services, articles, testimonial, heroHtml, page } = useLoaderData<typeof loader>()
+  const { services, articles, testimonial, heroHtml } = useLoaderData<typeof loader>()
 
   return (
     <Layout testimonial={testimonial} heroHtml={heroHtml}>

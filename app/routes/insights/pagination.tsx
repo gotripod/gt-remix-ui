@@ -11,8 +11,6 @@ const NewerLink = (props: { rootUrl: string; pagination: PaginationType }) => {
 
   const url = `${rootUrl}${targetPage === 1 ? '' : `/page/${targetPage}`}`
 
-  console.log('targetPage', targetPage)
-
   if (targetPage < 1) {
     return null
   }

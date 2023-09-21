@@ -5,6 +5,10 @@ export interface WPPage {
   body: string
   yoastHtml: string
   yoastTitle: string
+  yoast: {
+    metaDesc: string
+    metaKeywords: string
+  }
 }
 
 export interface Category {

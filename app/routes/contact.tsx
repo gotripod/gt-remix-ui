@@ -1,4 +1,3 @@
-import type { V2_MetaFunction } from '@remix-run/cloudflare'
 import { json } from '@remix-run/cloudflare'
 import { useLoaderData } from '@remix-run/react'
 
@@ -10,15 +9,20 @@ import Map from '../components/contact/map'
 import Layout from '../components/layout'
 import PageTitle from '../components/page-title'
 import type { AddressProps, ULProps } from 'react-html-props'
-import { parentTitles } from '~/helpers/seo'
+import { mergeMeta } from '~/helpers/seo'
 
-export const meta: V2_MetaFunction<typeof loader> = ({ data, matches }) => {
-  return [
-    {
-      title: (data?.page?.yoastTitle || '') + ' | ' + parentTitles(matches)
-    }
-  ]
-}
+export const meta = mergeMeta(
+  () => [],
+  ({ data }) => {
+    return [
+      {
+        name: 'description',
+        content: data?.page?.yoast.metaDesc
+      },
+      { title: data?.page?.yoastTitle || '' }
+    ]
+  }
+)
 
 const Contact = () => {
   const { page } = useLoaderData<typeof loader>()

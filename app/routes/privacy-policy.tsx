@@ -1,4 +1,3 @@
-import type { V2_MetaFunction } from '@remix-run/cloudflare'
 import { useLoaderData } from '@remix-run/react'
 
 import { getPageBySlug } from '~/api'
@@ -7,7 +6,7 @@ import BaseCard from '~/components/home/base-card'
 import Column from '../components/column'
 import Layout from '../components/layout'
 import PageTitle from '../components/page-title'
-import { parentTitles } from '~/helpers/seo'
+import { mergeMeta } from '~/helpers/seo'
 
 const nth = function (d: number) {
   if (d > 3 && d < 21) return 'th'
@@ -23,13 +22,18 @@ const nth = function (d: number) {
   }
 }
 
-export const meta: V2_MetaFunction<typeof loader> = ({ data, matches }) => {
-  return [
-    {
-      title: (data?.page?.yoastTitle || '') + ' | ' + parentTitles(matches)
-    }
-  ]
-}
+export const meta = mergeMeta(
+  () => [],
+  ({ data }) => {
+    return [
+      {
+        name: 'description',
+        content: data?.page?.yoast.metaDesc
+      },
+      { title: data?.page?.yoastTitle || '' }
+    ]
+  }
+)
 
 const Privacy = () => {
   const { page } = useLoaderData()
@@ -64,7 +68,6 @@ const Privacy = () => {
 
 export const loader = async () => {
   const page = await getPageBySlug('privacy-policy')
-  console.log(page)
   return {
     page
   }

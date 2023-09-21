@@ -181,6 +181,8 @@ interface PageGqlResponse {
     seo: {
       title: string
       fullHead: string
+      metaDesc: string
+      metaKeywords: string
     }
     title: string
     date: string
@@ -195,7 +197,7 @@ interface PageGqlResponse {
 }
 
 const getPageBySlug = async (slug: string): Promise<WPPage> => {
-  console.debug('Getting page with slug', slug)
+  // console.debug('Getting page with slug', slug)
 
   // // Some pages (such as insights) may not have the section_body acf field
   // const body = page.acf?.section_body ? he.decode(page.acf.section_body) : ''
@@ -206,6 +208,8 @@ const getPageBySlug = async (slug: string): Promise<WPPage> => {
         seo {
           title
           fullHead
+          metaDesc
+          metaKeywords
         }
         title
         date
@@ -226,12 +230,16 @@ const getPageBySlug = async (slug: string): Promise<WPPage> => {
 
   const page = response.data.page
 
-  console.log('Page fetched', JSON.stringify(page))
+  // console.log('Page fetched', JSON.stringify(page))
 
   return {
     title: page.title,
     yoastHtml: page.seo.fullHead,
     yoastTitle: page.seo.title,
+    yoast: {
+      metaDesc: page.seo.metaDesc,
+      metaKeywords: page.seo.metaKeywords
+    },
     date: page.date,
     body: page.section.sectionBody ? page.section.sectionBody : page.content,
     link: page.link
@@ -291,7 +299,7 @@ const getPostsPage = async (
   const url = `https://content.gotripod.com/wp-json/wp/v2/posts?per_page=${perPage}${
     page ? `&page=${page}` : ''
   }${categoryId ? `&categories=${categoryId}` : ''}${tagId ? `&tags=${tagId}` : ''}`
-  console.log('Fetching posts', url)
+  // console.log('Fetching posts', url)
   const response = await fetch(url)
   const posts = await response.json()  as any
 

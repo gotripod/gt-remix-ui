@@ -21,6 +21,13 @@ export default {
   ): Promise<Response> {
     try {
       const url = new URL(request.url);
+
+      console.log('Fetching path', url.pathname)
+
+      if(url.pathname.endsWith('/') && url.pathname !== '/') {
+        return Response.redirect(url.origin + url.pathname.substring(0, url.pathname.length - 1), 301)
+      }
+
       const ttl = url.pathname.startsWith("/build/")
         ? 60 * 60 * 24 * 365 // 1 year
         : 60 * 5; // 5 minutes
@@ -38,7 +45,9 @@ export default {
           },
         }
       );
-    } catch (error) {}
+    } catch (error) {
+      console.error(error)
+    }
 
     try {
       const loadContext: AppLoadContext = {
