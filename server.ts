@@ -25,7 +25,21 @@ export default {
       console.log('Fetching path', url.pathname)
 
       if(url.pathname.endsWith('/') && url.pathname !== '/') {
-        return Response.redirect(url.origin + url.pathname.substring(0, url.pathname.length - 1), 301)
+        const isDataRequest = url.searchParams.has('_data')
+        if (isDataRequest) {
+          url.searchParams.delete('_data')
+          const redirectUrl = url.origin + url.pathname.substring(0, url.pathname.length - 1)
+          return new Response(undefined, {
+            headers: {
+              'x-remix-redirect': redirectUrl
+            },
+           status: 204 
+          })
+        }
+        const redirectUrl = url.origin + url.pathname.substring(0, url.pathname.length - 1)
+
+
+        return Response.redirect(redirectUrl, 301)
       }
 
       const ttl = url.pathname.startsWith("/build/")
