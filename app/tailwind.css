@@ -12,6 +12,19 @@ h2 {
 }
 
 @layer utilities {
+  .bg-main-dots::before {
+    content: "";
+  background-image: url("https://content.gotripod.com/wp-content/themes/go-tripod/WPGulp/assets/img/bg-stripes.svg");
+  background-repeat: no-repeat;
+  background-position: -3px -20px;
+  height: 1500px;
+  display: block;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  width: 100%;
+  }
+
   .go-gradient {
     @apply bg-gradient-to-r from-[#62beade6] to-[#4291cee6];
   }

@@ -8,3 +8,4 @@ TODO:
 
 - background stripes
 - review all page titles
+- address pagespeed concerns
