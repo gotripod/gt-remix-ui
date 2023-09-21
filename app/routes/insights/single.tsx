@@ -92,7 +92,7 @@ const Single = ({ post }: Props) => {
                     width={100}
                     height={100}
                   />
-                  <div className="ml-10 text-gray-300">
+                  <div className="ml-10 text-gray-500">
                     By {post.teamMember.name}, {post.teamMember.position}
                     <br />
                     Filed under:{' '}

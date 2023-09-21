@@ -1,29 +1,47 @@
-import { ReactElement } from 'react'
+import type { ReactElement } from 'react'
 
-import { Pagination as PaginationType } from '~/types'
+import type { Pagination as PaginationType } from '~/types'
 import { LinkButton } from '~/components/button'
 
-const newerLink = (pagination: PaginationType) => {
-  const { currentPage, totalItems, pageCount } = pagination
+const NewerLink = (props: { rootUrl: string; pagination: PaginationType }) => {
+  const { rootUrl, pagination } = props
+  const { currentPage } = pagination
 
-  return `/insights/page/${currentPage ? currentPage - 1 : 1}`
+  const targetPage = currentPage ? currentPage - 1 : 0
+
+  const url = `${rootUrl}${targetPage === 1 ? '' : `/page/${targetPage}`}`
+
+  console.log('targetPage', targetPage)
+
+  if (targetPage < 1) {
+    return null
+  }
+
+  return <LinkButton to={url}>Newer posts →</LinkButton>
 }
 
-const olderLink = (pagination: PaginationType) => {
-  const { currentPage, totalItems, pageCount } = pagination
+const OlderLink = (props: { rootUrl: string; pagination: PaginationType }) => {
+  const { rootUrl, pagination } = props
+  const { currentPage, pageCount } = pagination
 
-  return `/insights/page/${currentPage ? currentPage + 1 : 2}`
+  const targetPage = currentPage ? currentPage + 1 : 2
+
+  if (targetPage > pageCount) {
+    return null
+  }
+
+  return <LinkButton to={`${rootUrl}/page/${targetPage}`}>← Older posts</LinkButton>
 }
 
-const Pagination = (props: PaginationType): ReactElement => {
-  const { currentPage } = props
+const Pagination = (props: PaginationType & { rootUrl: string }): ReactElement => {
+  const { rootUrl } = props
   return (
-    <div className='flex justify-between'>
+    <div className="flex justify-between">
       {/* If there's a next page, render this link */}
-      {<LinkButton to={olderLink(props)}>← Older posts</LinkButton>}
+      <OlderLink rootUrl={rootUrl} pagination={props} />
 
       {/* If there's a previous page, render this link */}
-      {currentPage ? <LinkButton to={newerLink(props)}>Newer posts →</LinkButton> : null}
+      <NewerLink rootUrl={rootUrl} pagination={props} />
     </div>
   )
 }

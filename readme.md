@@ -6,6 +6,5 @@ npm run dev
 
 TODO:
 
-- review all page titles
-- review insights sub-indexes
 - background stripes
+- review all page titles

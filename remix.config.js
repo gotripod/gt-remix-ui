@@ -24,4 +24,28 @@ export default {
     v2_normalizeFormMethod: true,
     v2_routeConvention: true,
   },
+  routes: async (defineRoutes) => {
+    return defineRoutes((route) => {
+      route("/insights/page/:page", "routes/insights.tsx", {
+        id: 'insights-paged',
+        index: true
+      });
+      route("/insights/category/:category", "routes/insights.tsx", {
+        id: 'insights-category',
+        index: true
+      });
+      route("/insights/category/:category/page/:page", "routes/insights.tsx", {
+        id: 'insights-category-paged',
+        index: true
+      });
+      route("/insights/topic/:tag", "routes/insights.tsx", {
+        id: 'insights-tag',
+        index: true
+      });
+      route("/insights/topic/:tag/page/:page", "routes/insights.tsx", {
+        id: 'insights-tag-paged',
+        index: true
+      });
+    });
+  }
 };

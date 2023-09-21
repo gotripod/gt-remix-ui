@@ -1,7 +1,7 @@
 import { ApolloClient, gql, InMemoryCache } from '@apollo/client/core'
 import he from 'he'
 import { keysToCamelDeep } from '~/helpers/keys-to-camel'
-import { Category, MediaItem, Pagination, Post, Project, ProjectListItem, Testimonial, WPPage } from '~/types'
+import { Category, MediaItem, Pagination, Post, Project, ProjectListItem, Taxonomy, Testimonial, WPPage } from '~/types'
 
 const API_URL = 'https://content.gotripod.com/graphql'
 
@@ -66,14 +66,18 @@ const getCategoryBySlug = async (slug: string): Promise<Category> => {
   return response.data.categories.edges[0].node
 }
 
-const getTagBySlug = async (slug: string): Promise<Category> => {
+const getTagBySlug = async (slug: string): Promise<Tag> => {
   const response = await fetch('https://content.gotripod.com/wp-json/wp/v2/tags?slug=' + slug)
   const tags = await response.json() as any
 
   const tag = tags[0]
 
   return {
-    id: tag.id
+    id: tag.id,
+    name: tag.name,
+    link: tag.link,
+    slug: tag.slug,
+    taxonomy: tag.taxonomy
   }
 }
 
@@ -267,7 +271,7 @@ const getPostBySlug = async (slug: string): Promise<Post> => {
   }
 }
 
-interface Params {
+export interface PostPageParams {
   categoryId?: number
   tagId?: number
   perPage?: number
@@ -275,7 +279,7 @@ interface Params {
 }
 
 const getPostsPage = async (
-  params: Params = {}
+  params: PostPageParams
 ): Promise<{
   posts: Post[]
   pagination: Pagination

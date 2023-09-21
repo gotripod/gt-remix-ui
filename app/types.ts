@@ -9,6 +9,7 @@ export interface WPPage {
 
 export interface Category {
   id: number
+  name: string
 }
 
 export interface Pagination {
@@ -36,7 +37,17 @@ export interface Service {
   imageUrl: string
 }
 
+
+export interface Tag {
+  id: number
+  link: string
+  name: string
+  slug: string
+  taxonomy: string
+}
+
 export interface Taxonomy {
+  id: number
   link: string
   name: string
   slug: string

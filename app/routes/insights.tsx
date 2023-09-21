@@ -19,10 +19,30 @@ import List from './insights/list'
 import { useLoaderData } from '@remix-run/react'
 import type { LoaderArgs } from '@remix-run/cloudflare'
 import { json } from '@remix-run/cloudflare'
-import { getPageBySlug, getPostsPage, getTestimonial } from '~/api'
+import type { PostPageParams } from '~/api'
+import { getCategoryBySlug, getPageBySlug, getPostsPage, getTagBySlug, getTestimonial } from '~/api'
 
 export const loader = async ({ params }: LoaderArgs) => {
-  const { posts, pagination } = await getPostsPage(params)
+  const postParams: PostPageParams = {}
+
+  let category, pageNumber, tag
+
+  if (params.category) {
+    category = await getCategoryBySlug(params.category)
+    postParams.categoryId = category.id
+  }
+
+  if (params.tag) {
+    tag = await getTagBySlug(params.tag)
+    postParams.tagId = tag.id
+  }
+
+  if (params.page) {
+    pageNumber = Number(params.page)
+    postParams.page = Number(params.page)
+  }
+
+  const { posts, pagination } = await getPostsPage(postParams)
   const insightsPage = await getPageBySlug('insights')
   const testimonial = await getTestimonial()
 
@@ -30,16 +50,27 @@ export const loader = async ({ params }: LoaderArgs) => {
     testimonial,
     insightsPage,
     posts,
-    pagination
+    pagination,
+    category,
+    tag,
+    pageNumber
   })
 }
 
 const Index = () => {
-  const { testimonial, insightsPage, posts, pagination } = useLoaderData<typeof loader>()
+  const { category, tag, pageNumber, testimonial, insightsPage, posts, pagination } =
+    useLoaderData<typeof loader>()
   return (
     <Layout testimonial={testimonial}>
       <Column className="-mt-28 md:mt-0">
-        <List insightsPage={insightsPage} posts={posts} pagination={pagination} extraTitle={''} />
+        <List
+          category={category}
+          tag={tag}
+          pageNumber={pageNumber}
+          insightsPage={insightsPage}
+          posts={posts}
+          pagination={pagination}
+        />
       </Column>
     </Layout>
   )
