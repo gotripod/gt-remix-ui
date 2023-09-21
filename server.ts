@@ -11,6 +11,28 @@ if (process.env.NODE_ENV === "development") {
   logDevReady(build);
 }
 
+function urlExtension(url: string) {
+  const part = url.split(/[#?]/)[0]
+
+  if(!part) {
+    return ''
+  }
+
+  const parts = part.split('.')
+
+  if(!parts) {
+    return ''
+  }
+
+  const ext = parts.pop()
+
+  if(!ext) {
+    return ''
+  }
+
+  return ext.trim();
+}
+
 export default {
   async fetch(
     request: Request,
@@ -24,11 +46,13 @@ export default {
 
       console.log('Fetching path', url.pathname)
 
-      if(url.pathname.endsWith('/') && url.pathname !== '/') {
+      const ext = urlExtension(request.url)
+
+      if(!url.pathname.endsWith('/') && url.pathname !== '/' && ext.length === 0) {
         const isDataRequest = url.searchParams.has('_data')
         if (isDataRequest) {
           url.searchParams.delete('_data')
-          const redirectUrl = url.origin + url.pathname.substring(0, url.pathname.length - 1)
+          const redirectUrl = url.origin + url.pathname  + '/'
           return new Response(undefined, {
             headers: {
               'x-remix-redirect': redirectUrl
@@ -36,7 +60,7 @@ export default {
            status: 204 
           })
         }
-        const redirectUrl = url.origin + url.pathname.substring(0, url.pathname.length - 1)
+        const redirectUrl = url.origin + url.pathname + '/'
 
 
         return Response.redirect(redirectUrl, 301)

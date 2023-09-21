@@ -10,7 +10,7 @@ import type { FooterProps, NavProps, PProps } from 'react-html-props'
 const Footer = () => (
   <Foot>
     <Nav>
-      <ul className="flex justify-center">
+      <ul className="flex flex-wrap justify-center">
         <li className="px-6 py-6">
           {' '}
           <Link to="/">
@@ -108,9 +108,9 @@ const Footer = () => (
     </ul>
 
     <Rights className="bg-zinc-800 text-sm py-4 px-4 md:px-8">
-      © {new Date().getFullYear()} Go Tripod. All rights reserved. Registered in the UK company
-      number 6912029. VAT No. 972 5228 06. Get with our{' '}
-      <Link className="underline hover:no-underline" to="/privacy-policy">
+      © {new Date().getFullYear()} Go Tripod. All rights reserved. Registered in the UK company
+      number 6912029. VAT No. 972 5228 06. Get with our{' '}
+      <Link className="underline hover:no-underline" to="/privacy-policy/">
         Privacy&nbsp;Policy
       </Link>
       .

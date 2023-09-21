@@ -6,4 +6,5 @@ npm run dev
 
 TODO:
 
-- sitemap
+- sitemap/robots
+- body font
