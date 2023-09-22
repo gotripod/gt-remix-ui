@@ -97,7 +97,7 @@ const Footer = () => {
       <Rights className="bg-zinc-800 text-sm py-4 px-4 md:px-8">
         © {new Date().getFullYear()} Go Tripod. All rights reserved. Registered in the UK company
         number 6912029. VAT No. 972 5228 06. Get with our{' '}
-        <Link className="underline hover:no-underline" to="/privacy-policy/">
+        <Link className="underline hover:no-underline" to="/privacy-policy">
           Privacy&nbsp;Policy
         </Link>
         .

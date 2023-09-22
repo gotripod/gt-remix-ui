@@ -100,7 +100,7 @@ const Single = ({ post }: Props) => {
                       .filter((t: Taxonomy) => t.taxonomy === 'category')
                       .map((t: Taxonomy, idx: number, arr: Taxonomy[]) => (
                         <React.Fragment key={t.slug}>
-                          <Link to={`/insights/category/${t.slug}/`}>{t.name}</Link>
+                          <Link to={`/insights/category/${t.slug}`}>{t.name}</Link>
                           {idx < arr.length - 1 ? ', ' : ''}
                         </React.Fragment>
                       ))}
@@ -110,7 +110,7 @@ const Single = ({ post }: Props) => {
                       .filter((t: Taxonomy) => t.taxonomy === 'post_tag')
                       .map((t: Taxonomy, idx: number, arr: Taxonomy[]) => (
                         <React.Fragment key={t.slug}>
-                          <Link key={t.slug} to={`/insights/topic/${t.slug}/`}>
+                          <Link key={t.slug} to={`/insights/topic/${t.slug}`}>
                             {t.name}
                           </Link>
                           {idx < arr.length - 1 ? ', ' : ''}

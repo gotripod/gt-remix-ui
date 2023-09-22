@@ -75,7 +75,7 @@ const Contact = () => (
                   className="text-lg font-normal flex-1 -mt-[8px]"
                   htmlFor="contact-permission">
                   Please get back to me ASAP and treat my details with respect in line with your{' '}
-                  <Link className="underline" to="/privacy-policy/">
+                  <Link className="underline" to="/privacy-policy">
                     privacy policy
                   </Link>
                   .
@@ -84,7 +84,7 @@ const Contact = () => (
             </div>
           </div>
 
-          <input type="hidden" name="source" value="https://gotripod.com/" />
+          <input type="hidden" name="source" value="https://gotripod.com" />
           <Button className="!bg-neutral-500 mt-8 md:mt-0" type="submit">
             Send it
           </Button>
