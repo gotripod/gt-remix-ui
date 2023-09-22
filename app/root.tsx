@@ -1,5 +1,5 @@
 import { json, type LinksFunction } from '@remix-run/cloudflare'
-import { Links, LiveReload, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
+import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
 import stylesheet from '~/tailwind.css'
 import { cssBundleHref } from '@remix-run/css-bundle'
 import { lazy, Suspense } from 'react'
@@ -56,6 +56,7 @@ export default function App() {
   return (
     <html lang="en">
       <head>
+        <Meta />
         <Links />
       </head>
       <body>
