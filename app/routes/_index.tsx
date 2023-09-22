@@ -73,7 +73,7 @@ export const loader = async () => {
       id: post.id,
       date: post.date,
       title: he.decode(post.title.rendered),
-      link: `/insights/${post.slug}/`
+      link: `/insights/${post.slug}`
     })),
     testimonial
   })
