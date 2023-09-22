@@ -5,7 +5,8 @@ export interface WPPost {
   slug: string
   title: {
     rendered: string
-  }
+  },
+  status: 'publish' | 'draft'
 }
 
 export interface WPPage {

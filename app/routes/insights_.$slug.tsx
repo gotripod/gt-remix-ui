@@ -32,7 +32,7 @@ export const sitemap: SitemapFunction = async ({ config }) => {
   return posts.map((post) => ({
     loc: `/insights/${post.slug}`,
     lastmod: post.modified,
-    // exclude: post.isDraft, // exclude this entry
+    exclude: post.status !== 'publish', // exclude this entry
     // acts only in this loc
     alternateRefs: [
       {
