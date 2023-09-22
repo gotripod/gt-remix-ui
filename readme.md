@@ -7,5 +7,4 @@ npm run dev
 TODO:
 
 - sitemap/robots
-- dynamically fetch menu
 - body font
