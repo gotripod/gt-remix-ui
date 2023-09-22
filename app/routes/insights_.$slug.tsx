@@ -26,11 +26,11 @@ import type { WPPost } from '~/types'
 
 export const sitemap: SitemapFunction = async ({ config }) => {
   const postsResponse = await fetch(
-    'https://content.gotripod.com/wp-json/wp/v2/posts?per_page=100&_fields[]=title'
+    'https://content.gotripod.com/wp-json/wp/v2/posts?per_page=100&_fields[]=title&_fields[]=slug'
   )
   const posts = await postsResponse.json<WPPost[]>()
   return posts.map((post) => ({
-    loc: `/posts/${post.slug}`,
+    loc: `/insights/${post.slug}`,
     lastmod: post.modified,
     // exclude: post.isDraft, // exclude this entry
     // acts only in this loc

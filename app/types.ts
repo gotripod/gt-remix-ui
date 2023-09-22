@@ -18,6 +18,11 @@ export interface WPPage {
   yoast: {
     metaDesc: string
     metaKeywords: string
+  },
+  section: {
+    body: string
+    subtitle: string
+    title: string
   }
 }
 

@@ -53,7 +53,7 @@ const Privacy = () => {
           )} ${date.toLocaleDateString(undefined, { month: 'short' })} ${date.getFullYear()}`}
         />
       </Column>
-      <Column>
+      <Column className="mt-16">
         <BaseCard>
           <main className="prose" dangerouslySetInnerHTML={{ __html: page.body }}></main>
         </BaseCard>

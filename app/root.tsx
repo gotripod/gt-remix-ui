@@ -1,5 +1,5 @@
 import type { LinksFunction } from '@remix-run/cloudflare'
-import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
+import { Links, LiveReload, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
 import stylesheet from '~/tailwind.css'
 import { cssBundleHref } from '@remix-run/css-bundle'
 import { lazy, Suspense } from 'react'
@@ -9,11 +9,18 @@ const RemixDevTools =
 
 export const meta = () => [
   { charset: 'utf-8' },
-  { name: 'viewport', content: 'width=device-width,initial-scale=1' }
+  { name: 'viewport', content: 'width=device-width,initial-scale=1' },
+  { name: 'msapplication-TileColor', content: '#da532c' },
+  { name: 'theme-color', content: '#ffffff' }
 ]
 
 export const links: LinksFunction = () => {
   return [
+    { rel: 'apple-touch-icon', sizes: '152x152', href: '/apple-touch-icon.png' },
+    { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
+    { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
+    { rel: 'manifest', href: '/site.webmanifest' },
+    { rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#5bbad5' },
     {
       rel: 'preconnect',
       href: 'https://fonts.googleapis.com'
@@ -43,7 +50,6 @@ export default function App() {
   return (
     <html lang="en">
       <head>
-        <Meta />
         <Links />
       </head>
       <body>

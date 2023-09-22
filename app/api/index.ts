@@ -230,7 +230,7 @@ const getPageBySlug = async (slug: string): Promise<WPPage> => {
 
   const page = response.data.page
 
-  // console.log('Page fetched', JSON.stringify(page))
+  console.log('Page fetched', JSON.stringify(page))
 
   return {
     title: page.title,
@@ -242,7 +242,12 @@ const getPageBySlug = async (slug: string): Promise<WPPage> => {
     },
     date: page.date,
     body: page.section.sectionBody ? page.section.sectionBody : page.content,
-    link: page.link
+    link: page.link,
+    section: {
+      body: page.section.sectionBody,
+      subtitle: page.section.sectionSubtitle,
+      title: page.section.sectionTitle,
+    }
   }
 }
 
