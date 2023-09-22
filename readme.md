@@ -6,9 +6,6 @@ npm run dev
 
 TODO:
 
-- favicon
-- privacy banner width
-- contact form submission
 - sitemap/robots
 - dynamically fetch menu
 - body font

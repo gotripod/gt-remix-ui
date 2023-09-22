@@ -1,45 +1,64 @@
 import { Link } from '@remix-run/react'
 
 import Column from './column'
-import { DivProps, InputProps, LabelProps, TextAreaProps } from 'react-html-props'
+import type { DivProps, InputProps, LabelProps, TextAreaProps } from 'react-html-props'
 import classNames from 'classnames'
 import { Button } from './button'
 
 const Field = (props: DivProps) => (
-  <div {...props} className={classNames('w-full', props.className)}>{props.children}</div>
+  <div {...props} className={classNames('w-full', props.className)}>
+    {props.children}
+  </div>
 )
 
-const Input = (props: InputProps) => (<input {...props} className={classNames('w-full p-4 text-lg text-white bg-white/30 border-0')} />)
-const TextArea = (props: TextAreaProps) => (<textarea {...props} className={classNames('w-full p-4 text-lg text-white bg-white/30 border-0')} />)
+const Input = (props: InputProps) => (
+  <input {...props} className={classNames('w-full p-4 text-lg text-white bg-white/30 border-0')} />
+)
+const TextArea = (props: TextAreaProps) => (
+  <textarea
+    {...props}
+    className={classNames('w-full p-4 text-lg text-white bg-white/30 border-0')}
+  />
+)
 
 const Label = (props: LabelProps) => (
-  <label {...props} className={classNames('font-bold block text-left', props.className)}>{props.children}</label>
+  <label {...props} className={classNames('font-bold block text-left', props.className)}>
+    {props.children}
+  </label>
 )
 
 const Contact = () => (
   <Column>
-    <div className='bg-gradient-to-r from-[#4291ce] to-[#6ba9d9] text-[#ededed] text-center my-8 py-8 md:my-16 md:py-24'>
-      <h1 className='font-bold text-4xl'>Got an idea for a project?</h1>
+    <div className="bg-gradient-to-r from-[#4291ce] to-[#6ba9d9] text-[#ededed] text-center my-8 py-8 md:my-16 md:py-24">
+      <h1 className="font-bold text-4xl">Got an idea for a project?</h1>
 
-      <p className='mx-8 my-8 md:my-0 md:mx-0'>Need a website? Web-enabled software to streamline your business? Just some advice?</p>
+      <p className="mx-8 my-8 md:my-0 md:mx-0">
+        Need a website? Web-enabled software to streamline your business? Just some advice?
+      </p>
 
       <form acceptCharset="UTF-8" action="https://usebasin.com/f/608feeaf0fac" method="POST">
         <fieldset>
-          <div className='grid md:grid-cols-2 gap-8 px-8 md:px-24 md:py-12'>
-            <div className='flex justify-stretch'>
+          <div className="grid md:grid-cols-2 gap-8 px-8 md:px-24 md:py-12">
+            <div className="flex justify-stretch">
               <Field>
-                <Label className='mb-4 md:mb-0' htmlFor="message">Message*</Label>
+                <Label className="mb-4 md:mb-0" htmlFor="message">
+                  Message*
+                </Label>
                 <TextArea id="message" name="message" rows={9} required></TextArea>
               </Field>
             </div>
-            <div className='flex justify-stretch items-stretch flex-col gap-8'>
+            <div className="flex justify-stretch items-stretch flex-col gap-8">
               <Field>
-                <Label className='mb-4 md:mb-0' htmlFor="name">Name</Label>
+                <Label className="mb-4 md:mb-0" htmlFor="name">
+                  Name
+                </Label>
                 <Input type="text" id="name" name="name" />
               </Field>
 
               <Field>
-                <Label className='mb-4 md:mb-0' htmlFor="email">Email*</Label>
+                <Label className="mb-4 md:mb-0" htmlFor="email">
+                  Email*
+                </Label>
                 <Input type="email" id="email" name="email" required />
               </Field>
 
@@ -50,18 +69,25 @@ const Contact = () => (
                   name="contact-permission"
                   value="Granted"
                   required
-                  className='h-[40px] w-[40px] bg-white/30 border-0'
+                  className="h-[40px] w-[40px] bg-white/30 border-0"
                 />
-                <Label className='text-lg font-normal flex-1 -mt-[8px]' htmlFor="contact-permission">
+                <Label
+                  className="text-lg font-normal flex-1 -mt-[8px]"
+                  htmlFor="contact-permission">
                   Please get back to me ASAP and treat my details with respect in line with your{' '}
-                  <Link className='underline' to="/privacy-policy/">privacy policy</Link>.
+                  <Link className="underline" to="/privacy-policy/">
+                    privacy policy
+                  </Link>
+                  .
                 </Label>
               </Field>
             </div>
           </div>
 
           <input type="hidden" name="source" value="https://gotripod.com/" />
-          <Button className='!bg-neutral-500 mt-8 md:mt-0' type="submit">Send it</Button>
+          <Button className="!bg-neutral-500 mt-8 md:mt-0" type="submit">
+            Send it
+          </Button>
         </fieldset>
       </form>
     </div>
