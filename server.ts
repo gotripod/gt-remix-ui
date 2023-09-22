@@ -11,28 +11,6 @@ if (process.env.NODE_ENV === "development") {
   logDevReady(build);
 }
 
-function urlExtension(url: string) {
-  const part = url.split(/[#?]/)[0]
-
-  if(!part) {
-    return ''
-  }
-
-  const parts = part.split('.')
-
-  if(!parts) {
-    return ''
-  }
-
-  const ext = parts.pop()
-
-  if(!ext) {
-    return ''
-  }
-
-  return ext.trim();
-}
-
 export default {
   async fetch(
     request: Request,
