@@ -1,5 +1,10 @@
 export type ISODateString = string
 
+export interface Menu {
+  label: string
+  url: string
+}
+
 export interface WPPost {
   modified: ISODateString
   slug: string

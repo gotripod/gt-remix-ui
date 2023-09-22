@@ -1,9 +1,10 @@
-import type { LinksFunction } from '@remix-run/cloudflare'
+import { json, type LinksFunction } from '@remix-run/cloudflare'
 import { Links, LiveReload, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
 import stylesheet from '~/tailwind.css'
 import { cssBundleHref } from '@remix-run/css-bundle'
 import { lazy, Suspense } from 'react'
 import rdtStylesheet from 'remix-development-tools/stylesheet.css'
+import { getMenu } from './api'
 const RemixDevTools =
   process.env.NODE_ENV === 'development' ? lazy(() => import('remix-development-tools')) : undefined
 
@@ -44,6 +45,11 @@ export const links: LinksFunction = () => {
       ? [{ rel: 'stylesheet', href: rdtStylesheet }]
       : [])
   ]
+}
+
+export const loader = async () => {
+  const menu = await getMenu()
+  return json({ menu })
 }
 
 export default function App() {

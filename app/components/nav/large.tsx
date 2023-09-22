@@ -1,35 +1,39 @@
 import classNames from 'classnames'
-import menu from '../../menu'
 import { NavLink } from '@remix-run/react'
+import { useMenu } from '~/hooks/menu'
 
 interface Props {
   className?: string
 }
 
-const LargeNav = ({ className }: Props) => (
-  <nav className={classNames('hidden md:block', className)}>
-    <ul className="list-none flex max-w-full px-24 m-0 overflow-x-auto justify-center">
-      {menu.map(({ text, link }) => {
-        return (
-          <li
-            className="px-14 mt-12 mb-12 text-gray-150 text-lg font-bold font-['Cabin']"
-            key={link}>
-            <NavLink
-              className={({ isActive, isPending }) =>
-                classNames(
-                  isPending ? 'pending' : isActive ? 'border-b-white' : '',
-                  'relative inline-block border-b-2 border-b-transparent hover:border-b-white transition-all'
-                )
-              }
-              to={link}>
-              {text}
-            </NavLink>
-          </li>
-        )
-      })}
-    </ul>
-  </nav>
-)
+const LargeNav = ({ className }: Props) => {
+  const menu = useMenu()
+
+  return (
+    <nav className={classNames('hidden md:block', className)}>
+      <ul className="list-none flex max-w-full px-24 m-0 overflow-x-auto justify-center">
+        {menu.map(({ label, url }) => {
+          return (
+            <li
+              className="px-14 mt-12 mb-12 text-gray-150 text-lg font-bold font-['Cabin']"
+              key={url}>
+              <NavLink
+                className={({ isActive, isPending }) =>
+                  classNames(
+                    isPending ? 'pending' : isActive ? 'border-b-white' : '',
+                    'relative inline-block border-b-2 border-b-transparent hover:border-b-white transition-all'
+                  )
+                }
+                to={url}>
+                {label}
+              </NavLink>
+            </li>
+          )
+        })}
+      </ul>
+    </nav>
+  )
+}
 
 export default LargeNav
 

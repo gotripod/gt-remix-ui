@@ -1,7 +1,7 @@
 import { ApolloClient, gql, InMemoryCache } from '@apollo/client/core'
 import he from 'he'
 import { keysToCamelDeep } from '~/helpers/keys-to-camel'
-import { Category, MediaItem, Pagination, Post, Project, ProjectListItem, Taxonomy, Testimonial, WPPage } from '~/types'
+import { Category, MediaItem, Menu, Pagination, Post, Project, ProjectListItem, Taxonomy, Testimonial, WPPage } from '~/types'
 
 const API_URL = 'https://content.gotripod.com/graphql'
 
@@ -196,6 +196,58 @@ interface PageGqlResponse {
   }
 }
 
+interface MenuGqlResponse {
+  menu: {
+    menuItems: {
+      nodes: Array<{
+        label: string
+        url: string
+      }>
+    }
+  }
+}
+
+export const getMenu = async(): Promise<Menu[]> => {
+  const query = gql`
+  query {
+    menu(id: "dGVybToy") {
+      count
+      id
+      databaseId
+      name
+      slug
+      menuItems {
+        nodes {
+          id
+          databaseId
+          title
+          url
+          cssClasses
+          description
+          label
+          linkRelationship
+          target
+          parentId
+        }
+      }
+    }
+  }
+`
+
+const gQuery = ac.query<MenuGqlResponse>({ query })
+
+  const response = await gQuery
+
+  const menu = response.data.menu
+
+  return menu.menuItems.nodes.map(x => {
+    return {
+      label: x.label,
+      url: x.url
+    }
+  })
+}
+
 const getPageBySlug = async (slug: string): Promise<WPPage> => {
   // console.debug('Getting page with slug', slug)
 
@@ -230,7 +282,7 @@ const getPageBySlug = async (slug: string): Promise<WPPage> => {
 
   const page = response.data.page
 
-  console.log('Page fetched', JSON.stringify(page))
+  // console.log('Page fetched', JSON.stringify(page))
 
   return {
     title: page.title,
