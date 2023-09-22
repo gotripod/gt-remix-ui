@@ -2,6 +2,7 @@
 import type { LoaderArgs } from '@remix-run/cloudflare'
 import { json } from '@remix-run/cloudflare'
 import { useLoaderData } from '@remix-run/react'
+import type { SitemapFunction } from 'remix-sitemap'
 
 import { getPageBySlug, getProjectBySlug } from '~/api'
 import Renderer from '~/components/blocks/renderer'
@@ -11,6 +12,27 @@ import MediaImage from '~/components/media-image'
 import { mergeMeta } from '~/helpers/seo'
 
 //#endregion
+
+export const sitemap: SitemapFunction = async ({ config }) => {
+  const workResponse = await fetch(
+    'https://content.gotripod.com/wp-json/wp/v2/project?per_page=100&_fields[]=title&_fields[]=slug&_fields[]=modified'
+  )
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const posts = await workResponse.json<any[]>()
+  return posts.map((post) => ({
+    loc: `/work/${post.slug}`,
+    lastmod: post.modified,
+    exclude: post.status !== 'publish', // exclude this entry
+    // acts only in this loc
+    alternateRefs: [
+      {
+        href: `${config.siteUrl}/work/${post.slug}`,
+        absolute: true,
+        hreflang: 'en'
+      }
+    ]
+  }))
+}
 
 export const meta = mergeMeta<typeof loader>(
   () => {
