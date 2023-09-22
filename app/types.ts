@@ -1,3 +1,13 @@
+export type ISODateString = string
+
+export interface WPPost {
+  modified: ISODateString
+  slug: string
+  title: {
+    rendered: string
+  }
+}
+
 export interface WPPage {
   date: string
   title: string

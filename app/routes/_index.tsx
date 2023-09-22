@@ -1,3 +1,4 @@
+import type { HeadersFunction } from '@remix-run/cloudflare'
 import { json } from '@remix-run/cloudflare'
 import { useLoaderData } from '@remix-run/react'
 import he from 'he'
@@ -11,6 +12,12 @@ import { mergeMeta } from '~/helpers/seo'
 
 export const links = () => {
   return [{ rel: 'canonical', href: 'https://gotripod.com' }]
+}
+
+export const headers: HeadersFunction = () => {
+  return {
+    'Cache-Control': 'public, s-maxage=60'
+  }
 }
 
 export const meta = mergeMeta(

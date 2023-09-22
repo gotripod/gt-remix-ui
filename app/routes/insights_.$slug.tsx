@@ -21,6 +21,28 @@ import { json } from '@remix-run/cloudflare'
 import { getPostBySlug, getTestimonial } from '~/api'
 import { invariant } from '@apollo/client/utilities/globals'
 import { mergeMeta, parentTitles } from '~/helpers/seo'
+import type { SitemapFunction } from 'remix-sitemap'
+import type { WPPost } from '~/types'
+
+export const sitemap: SitemapFunction = async ({ config }) => {
+  const postsResponse = await fetch(
+    'https://content.gotripod.com/wp-json/wp/v2/posts?per_page=100&_fields[]=title'
+  )
+  const posts = await postsResponse.json<WPPost[]>()
+  return posts.map((post) => ({
+    loc: `/posts/${post.slug}`,
+    lastmod: post.modified,
+    // exclude: post.isDraft, // exclude this entry
+    // acts only in this loc
+    alternateRefs: [
+      {
+        href: `${config.siteUrl}/insights/${post.slug}`,
+        absolute: true,
+        hreflang: 'en'
+      }
+    ]
+  }))
+}
 
 export const meta = mergeMeta(
   () => [],
