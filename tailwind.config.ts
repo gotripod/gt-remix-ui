@@ -11,6 +11,9 @@ export default {
         'footer-texture': "url('https://content.gotripod.com/wp-content/themes/go-tripod/WPGulp/assets/img/bg-footer-stripes.svg')",
         'main-dots': "url('https://content.gotripod.com/wp-content/themes/go-tripod/WPGulp/assets/img/bg-dots-tile-v2.svg')"
       },
+      fontFamily: {
+        sans: 'Noto Sans,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Droid Sans,Helvetica Neue,Helvetica,Arial,sans-serif'
+      },
       colors: {
         gray: {
           150: '#f7f7f7',

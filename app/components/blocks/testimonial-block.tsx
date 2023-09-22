@@ -1,7 +1,6 @@
-
 import Testimonials from '~/components/home/testimonials'
 
-import { Testimonial } from '~/types'
+import type { Testimonial } from '~/types'
 
 interface Props {
   testimonial: Testimonial
@@ -14,9 +13,7 @@ interface Props {
 // `
 
 const TestimonialBlock = ({ testimonial }: Props) => {
-  return (
-    <Testimonials className='!border-b-0 !bg-gray-175 !mx-0' testimonial={testimonial} />
-  )
+  return <Testimonials className="!border-b-0 !bg-gray-175 !mx-0" testimonial={testimonial} />
 }
 
 export default TestimonialBlock
