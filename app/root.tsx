@@ -66,7 +66,7 @@ export default function App() {
       <body>
         <Outlet />
         <ScrollRestoration />
-        <Scripts />
+        {false && <Scripts />}
         <LiveReload />
         {RemixDevTools && (
           <Suspense>

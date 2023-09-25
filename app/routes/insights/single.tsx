@@ -88,6 +88,7 @@ const Single = ({ post }: Props) => {
                 <div className="flex justify-center m-0 mt-4">
                   <img
                     className="rounded-full mr-4 block"
+                    alt={`Avatar of ${post.teamMember.name}, ${post.teamMember.position}`}
                     src={post.teamMember.imageUrl}
                     width={100}
                     height={100}

@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react'
 
 import type { Post } from '~/types'
-import { BlueLink } from '../../components/link'
+import Link from '../../components/link'
 import { cardClasses } from '../../components/home/base-card'
 
 interface Props {
@@ -16,11 +16,9 @@ const Item = ({ post }: Props): ReactElement => {
       <article className="flex flex-col justify-between h-full">
         <span className="text-lg text-neutral-400">{date.toLocaleDateString()}</span>
 
-        <h1 className="text-lg font-bold my-8">{post.title}</h1>
-
-        <BlueLink className="text-lg" to={post.link.replace('https://gotripod.com', '')}>
-          Read More
-        </BlueLink>
+        <h3 className="text-lg font-bold my-8 hover:underline">
+          <Link to={post.link.replace('https://gotripod.com', '')}>{post.title}</Link>
+        </h3>
       </article>
     </li>
   )
