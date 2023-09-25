@@ -1,3 +1,4 @@
+import type { LoaderArgs } from '@remix-run/cloudflare'
 import { json, type LinksFunction } from '@remix-run/cloudflare'
 import {
   Links,
@@ -6,7 +7,8 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useLoaderData
+  useLoaderData,
+  useLocation
 } from '@remix-run/react'
 import stylesheet from '~/tailwind.css'
 import { cssBundleHref } from '@remix-run/css-bundle'
@@ -61,14 +63,21 @@ export const links: LinksFunction = () => {
   ]
 }
 
-export const loader = async () => {
+interface Env {
+  GA_TRACKING_ID: string | undefined
+}
+
+export const loader = async ({ context }: LoaderArgs) => {
+  const env = context.env as Env
+
   // For child routes/components
   const menu = await getMenu()
-  return json({ menu, gaTrackingId: process.env.GA_TRACKING_ID })
+  return json({ menu, gaTrackingId: env.GA_TRACKING_ID })
 }
 
 export default function App() {
   const { gaTrackingId } = useLoaderData<typeof loader>()
+  const location = useLocation()
 
   useEffect(() => {
     if (gaTrackingId?.length) {
