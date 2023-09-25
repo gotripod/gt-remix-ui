@@ -12,6 +12,22 @@ h2 {
 }
 
 @layer utilities {
+  .has-white-color {
+    @apply text-white;
+  }
+
+  .cardflare-alt {
+    @apply before:right-0;
+  }
+
+  .card-base {
+    @apply border-b-4 border-b-gray-400 shadow-card bg-white relative;
+  }
+
+  .card-inner {
+    @apply py-6 px-8 md:py-10 md:px-20 overflow-hidden relative;
+  }
+
   .bg-main-dots::before {
     content: "";
   background-image: url("https://content.gotripod.com/wp-content/themes/go-tripod/WPGulp/assets/img/bg-stripes.svg");

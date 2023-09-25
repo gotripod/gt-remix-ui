@@ -1,5 +1,17 @@
-WIP: migrate from nextjs to remix
+# Introduction
+
+This is a (Remix)[https://remix.run] frontend to Wordpress.
+
+# Setup
+
+`npm i`
+
+# Development
 
 To run in dev mode:
 
-npm run dev
+`npm run dev`
+
+# Deployment
+
+`npm run deploy`

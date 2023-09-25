@@ -282,7 +282,7 @@ const getPageBySlug = async (slug: string): Promise<WPPage> => {
 
   const page = response.data.page
 
-  // console.log('Page fetched', JSON.stringify(page))
+  console.log('Page fetched', JSON.stringify(page))
 
   return {
     title: page.title,
