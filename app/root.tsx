@@ -1,10 +1,20 @@
 import { json, type LinksFunction } from '@remix-run/cloudflare'
-import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
+import {
+  Links,
+  LiveReload,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  useLoaderData
+} from '@remix-run/react'
 import stylesheet from '~/tailwind.css'
 import { cssBundleHref } from '@remix-run/css-bundle'
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import rdtStylesheet from 'remix-development-tools/stylesheet.css'
 import { getMenu } from './api'
+import * as gtag from '~/helpers/google.client'
+
 const RemixDevTools =
   process.env.NODE_ENV === 'development' ? lazy(() => import('remix-development-tools')) : undefined
 
@@ -52,11 +62,20 @@ export const links: LinksFunction = () => {
 }
 
 export const loader = async () => {
+  // For child routes/components
   const menu = await getMenu()
-  return json({ menu })
+  return json({ menu, gaTrackingId: process.env.GA_TRACKING_ID })
 }
 
 export default function App() {
+  const { gaTrackingId } = useLoaderData<typeof loader>()
+
+  useEffect(() => {
+    if (gaTrackingId?.length) {
+      gtag.pageview(location.pathname, gaTrackingId)
+    }
+  }, [location, gaTrackingId])
+
   return (
     <html lang="en">
       <head>
@@ -64,6 +83,26 @@ export default function App() {
         <Links />
       </head>
       <body>
+        {process.env.NODE_ENV === 'development' || !gaTrackingId ? null : (
+          <>
+            <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaTrackingId}`} />
+            <script
+              async
+              id="gtag-init"
+              dangerouslySetInnerHTML={{
+                __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', '${gaTrackingId}', {
+                  page_path: window.location.pathname,
+                });
+              `
+              }}
+            />
+          </>
+        )}
         <Outlet />
         <ScrollRestoration />
         {false && <Scripts />}
