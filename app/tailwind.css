@@ -12,6 +12,18 @@ h2 {
 }
 
 @layer utilities {
+  .fancy {
+    position: relative;
+  }
+  .fancy::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    border-bottom: 3px dotted #f9f871;
+  }
   .has-white-color {
     @apply text-white;
   }

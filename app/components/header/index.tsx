@@ -39,11 +39,14 @@ const Header = React.memo(() => {
           {isHome && (
             <>
               <h1 className="text-3xl md:text-5xl font-bold text-gray-175 mb-3 md:mt-8">
-                Let&apos;s talk about software...
+                Leave the tech to us
               </h1>
-              <h2 className="hidden md:block text-5xl font-bold text-gray-175 pb-40">
-                {' '}
-                And then, let&apos;s build it.
+              <h2 className="hidden md:block text-4xl font-bold text-gray-175 pb-32 px-40">
+                We craft bespoke,{' '}
+                <span className="relative">
+                  <span className="fancy">innovative software</span>
+                </span>{' '}
+                that delivers solutions to your problems
               </h2>
             </>
           )}
