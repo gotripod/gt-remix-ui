@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 
 import Column from '../column'
 import LargeNav from '../nav/large'
-import heroImage from './hero-min.jpg'
+import heroPeople from './hero-people.jpg'
 
 const Header = React.memo(() => {
   const router = useLocation()
@@ -14,9 +14,6 @@ const Header = React.memo(() => {
     <header className="bg-black text-center relative overflow-hidden pb-28 z-50">
       <img
         style={{
-          objectFit: 'cover',
-          position: 'absolute',
-          boxSizing: 'border-box',
           top: 0,
           left: 0,
           width: '100%',
@@ -28,9 +25,10 @@ const Header = React.memo(() => {
           setLoaded(true)
         }}
         alt=""
-        src={heroImage}
+        src={heroPeople}
+        className="absolute object-contain md:object-cover object-top md:object-center grayscale opacity-40 md:opacity-30 blur-[1px] md:blur-[3px]"
       />
-      <Column style={{ zIndex: 10 }} className="mt-[80px] md:mt-[155px]">
+      <Column style={{ zIndex: 10 }} className="mt-52 md:mt-[155px]">
         <div
           className={`p-8 md:p-0 md:mt-16 mx-6 md:mx-0 go-gradient ${
             !isHome ? 'hidden' : ''
@@ -38,10 +36,10 @@ const Header = React.memo(() => {
           <LargeNav />
           {isHome && (
             <>
-              <h1 className="text-3xl md:text-5xl font-bold text-gray-175 mb-3 md:mt-8">
+              <h1 className="text-3xl md:text-5xl font-bold text-gray-175 mb-3 md:mt-4">
                 Leave the tech to us
               </h1>
-              <h2 className="hidden md:block text-4xl font-bold text-gray-175 pb-32 px-40">
+              <h2 className="text-xl md:text-4xl font-bold text-gray-175 md:pb-32 md:px-40">
                 We craft bespoke,{' '}
                 <span className="relative">
                   <span className="fancy">innovative software</span>

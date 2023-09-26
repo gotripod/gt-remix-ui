@@ -1,8 +1,8 @@
-import React from 'react'
+import type React from 'react'
 
 import Link from '~/components/link'
 
-import { Testimonial } from '~/types'
+import type { Testimonial } from '~/types'
 import Column from './column'
 import Header from './header'
 import SmallNav from './nav/small'
@@ -21,8 +21,9 @@ interface Props {
 
 const Layout = ({ children, testimonial, heroHtml }: Props) => {
   const route = useLocation()
-  return <>
-    {/* <Head>
+  return (
+    <>
+      {/* <Head>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <script async src="https://www.googletagmanager.com/gtag/js?id=UA-9912208-1"></script>
       <script dangerouslySetInnerHTML={{__html: `
@@ -36,39 +37,37 @@ const Layout = ({ children, testimonial, heroHtml }: Props) => {
       <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@700&display=swap" rel="stylesheet" /> 
       <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet" /> 
     </Head> */}
-    <main className='bg-main-dots'>
+      <main className="bg-main-dots">
+        <ToTop />
+        <SmallNav />
+        <Header />
 
-      <ToTop />
-      <SmallNav />
-      <Header />
-
-      <div className='z-[102] top-0 w-full absolute md:flex md:h-52 items-stretch '>
-        <div className='hidden md:block bg-black/50 h-64 flex-1'></div>
-        <div className='fixed md:static w-full md:w-[1140px] h-[50px] md:h-[155px] flex items-center justify-end md:justify-center go-gradient md:bg-none md:bg-black/50'>
-          <Link to="/" className='float-right p-4 md:float-none md:p-0'>
-            <img
-              width="250"
-              height="52"
-              className='w-[150px] md:w-[250px]'
-              src="https://content.gotripod.com/wp-content/themes/go-tripod/WPGulp/assets/img/gt-logo-colour-on-black.svg"
-              alt="Go Tripod"
-            />
-          </Link>
+        <div className="z-[102] top-0 w-full absolute md:flex md:h-52 items-stretch justify-center">
+          <div className="fixed md:static w-full md:w-[1140px] h-[50px] md:h-[155px] flex items-center justify-end md:justify-center go-gradient md:bg-none md:bg-none">
+            <Link to="/" className="float-right p-4 md:float-none md:p-0">
+              <img
+                width="250"
+                height="52"
+                className="w-[150px] md:w-[250px]"
+                src="https://content.gotripod.com/wp-content/themes/go-tripod/WPGulp/assets/img/gt-logo-colour-on-black.svg"
+                alt="Go Tripod"
+              />
+            </Link>
+          </div>
         </div>
-        <div className='hidden md:block bg-black/50 h-64 flex-1'></div>
-      </div>
 
-      <div className='relative z-50'>{children}</div>
+        <div className="relative z-50">{children}</div>
 
-      <Contact />
-      {testimonial && route.pathname === '/'  && (
-        <Column>
-          <Testimonials testimonial={testimonial} />
-        </Column>
-      )}
-      <Footer />
-    </main>
-  </>
+        <Contact />
+        {testimonial && route.pathname === '/' && (
+          <Column>
+            <Testimonials testimonial={testimonial} />
+          </Column>
+        )}
+        <Footer />
+      </main>
+    </>
+  )
 }
 
 export default Layout
@@ -79,8 +78,6 @@ export default Layout
 // position: absolute;
 // top:0;
 //     width: 100%;
- 
-  
 
 //   ${mqMore(breakpoints.medium)} {
 //       width: 100%;
@@ -114,7 +111,7 @@ export default Layout
 
 //       img {
 //         height: 100%;
-        
+
 //       }
 //   }
 
@@ -186,7 +183,6 @@ export default Layout
 // margin-bottom: -6.5px;
 // margin-bottom: -.3611111111rem;
 //   }
-
 
 // [data-tooltip]::after {
 
