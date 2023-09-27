@@ -14,8 +14,16 @@ import stylesheet from '~/tailwind.css'
 import { cssBundleHref } from '@remix-run/css-bundle'
 import { lazy, Suspense, useEffect } from 'react'
 import rdtStylesheet from 'remix-development-tools/stylesheet.css'
-import { getMenu } from './api'
+import { getMenu, getTestimonial } from './api'
 import * as gtag from '~/helpers/google.client'
+import Column from './components/column'
+import Contact from './components/contact'
+import Footer from './components/footer'
+import Header from './components/header'
+import Testimonials from './components/home/testimonials'
+import LargeNav from './components/nav/large'
+import SmallNav from './components/nav/small'
+import ToTop from './components/to-top'
 
 const RemixDevTools =
   process.env.NODE_ENV === 'development' ? lazy(() => import('remix-development-tools')) : undefined
@@ -72,13 +80,13 @@ export const loader = async ({ context }: LoaderArgs) => {
 
   // For child routes/components
   const menu = await getMenu()
-  return json({ menu, gaTrackingId: env.GA_TRACKING_ID })
+  const testimonial = await getTestimonial()
+  return json({ menu, gaTrackingId: env.GA_TRACKING_ID, testimonial })
 }
 
 export default function App() {
-  const { gaTrackingId } = useLoaderData<typeof loader>()
+  const { gaTrackingId, testimonial } = useLoaderData<typeof loader>()
   const location = useLocation()
-
   useEffect(() => {
     if (gaTrackingId?.length) {
       gtag.pageview(location.pathname, gaTrackingId)
@@ -112,7 +120,27 @@ export default function App() {
             />
           </>
         )}
-        <Outlet />
+        <>
+          <main className="bg-main-dots">
+            <LargeNav />
+            <ToTop />
+            <SmallNav />
+            <Header />
+
+            <div className="relative z-[250] -mt-20">
+              <Outlet />
+            </div>
+
+            <Contact />
+            {testimonial && location.pathname === '/' && (
+              <Column>
+                <Testimonials testimonial={testimonial} />
+              </Column>
+            )}
+            <Footer />
+          </main>
+        </>
+
         <ScrollRestoration />
         {false && <Scripts />}
         <LiveReload />

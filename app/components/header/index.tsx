@@ -11,7 +11,7 @@ const Header = React.memo(() => {
   const [loaded, setLoaded] = useState(!isHome)
 
   return (
-    <header className="bg-black text-center relative z-50">
+    <header className="bg-black text-center relative z-50 pb-14">
       <PageTitle title="" />
       <img
         style={{

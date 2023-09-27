@@ -3,7 +3,6 @@ import { useLoaderData } from '@remix-run/react'
 import { getPageBySlug } from '~/api'
 
 import Column from '../components/column'
-import Layout from '../components/layout'
 import { mergeMeta } from '~/helpers/seo'
 import type { LoaderArgs } from '@remix-run/cloudflare'
 import { json } from '@remix-run/cloudflare'
@@ -39,11 +38,9 @@ const PageUI = () => {
   const { page } = useLoaderData()
 
   return (
-    <Layout>
-      <Column className="mt-8">
-        <main dangerouslySetInnerHTML={{ __html: page.body }}></main>
-      </Column>
-    </Layout>
+    <Column className="mt-8">
+      <main dangerouslySetInnerHTML={{ __html: page.body }}></main>
+    </Column>
   )
 }
 

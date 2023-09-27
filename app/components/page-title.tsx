@@ -11,7 +11,7 @@
 //       4}px ${(props) => (props.slim ? Theme.gutter * 6 : 0)}px;
 //     ${Theme.cardFlare}
 
-import { useCurrentPage } from '~/hooks/hero'
+import { usePageTitles } from '~/hooks/hero'
 import Column from './column'
 import { useLocation } from '@remix-run/react'
 
@@ -28,32 +28,26 @@ import { useLocation } from '@remix-run/react'
 //   margin-top: ${px2rem(theme.gutter)}
 // `
 
-interface Props {
-  title: string
-  subTitle?: string
-  slim?: boolean
-}
-
-const PageTitle = ({ slim, title, subTitle }: Props) => {
-  const page = useCurrentPage()
+const PageTitle = () => {
+  const { title, subTitle } = usePageTitles()
   const router = useLocation()
   const isHome = router.pathname == '/'
-  console.log(page?.subTitle)
+
   return (
-    <Column style={{ zIndex: 10 }} className="md:py-8">
+    <Column style={{ zIndex: 10 }} className="md:pb-8 md:pt-12">
       <div className={`md:p-0 mx-6 md:mx-0 go-gradient md:block`}>
         <>
           <h1
             className={`text-center text-3xl md:text-5xl font-bold text-gray-175 pt-28 ${
               !isHome ? 'md:pb-24' : ''
             }`}>
-            {page?.title}
+            {title}
           </h1>
-          {page?.subTitle && (
+          {subTitle && (
             <h2
               className="text-center text-xl md:text-4xl font-bold text-gray-175 md:pb-32 md:px-40"
               dangerouslySetInnerHTML={{
-                __html: page?.subTitle
+                __html: subTitle
               }}></h2>
           )}
         </>

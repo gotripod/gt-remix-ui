@@ -7,7 +7,6 @@ import { getPageBySlug, getTestimonial } from '../api'
 import Column from '../components/column'
 import Articles from '../components/home/articles'
 import ServiceList from '../components/home/service-list'
-import Layout from '../components/layout'
 import { mergeMeta } from '~/helpers/seo'
 
 export const links = () => {
@@ -34,15 +33,13 @@ export const meta = mergeMeta(
 )
 
 const Index = () => {
-  const { services, articles, testimonial } = useLoaderData<typeof loader>()
+  const { services, articles } = useLoaderData<typeof loader>()
 
   return (
-    <Layout testimonial={testimonial}>
-      <Column>
-        <ServiceList services={services} />
-        <Articles articles={articles} />
-      </Column>
-    </Layout>
+    <Column>
+      <ServiceList services={services} />
+      <Articles articles={articles} />
+    </Column>
   )
 }
 

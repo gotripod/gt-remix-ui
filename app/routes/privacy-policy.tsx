@@ -4,7 +4,6 @@ import { getPageBySlug } from '~/api'
 import BaseCard from '~/components/home/base-card'
 
 import Column from '../components/column'
-import Layout from '../components/layout'
 import PageTitle from '../components/page-title'
 import { mergeMeta } from '~/helpers/seo'
 import { json } from '@remix-run/cloudflare'
@@ -41,7 +40,7 @@ const Privacy = () => {
 
   const date = new Date(page.date)
   return (
-    <Layout>
+    <>
       {/* <Head>
         <title>{page.yoastTitle}</title>
         {parse(page.yoastHtml)}
@@ -59,7 +58,7 @@ const Privacy = () => {
           <main className="prose max-w-none" dangerouslySetInnerHTML={{ __html: page.body }}></main>
         </BaseCard>
       </Column>
-    </Layout>
+    </>
   )
 }
 

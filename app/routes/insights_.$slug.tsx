@@ -13,7 +13,6 @@
  **/
 
 import Column from '../components/column'
-import Layout from '../components/layout'
 import Single from './insights/single'
 import { useLoaderData } from '@remix-run/react'
 import type { LoaderArgs } from '@remix-run/cloudflare'
@@ -72,11 +71,9 @@ export const loader = async ({ params }: LoaderArgs) => {
 const Index = () => {
   const { testimonial, post } = useLoaderData<typeof loader>()
   return (
-    <Layout testimonial={testimonial}>
-      <Column>
-        <Single post={post} />
-      </Column>
-    </Layout>
+    <Column>
+      <Single post={post} />
+    </Column>
   )
 }
 

@@ -7,7 +7,6 @@ import type { SitemapFunction } from 'remix-sitemap'
 import { getPageBySlug, getProjectBySlug } from '~/api'
 import Renderer from '~/components/blocks/renderer'
 import Column from '~/components/column'
-import Layout from '~/components/layout'
 import MediaImage from '~/components/media-image'
 import { mergeMeta } from '~/helpers/seo'
 
@@ -57,20 +56,14 @@ const SinglePostPage = () => {
   const { project } = useLoaderData()
 
   return project ? (
-    <Layout>
-      {/* <Head>
-        <title>{project.title} | Go Tripod</title>
-      </Head> */}
-
-      <Column className="-mt-24 md:-mt-12">
-        <MediaImage media={project.heroMedia} />
-        <div className="bg-white shadow-card py-4 md:py-24 text-lg">
-          {project.blocks.map((block: unknown, i: number) => (
-            <Renderer key={i} block={block} />
-          ))}
-        </div>
-      </Column>
-    </Layout>
+    <Column className="-mt-24 md:-mt-12">
+      <MediaImage media={project.heroMedia} />
+      <div className="bg-white shadow-card py-4 md:py-24 text-lg">
+        {project.blocks.map((block: unknown, i: number) => (
+          <Renderer key={i} block={block} />
+        ))}
+      </div>
+    </Column>
   ) : null
 }
 export default SinglePostPage
