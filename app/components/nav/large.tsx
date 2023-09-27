@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { NavLink } from '@remix-run/react'
+import { Link, NavLink } from '@remix-run/react'
 import { useMenu } from '~/hooks/menu'
 
 interface Props {
@@ -10,27 +10,38 @@ const LargeNav = ({ className }: Props) => {
   const menu = useMenu()
 
   return (
-    <nav className={classNames('hidden md:block', className)}>
-      <ul className="list-none flex max-w-full px-24 m-0 overflow-x-auto justify-center">
-        {menu.map(({ label, url }) => {
-          return (
-            <li
-              className="px-14 mt-12 mb-12 text-gray-150 text-lg font-bold font-['Cabin']"
-              key={url}>
-              <NavLink
-                className={({ isActive, isPending }) =>
-                  classNames(
-                    isPending ? 'pending' : isActive ? 'border-b-white' : '',
-                    'relative inline-block border-b-2 border-b-transparent hover:border-b-white transition-all'
-                  )
-                }
-                to={url}>
-                {label}
-              </NavLink>
-            </li>
-          )
-        })}
-      </ul>
+    <nav className={classNames('hidden md:block z-[101] relative go-gradient', className)}>
+      <div className="flex justify-center items-center">
+        <Link to="/" className="float-right p-4 md:float-none md:p-0">
+          <img
+            width="250"
+            height="52"
+            className="w-[150px] md:w-[250px]"
+            src="https://content.gotripod.com/wp-content/themes/go-tripod/WPGulp/assets/img/gt-logo-colour-on-black.svg"
+            alt="Go Tripod"
+          />
+        </Link>
+        <ul className="list-none flex max-w-full px-24 m-0 overflow-x-auto justify-center">
+          {menu.map(({ label, url }) => {
+            return (
+              <li
+                className="px-6 mt-12 mb-12 text-gray-150 text-lg font-bold font-['Cabin']"
+                key={url}>
+                <NavLink
+                  className={({ isActive, isPending }) =>
+                    classNames(
+                      isPending ? 'pending' : isActive ? 'border-b-white' : '',
+                      'relative inline-block border-b-2 border-b-transparent hover:border-b-white transition-all'
+                    )
+                  }
+                  to={url.replace('https://gotripod.com', '')}>
+                  {label}
+                </NavLink>
+              </li>
+            )
+          })}
+        </ul>
+      </div>
     </nav>
   )
 }

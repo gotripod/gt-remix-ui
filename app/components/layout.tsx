@@ -1,7 +1,5 @@
 import type React from 'react'
 
-import Link from '~/components/link'
-
 import type { Testimonial } from '~/types'
 import Column from './column'
 import Header from './header'
@@ -12,49 +10,22 @@ import { useLocation } from '@remix-run/react'
 import Contact from './contact'
 import Footer from './footer'
 import Testimonials from './home/testimonials'
+import LargeNav from './nav/large'
 
 interface Props {
   testimonial?: Testimonial
   children: React.ReactNode
-  heroHtml?: string
 }
 
-const Layout = ({ children, testimonial, heroHtml }: Props) => {
+const Layout = ({ children, testimonial }: Props) => {
   const route = useLocation()
   return (
     <>
-      {/* <Head>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-9912208-1"></script>
-      <script dangerouslySetInnerHTML={{__html: `
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-9912208-1');
-      `}}>
-      </script>
-      <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@700&display=swap" rel="stylesheet" /> 
-      <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet" /> 
-    </Head> */}
       <main className="bg-main-dots">
+        <LargeNav />
         <ToTop />
         <SmallNav />
         <Header />
-
-        <div className="z-[102] top-0 w-full absolute md:flex md:h-52 items-stretch justify-center">
-          <div className="fixed md:static w-full md:w-[1140px] h-[50px] md:h-[155px] flex items-center justify-end md:justify-center go-gradient md:bg-none md:bg-none">
-            <Link to="/" className="float-right p-4 md:float-none md:p-0">
-              <img
-                width="250"
-                height="52"
-                className="w-[150px] md:w-[250px]"
-                src="https://content.gotripod.com/wp-content/themes/go-tripod/WPGulp/assets/img/gt-logo-colour-on-black.svg"
-                alt="Go Tripod"
-              />
-            </Link>
-          </div>
-        </div>
 
         <div className="relative z-50">{children}</div>
 

@@ -5,7 +5,6 @@ import { getPageBySlug, getProjects, getTestimonial } from '~/api'
 import Column from '~/components/column'
 import { cardClasses } from '~/components/home/base-card'
 import Layout from '~/components/layout'
-import PageTitle from '~/components/page-title'
 import { mergeMeta } from '~/helpers/seo'
 
 const ProjectItemLink = (props: DivProps) => (
@@ -45,7 +44,6 @@ const Index = () => {
       </Head> */}
 
       <Column className="px-4 md:px-0 -mt-28 md:mt-0">
-        <PageTitle slim title="Work" subTitle="A selection of recent projects" />
         <div className="md:grid grid-cols-3 gap-8 mt-12">
           {projects.map((project) => (
             <Link to={`/work/${project.link}`} key={project.id} className="block mb-8 md:mb-0">

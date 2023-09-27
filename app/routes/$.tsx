@@ -4,7 +4,6 @@ import { getPageBySlug } from '~/api'
 
 import Column from '../components/column'
 import Layout from '../components/layout'
-import PageTitle from '../components/page-title'
 import { mergeMeta } from '~/helpers/seo'
 import type { LoaderArgs } from '@remix-run/cloudflare'
 import { json } from '@remix-run/cloudflare'
@@ -41,19 +40,7 @@ const PageUI = () => {
 
   return (
     <Layout>
-      {/* <Head>
-        <title>{page.yoastTitle}</title>
-        {parse(page.yoastHtml)}
-      </Head> */}
-      <Column slim>
-        <PageTitle
-          title={page.title}
-          // subTitle={`Last updated on ${date.getUTCDate()}${nth(
-          //   date.getUTCDate()
-          // )} ${date.toLocaleDateString(undefined, { month: 'short' })} ${date.getFullYear()}`}
-        />
-      </Column>
-      <Column className="mt-16">
+      <Column className="mt-8">
         <main dangerouslySetInnerHTML={{ __html: page.body }}></main>
       </Column>
     </Layout>

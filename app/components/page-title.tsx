@@ -11,7 +11,9 @@
 //       4}px ${(props) => (props.slim ? Theme.gutter * 6 : 0)}px;
 //     ${Theme.cardFlare}
 
-import { cardClasses } from './home/base-card'
+import { useCurrentPage } from '~/hooks/hero'
+import Column from './column'
+import { useLocation } from '@remix-run/react'
 
 //     ${mqLess(breakpoints.medium)} {
 //       margin-top: -${px2rem(Theme.gutter * 6)};
@@ -32,14 +34,32 @@ interface Props {
   slim?: boolean
 }
 
-const PageTitle = ({ slim, title, subTitle }: Props) => (
-  <header
-    className={`relative bg-white border-b-4 border-b-black/30 text-center py-12 ${cardClasses()} -mt-12 ${
-      slim ? 'max-w-[1000px] mx-auto' : ''
-    }`}>
-    <h2 className="px-4 text-3xl font-bold">{title}</h2>
-    {subTitle && <p className="px-4 text-neutral-400 text-lg">{subTitle}</p>}
-  </header>
-)
+const PageTitle = ({ slim, title, subTitle }: Props) => {
+  const page = useCurrentPage()
+  const router = useLocation()
+  const isHome = router.pathname == '/'
+  console.log(page?.subTitle)
+  return (
+    <Column style={{ zIndex: 10 }} className="md:py-8">
+      <div className={`md:p-0 mx-6 md:mx-0 go-gradient md:block`}>
+        <>
+          <h1
+            className={`text-center text-3xl md:text-5xl font-bold text-gray-175 pt-28 ${
+              !isHome ? 'md:pb-24' : ''
+            }`}>
+            {page?.title}
+          </h1>
+          {page?.subTitle && (
+            <h2
+              className="text-center text-xl md:text-4xl font-bold text-gray-175 md:pb-32 md:px-40"
+              dangerouslySetInnerHTML={{
+                __html: page?.subTitle
+              }}></h2>
+          )}
+        </>
+      </div>
+    </Column>
+  )
+}
 
 export default PageTitle

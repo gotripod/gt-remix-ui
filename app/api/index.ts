@@ -192,6 +192,10 @@ interface PageGqlResponse {
       sectionBody: string
       sectionSubtitle: string
       sectionTitle: string
+    },
+    hero: {
+      subTitle: string
+      heroImage: GQLMediaItem
     }
   }
 }
@@ -272,6 +276,16 @@ const getPageBySlug = async (slug: string): Promise<WPPage> => {
           sectionSubtitle
           sectionTitle
         }
+        hero {
+          subTitle
+          heroImage {
+            caption
+            altText
+            title
+            guid
+            srcSet
+          }
+        }
       }
     }
   `
@@ -282,7 +296,7 @@ const getPageBySlug = async (slug: string): Promise<WPPage> => {
 
   const page = response.data.page
 
-  console.log('Page fetched', JSON.stringify(page))
+  // console.log('Page fetched', JSON.stringify(page))
 
   return {
     title: page.title,
@@ -299,7 +313,9 @@ const getPageBySlug = async (slug: string): Promise<WPPage> => {
       body: page.section.sectionBody,
       subtitle: page.section.sectionSubtitle,
       title: page.section.sectionTitle,
-    }
+    },
+    subTitle: page.hero.subTitle,
+    hero: page.hero.heroImage
   }
 }
 

@@ -8,7 +8,6 @@ import { AiOutlineMail } from 'react-icons/ai'
 import { FaFacebookF, FaGooglePlusG, FaLinkedinIn, FaTwitter } from 'react-icons/fa'
 import Link from '~/components/link'
 import type { Post, Taxonomy } from '~/types'
-import PageTitle from '~/components/page-title'
 // import { SinglePostProps } from 'pages/insights/[[...slug]]'
 
 interface Props {
@@ -20,12 +19,6 @@ const Single = ({ post }: Props) => {
 
   return (
     <>
-      {/* <Head><title>{post.title} - Go Tripod</title></Head> */}
-      <Column slim>
-        <div className="mx-6 md:mx-auto -mt-28 md:mt-0">
-          <PageTitle title={post.title} subTitle={new Date(post.date).toDateString()} />
-        </div>
-      </Column>
       <Column>
         {
           <>

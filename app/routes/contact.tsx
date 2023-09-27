@@ -7,7 +7,6 @@ import BaseCard from '~/components/home/base-card'
 import Column from '../components/column'
 import Map from '../components/contact/map'
 import Layout from '../components/layout'
-import PageTitle from '../components/page-title'
 import type { AddressProps, ULProps } from 'react-html-props'
 import { mergeMeta } from '~/helpers/seo'
 
@@ -28,16 +27,6 @@ const Contact = () => {
   const { page } = useLoaderData<typeof loader>()
   return (
     <Layout>
-      {/* <Head>
-        <title>{page.yoastTitle}</title>
-        {parse(page.yoastHtml)}
-      </Head> */}
-
-      <Column slim className="-mt-28 md:mt-0">
-        <div className="mx-4 md:mx-0">
-          <PageTitle title="Want the internet to work for you?" subTitle="Let's talk" />
-        </div>
-      </Column>
       <Column className="mt-12">
         <BaseCard cardflare={false} className="py-12 px-8">
           <div className="text-xl mb-20" dangerouslySetInnerHTML={{ __html: page.body }}></div>

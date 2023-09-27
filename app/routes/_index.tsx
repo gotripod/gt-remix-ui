@@ -34,14 +34,10 @@ export const meta = mergeMeta(
 )
 
 const Index = () => {
-  const { services, articles, testimonial, heroHtml } = useLoaderData<typeof loader>()
+  const { services, articles, testimonial } = useLoaderData<typeof loader>()
 
   return (
-    <Layout testimonial={testimonial} heroHtml={heroHtml}>
-      {/* <Head>
-        <title>{page.yoastTitle}</title>
-        {parse(page.yoastHtml)}
-      </Head> */}
+    <Layout testimonial={testimonial}>
       <Column>
         <ServiceList services={services} />
         <Articles articles={articles} />
@@ -62,7 +58,6 @@ export const loader = async () => {
   const testimonial = await getTestimonial()
 
   return json({
-    heroHtml: '',
     page,
     services: acfData.serviceBuilder.map((s: any) => ({
       imageUrl: s.serviceImage,
