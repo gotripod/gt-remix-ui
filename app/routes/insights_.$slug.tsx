@@ -69,7 +69,7 @@ export const loader = async ({ params }: LoaderArgs) => {
 }
 
 const Index = () => {
-  const { testimonial, post } = useLoaderData<typeof loader>()
+  const { post } = useLoaderData<typeof loader>()
   return (
     <Column>
       <Single post={post} />

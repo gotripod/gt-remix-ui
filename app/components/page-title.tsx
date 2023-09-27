@@ -11,7 +11,7 @@
 //       4}px ${(props) => (props.slim ? Theme.gutter * 6 : 0)}px;
 //     ${Theme.cardFlare}
 
-import { usePageTitles } from '~/hooks/hero'
+import { usePageTitles } from '~/hooks/wp'
 import Column from './column'
 import { useLocation } from '@remix-run/react'
 
@@ -35,17 +35,14 @@ const PageTitle = () => {
 
   return (
     <Column style={{ zIndex: 10 }} className="md:pb-8 md:pt-12">
-      <div className={`md:p-0 mx-6 md:mx-0 go-gradient md:block`}>
+      <div className={`md:p-0 mx-6 md:mx-0 go-gradient md:block ${!isHome ? 'md:pb-24' : ''}`}>
         <>
-          <h1
-            className={`text-center text-3xl md:text-5xl font-bold text-gray-175 pt-28 ${
-              !isHome ? 'md:pb-24' : ''
-            }`}>
+          <h1 className={`text-center text-3xl md:text-5xl font-bold text-gray-175 pt-28`}>
             {title}
           </h1>
           {subTitle && (
             <h2
-              className="text-center text-xl md:text-4xl font-bold text-gray-175 md:pb-32 md:px-40"
+              className="text-center text-xl md:text-4xl font-bold text-gray-175 md:pb-8 md:px-40"
               dangerouslySetInnerHTML={{
                 __html: subTitle
               }}></h2>

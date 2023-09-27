@@ -27,7 +27,7 @@ const SmallNav = ({ className }: Props) => {
           // const isCurrentPage = false
           return (
             <li key={url} className="py-4 pl-4">
-              <Link className="font-bold" to={url}>
+              <Link className="font-bold" to={url.replace('https://gotripod.com', '')}>
                 {label}
               </Link>
             </li>

@@ -1,7 +1,7 @@
 import { useLocation } from '@remix-run/react'
 import React, { useState } from 'react'
 
-import { useHero } from '~/hooks/hero'
+import { useHero } from '~/hooks/wp'
 import PageTitle from '../page-title'
 
 const Header = React.memo(() => {
@@ -9,10 +9,11 @@ const Header = React.memo(() => {
   const router = useLocation()
   const isHome = router.pathname == '/'
   const [loaded, setLoaded] = useState(!isHome)
+  const isWorkSubpage = router.pathname.startsWith('/work/')
 
   return (
-    <header className="bg-black text-center relative z-50 pb-14">
-      <PageTitle title="" />
+    <header className={`bg-black text-center relative z-50 ${isWorkSubpage ? 'pb-96' : 'pb-14'}`}>
+      {isWorkSubpage ? null : <PageTitle />}
       <img
         style={{
           top: 0,
@@ -28,7 +29,7 @@ const Header = React.memo(() => {
         alt=""
         src={hero?.guid}
         srcSet={hero?.srcSet}
-        className="absolute object-contain md:object-cover object-top md:object-center grayscale opacity-40 md:opacity-30 blur-[1px] md:blur-[3px]"
+        className="absolute object-contain md:object-cover object-top md:object-center grayscale-[50%] opacity-60 blur-[1px] md:blur-[3px]"
       />
     </header>
   )
