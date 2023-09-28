@@ -1,17 +1,22 @@
 import { useLocation } from '@remix-run/react'
 import React, { useState } from 'react'
 
-import Column from '../column'
-import LargeNav from '../nav/large'
-import heroPeople from './hero-people.jpg'
+import { useHero } from '~/hooks/wp'
+import PageTitle from '../page-title'
 
 const Header = React.memo(() => {
+  const hero = useHero()
   const router = useLocation()
   const isHome = router.pathname == '/'
   const [loaded, setLoaded] = useState(!isHome)
+  const isWorkSubpage = router.pathname.startsWith('/work/')
 
   return (
-    <header className="bg-black text-center relative overflow-hidden pb-28 z-50">
+    <header
+      className={`bg-black text-center relative z-50 ${
+        isWorkSubpage ? 'md:pb-96' : 'pb-16 md:pb-14'
+      }`}>
+      {isWorkSubpage ? null : <PageTitle />}
       <img
         style={{
           top: 0,
@@ -25,31 +30,10 @@ const Header = React.memo(() => {
           setLoaded(true)
         }}
         alt=""
-        src={heroPeople}
-        className="absolute object-contain md:object-cover object-top md:object-center grayscale opacity-40 md:opacity-30 blur-[1px] md:blur-[3px]"
+        src={hero?.guid}
+        srcSet={hero?.srcSet}
+        className="absolute md:object-cover object-top md:object-center grayscale-[50%] opacity-60 blur-[1px] md:blur-[3px]"
       />
-      <Column style={{ zIndex: 10 }} className="mt-52 md:mt-[155px]">
-        <div
-          className={`p-8 md:p-0 md:mt-16 mx-6 md:mx-0 go-gradient ${
-            !isHome ? 'hidden' : ''
-          } md:block`}>
-          <LargeNav />
-          {isHome && (
-            <>
-              <h1 className="text-3xl md:text-5xl font-bold text-gray-175 mb-3 md:mt-4">
-                Leave the tech to us
-              </h1>
-              <h2 className="text-xl md:text-4xl font-bold text-gray-175 md:pb-32 md:px-40">
-                We craft bespoke,{' '}
-                <span className="relative">
-                  <span className="fancy">innovative software</span>
-                </span>{' '}
-                that delivers solutions to your problems
-              </h2>
-            </>
-          )}
-        </div>
-      </Column>
     </header>
   )
 })

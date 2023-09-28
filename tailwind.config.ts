@@ -30,5 +30,8 @@ export default {
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
   ],
+  safelist: [
+    'fancy'
+  ]
 } satisfies Config
 

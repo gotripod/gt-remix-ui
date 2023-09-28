@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { HeadersFunction } from '@remix-run/cloudflare'
 import { json } from '@remix-run/cloudflare'
 import { useLoaderData } from '@remix-run/react'
@@ -7,7 +8,6 @@ import { getPageBySlug, getTestimonial } from '../api'
 import Column from '../components/column'
 import Articles from '../components/home/articles'
 import ServiceList from '../components/home/service-list'
-import Layout from '../components/layout'
 import { mergeMeta } from '~/helpers/seo'
 
 export const links = () => {
@@ -34,19 +34,13 @@ export const meta = mergeMeta(
 )
 
 const Index = () => {
-  const { services, articles, testimonial, heroHtml } = useLoaderData<typeof loader>()
+  const { services, articles } = useLoaderData<typeof loader>()
 
   return (
-    <Layout testimonial={testimonial} heroHtml={heroHtml}>
-      {/* <Head>
-        <title>{page.yoastTitle}</title>
-        {parse(page.yoastHtml)}
-      </Head> */}
-      <Column>
-        <ServiceList services={services} />
-        <Articles articles={articles} />
-      </Column>
-    </Layout>
+    <Column>
+      <ServiceList services={services} />
+      <Articles articles={articles} />
+    </Column>
   )
 }
 
@@ -62,7 +56,6 @@ export const loader = async () => {
   const testimonial = await getTestimonial()
 
   return json({
-    heroHtml: '',
     page,
     services: acfData.serviceBuilder.map((s: any) => ({
       imageUrl: s.serviceImage,

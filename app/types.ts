@@ -29,7 +29,9 @@ export interface WPPage {
     body: string
     subtitle: string
     title: string
-  }
+  },
+  subTitle: string
+  hero: GQLMediaItem
 }
 
 export interface Category {

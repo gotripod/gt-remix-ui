@@ -10,31 +10,42 @@ const SmallNav = ({ className }: Props) => {
   const menu = useMenu()
 
   return (
-    <nav
-      className={classNames(
-        className,
-        'md:hidden fixed top-[16px] left-[13px] z-[200] select-none'
-      )}>
-      <input
-        type="checkbox"
-        className="peer/menu block w-[40px] h-[32px] absolute -top-[7px] -left-[5px] opacity-0 cursor-pointer z-2"
-      />
-      <span className="block w-[26px] h-[3px] mb-[4px] relative bg-white z-10"></span>
-      <span className="block w-[26px] h-[3px] mb-[4px] relative bg-white z-10"></span>
-      <span className="block w-[26px] h-[3px] mb-[4px] relative bg-white z-10"></span>
-      <ul className="pt-4 peer-checked/menu:left-0 -left-[200px] transition-all block bg-white fixed top-[50px] text-black h-screen w-[200px] m-0 list-0 px-[24px] shadow-xl">
-        {menu.map(({ label, url }) => {
-          // const isCurrentPage = false
-          return (
-            <li key={url} className="py-4 pl-4">
-              <Link className="font-bold" to={url}>
-                {label}
-              </Link>
-            </li>
-          )
-        })}
-      </ul>
-    </nav>
+    <div className="md:hidden flex fixed z-[300] go-gradient w-full h-[48px]">
+      <nav
+        className={classNames(
+          className,
+          'md:hidden absolute top-[16px] left-[13px] z-[200] select-none'
+        )}>
+        <input
+          type="checkbox"
+          className="peer/menu block w-[40px] h-[32px] absolute -top-[7px] -left-[5px] opacity-0 cursor-pointer z-2"
+        />
+        <span className="block w-[26px] h-[3px] mb-[4px] relative bg-white z-10"></span>
+        <span className="block w-[26px] h-[3px] mb-[4px] relative bg-white z-10"></span>
+        <span className="block w-[26px] h-[3px] mb-[4px] relative bg-white z-10"></span>
+        <ul className="pt-4 peer-checked/menu:left-0 -left-[200px] transition-all block bg-white fixed top-[50px] text-black h-screen w-[200px] m-0 list-0 px-[24px] shadow-xl">
+          {menu.map(({ label, url }) => {
+            // const isCurrentPage = false
+            return (
+              <li key={url} className="py-4 pl-4">
+                <Link className="font-bold" to={url.replace('https://gotripod.com', '')}>
+                  {label}
+                </Link>
+              </li>
+            )
+          })}
+        </ul>
+      </nav>
+      <Link to="/" className="p-2 md:p-0 absolute top-0 right-0 z-[200]">
+        <img
+          width="250"
+          height="52"
+          className="w-[150px] md:w-[250px]"
+          src="https://content.gotripod.com/wp-content/themes/go-tripod/WPGulp/assets/img/gt-logo-colour-on-black.svg"
+          alt="Go Tripod"
+        />
+      </Link>
+    </div>
   )
 }
 

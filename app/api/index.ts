@@ -1,7 +1,19 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ApolloClient, gql, InMemoryCache } from '@apollo/client/core'
 import he from 'he'
 import { keysToCamelDeep } from '~/helpers/keys-to-camel'
-import { Category, MediaItem, Menu, Pagination, Post, Project, ProjectListItem, Taxonomy, Testimonial, WPPage } from '~/types'
+import type {
+  Category,
+  MediaItem,
+  Menu,
+  Pagination,
+  Post,
+  Project,
+  ProjectListItem,
+  Tag,
+  Testimonial,
+  WPPage
+} from '~/types'
 
 const API_URL = 'https://content.gotripod.com/graphql'
 
@@ -9,32 +21,6 @@ const ac = new ApolloClient({
   uri: API_URL,
   cache: new InMemoryCache()
 })
-
-const fetchAPI = async (query: string, { variables }: any = {}) => {
-  const headers = { 'Content-Type': 'application/json' } as any
-
-  const WORDPRESS_AUTH_REFRESH_TOKEN = ''
-
-  if (WORDPRESS_AUTH_REFRESH_TOKEN) {
-    headers['Authorization'] = `Bearer ${WORDPRESS_AUTH_REFRESH_TOKEN}`
-  }
-
-  const res = await fetch(API_URL, {
-    method: 'POST',
-    headers,
-    body: JSON.stringify({
-      query,
-      variables
-    })
-  })
-
-  const json = await res.json() as any
-  if (json.errors) {
-    console.error(json.errors)
-    throw new Error('Failed to fetch API')
-  }
-  return json.data
-}
 
 interface IReturn {
   categories: {
@@ -68,7 +54,7 @@ const getCategoryBySlug = async (slug: string): Promise<Category> => {
 
 const getTagBySlug = async (slug: string): Promise<Tag> => {
   const response = await fetch('https://content.gotripod.com/wp-json/wp/v2/tags?slug=' + slug)
-  const tags = await response.json() as any
+  const tags = (await response.json()) as any
 
   const tag = tags[0]
 
@@ -90,7 +76,7 @@ const getTestimonial = async (): Promise<Testimonial> => {
     console.error(await response.text())
   }
   try {
-    const testimonials = await response.json() as any
+    const testimonials = (await response.json()) as any
 
     const testimonial = testimonials[0]
 
@@ -114,7 +100,7 @@ const getTestimonialById = async (testimonialId: number): Promise<Testimonial> =
     `https://content.gotripod.com/wp-json/wp/v2/testimonial/${testimonialId}`
   )
 
-  const testimonial = await response.json() as any
+  const testimonial = (await response.json()) as any
 
   return {
     projectUrl: testimonial.project_url || '',
@@ -125,7 +111,7 @@ const getTestimonialById = async (testimonialId: number): Promise<Testimonial> =
 
 const getMediaById = async (mediaId: number): Promise<MediaItem> => {
   const response = await fetch(`https://content.gotripod.com/wp-json/wp/v2/media/${mediaId}`)
-  const media = await response.json() as any
+  const media = (await response.json()) as any
 
   return media
 }
@@ -135,7 +121,7 @@ const getProjects = async (): Promise<ProjectListItem[]> => {
     'https://content.gotripod.com/wp-json/wp/v2/project?_fields=acf.project_logo,acf.project_logo_unhover,acf.project_logo_hover,id,slug,title&orderby=menu_order&order=asc'
   )
 
-  const projects = await response.json() as any
+  const projects = (await response.json()) as any
 
   return projects.map((p: any) => ({
     id: p.id,
@@ -149,7 +135,7 @@ const getProjects = async (): Promise<ProjectListItem[]> => {
 
 const getProjectBySlug = async (slug: string): Promise<Project> => {
   const response = await fetch(`https://content.gotripod.com/wp-json/wp/v2/project?slug=${slug}`)
-  const json = await response.json() as any
+  const json = (await response.json()) as any
   const post = json[0]
 
   const heroMedia = await getMediaById(post.acf.project_hero)
@@ -193,6 +179,10 @@ interface PageGqlResponse {
       sectionSubtitle: string
       sectionTitle: string
     }
+    hero: {
+      subTitle: string
+      heroImage: GQLMediaItem
+    }
   }
 }
 
@@ -207,40 +197,40 @@ interface MenuGqlResponse {
   }
 }
 
-export const getMenu = async(): Promise<Menu[]> => {
+export const getMenu = async (): Promise<Menu[]> => {
   const query = gql`
-  query {
-    menu(id: "dGVybToy") {
-      count
-      id
-      databaseId
-      name
-      slug
-      menuItems {
-        nodes {
-          id
-          databaseId
-          title
-          url
-          cssClasses
-          description
-          label
-          linkRelationship
-          target
-          parentId
+    query {
+      menu(id: "dGVybToy") {
+        count
+        id
+        databaseId
+        name
+        slug
+        menuItems {
+          nodes {
+            id
+            databaseId
+            title
+            url
+            cssClasses
+            description
+            label
+            linkRelationship
+            target
+            parentId
+          }
         }
       }
     }
-  }
-`
+  `
 
-const gQuery = ac.query<MenuGqlResponse>({ query })
+  const gQuery = ac.query<MenuGqlResponse>({ query })
 
   const response = await gQuery
 
   const menu = response.data.menu
 
-  return menu.menuItems.nodes.map(x => {
+  return menu.menuItems.nodes.map((x) => {
     return {
       label: x.label,
       url: x.url
@@ -272,6 +262,16 @@ const getPageBySlug = async (slug: string): Promise<WPPage> => {
           sectionSubtitle
           sectionTitle
         }
+        hero {
+          subTitle
+          heroImage {
+            caption
+            altText
+            title
+            guid
+            srcSet
+          }
+        }
       }
     }
   `
@@ -282,7 +282,7 @@ const getPageBySlug = async (slug: string): Promise<WPPage> => {
 
   const page = response.data.page
 
-  console.log('Page fetched', JSON.stringify(page))
+  // console.log('Page fetched', JSON.stringify(page))
 
   return {
     title: page.title,
@@ -298,8 +298,10 @@ const getPageBySlug = async (slug: string): Promise<WPPage> => {
     section: {
       body: page.section.sectionBody,
       subtitle: page.section.sectionSubtitle,
-      title: page.section.sectionTitle,
-    }
+      title: page.section.sectionTitle
+    },
+    subTitle: page.hero.subTitle,
+    hero: page.hero.heroImage
   }
 }
 
@@ -307,7 +309,7 @@ const getPostBySlug = async (slug: string): Promise<Post> => {
   const response = await fetch(
     `https://content.gotripod.com/wp-json/wp/v2/posts?_embed=1&slug=${slug}`
   )
-  const json = await response.json()  as any
+  const json = (await response.json()) as any
   const post = json[0]
   const teamMemberId = post.acf.article_author.ID
   let teamMemberJson
@@ -315,7 +317,7 @@ const getPostBySlug = async (slug: string): Promise<Post> => {
     const tmUrl = `https://content.gotripod.com/wp-json/wp/v2/team_member/${teamMemberId}`
 
     const teamMemberResponse = await fetch(tmUrl)
-    teamMemberJson = await teamMemberResponse.json() as any
+    teamMemberJson = (await teamMemberResponse.json()) as any
   }
   return {
     yoastHtml: post.yoast_head,
@@ -332,7 +334,8 @@ const getPostBySlug = async (slug: string): Promise<Post> => {
       ? {
           name: teamMemberJson.title.rendered as string,
           position: teamMemberJson.acf.team_member_position as string,
-          imageUrl: teamMemberJson.team_member_image[teamMemberJson.acf.team_member_image].guid as string
+          imageUrl: teamMemberJson.team_member_image[teamMemberJson.acf.team_member_image]
+            .guid as string
         }
       : undefined
   }
@@ -358,7 +361,7 @@ const getPostsPage = async (
   }${categoryId ? `&categories=${categoryId}` : ''}${tagId ? `&tags=${tagId}` : ''}`
   // console.log('Fetching posts', url)
   const response = await fetch(url)
-  const posts = await response.json()  as any
+  const posts = (await response.json()) as any
 
   return {
     posts: posts.map((post: any) => ({
@@ -370,9 +373,9 @@ const getPostsPage = async (
       link: post.link
     })),
     pagination: {
-     currentPage: page,
-    totalItems: Number(response.headers.get('x-wp-total')),
-    pageCount: Number(response.headers.get('x-wp-totalpages')) 
+      currentPage: page,
+      totalItems: Number(response.headers.get('x-wp-total')),
+      pageCount: Number(response.headers.get('x-wp-totalpages'))
     }
   }
 }
@@ -389,4 +392,3 @@ export {
   getPostsPage,
   getPageBySlug
 }
-

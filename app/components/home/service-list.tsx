@@ -8,20 +8,31 @@ interface Props {
 
 const ServiceList = ({ services }: Props) => {
   return (
-    <ul className='list-none z-100 relative -mt-14 px-6 md:px-0'>
+    <ul className="list-none z-100 relative px-6 md:mt-8 md:px-0">
       {services.map((service, idx) => (
-        <li key={idx}  className='mb-16'>
+        <li key={idx} className="mb-16">
           <BaseCard alternate={idx % 2 !== 0}>
             <div className="">
-
               <div className="z-10 relative py-2 md:py-8 md:w-[50%]">
-                {idx === 0 && <h1 className='text-headingBlue text-3xl md:text-4xl font-bold'>We are Go Tripod.</h1>}
-                <h2 className='text-3xl md:text-4xl font-bold'>{service.title}</h2>
-                <div className='text-lg mt-8 mb-8 text-gray-400' dangerouslySetInnerHTML={{ __html: service.body }} />
+                {idx === 0 && (
+                  <h1 className="text-headingBlue text-3xl md:text-4xl font-bold">
+                    We are Go Tripod.
+                  </h1>
+                )}
+                <h2 className="text-3xl md:text-4xl font-bold">{service.title}</h2>
+                <div
+                  className="text-lg mt-8 mb-8 text-gray-400"
+                  dangerouslySetInnerHTML={{ __html: service.body }}
+                />
                 <Enquire to="/contact">Enquire</Enquire>
               </div>
 
-                <img className='hidden md:block absolute right-0 bottom-0 w-[60%] z-0' src={service.imageUrl} alt={service.title} loading="lazy" />
+              <img
+                className="hidden md:block absolute right-0 bottom-0 w-[60%] z-0"
+                src={service.imageUrl}
+                alt={service.title}
+                loading="lazy"
+              />
             </div>
           </BaseCard>
         </li>
