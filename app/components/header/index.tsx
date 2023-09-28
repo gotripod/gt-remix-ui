@@ -12,7 +12,10 @@ const Header = React.memo(() => {
   const isWorkSubpage = router.pathname.startsWith('/work/')
 
   return (
-    <header className={`bg-black text-center relative z-50 ${isWorkSubpage ? 'pb-96' : 'pb-14'}`}>
+    <header
+      className={`bg-black text-center relative z-50 ${
+        isWorkSubpage ? 'md:pb-96' : 'pb-16 md:pb-14'
+      }`}>
       {isWorkSubpage ? null : <PageTitle />}
       <img
         style={{
@@ -29,7 +32,7 @@ const Header = React.memo(() => {
         alt=""
         src={hero?.guid}
         srcSet={hero?.srcSet}
-        className="absolute object-contain md:object-cover object-top md:object-center grayscale-[50%] opacity-60 blur-[1px] md:blur-[3px]"
+        className="absolute md:object-cover object-top md:object-center grayscale-[50%] opacity-60 blur-[1px] md:blur-[3px]"
       />
     </header>
   )

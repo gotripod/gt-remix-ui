@@ -36,7 +36,7 @@ const Index = () => {
   const { projects } = useLoaderData<typeof loader>()
 
   return (
-    <Column className="px-4 md:px-0 -mt-28 md:mt-0">
+    <Column className="px-4 md:px-0 -mt-20 md:mt-0">
       <div className="md:grid grid-cols-3 gap-8 mt-12">
         {projects.map((project) => (
           <Link to={`/work/${project.link}`} key={project.id} className="block mb-8 md:mb-0">

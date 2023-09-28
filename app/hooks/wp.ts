@@ -39,15 +39,13 @@ export const usePageTitles = () => {
   const pageMatch = matches.find((x) => 'page' in x.data)
 
   if (postMatch) {
-    console.log('postMatch')
-    const { post } = postMatch.data
+    const { post } = postMatch.data as { post: { title: string } }
 
     return {
       title: post.title,
       subTitle: undefined
     }
   } else if (postsMatch) {
-    console.log('postMatch')
     const { category, tag, pageNumber } = postsMatch.data
 
     return {

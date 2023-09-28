@@ -56,7 +56,7 @@ const SinglePostPage = () => {
   const { project } = useLoaderData()
 
   return project ? (
-    <Column className="-mt-[21rem]">
+    <Column className="mt-8 pt-12 md:pt-0 md:-mt-[21rem]">
       <MediaImage className="mb-8" media={project.heroMedia} />
       <div className="bg-white shadow-card py-4 md:py-24 text-lg">
         {project.blocks.map((block: unknown, i: number) => (

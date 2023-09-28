@@ -28,6 +28,7 @@ const LargeNav = ({ className }: Props) => {
                 className="px-6 mt-12 mb-12 text-gray-150 text-lg font-bold font-['Cabin']"
                 key={url}>
                 <NavLink
+                  prefetch="intent"
                   className={({ isActive, isPending }) =>
                     classNames(
                       isPending ? 'pending' : isActive ? 'border-b-white' : '',

@@ -127,7 +127,7 @@ export default function App() {
             <SmallNav />
             <Header />
 
-            <div className="relative z-[250] -mt-20">
+            <div className="relative z-[250] -mt-8 md:-mt-20">
               <Outlet />
             </div>
 

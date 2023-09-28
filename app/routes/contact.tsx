@@ -25,7 +25,7 @@ export const meta = mergeMeta(
 const Contact = () => {
   const { page } = useLoaderData<typeof loader>()
   return (
-    <Column className="mt-12">
+    <Column className="md:mt-12">
       <BaseCard cardflare={false} className="py-12 px-8">
         <div className="text-xl mb-20" dangerouslySetInnerHTML={{ __html: page.body }}></div>
         <div className="md:grid grid-cols-[65%_auto] gap-16">
