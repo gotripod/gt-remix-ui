@@ -1,10 +1,12 @@
 name = "remix-cloudflare-workers"
 compatibility_flags = [ "nodejs_compat" ]
 workers_dev = true
-main = "./build/index.js"
+main = "./server.js"
 # https://developers.cloudflare.com/workers/platform/compatibility-dates
 compatibility_date = "2023-04-20"
 
 [site]
-  bucket = "./public"
+bucket = "./build/client"
 
+[build]
+command = "npm run build"
