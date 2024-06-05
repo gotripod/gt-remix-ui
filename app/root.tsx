@@ -1,8 +1,7 @@
-import type { LoaderArgs } from '@remix-run/cloudflare'
+import type { LoaderFunctionArgs } from '@remix-run/cloudflare'
 import { json, type LinksFunction } from '@remix-run/cloudflare'
 import {
   Links,
-  LiveReload,
   Meta,
   Outlet,
   Scripts,
@@ -10,10 +9,8 @@ import {
   useLoaderData,
   useLocation
 } from '@remix-run/react'
-import stylesheet from '~/tailwind.css'
-import { cssBundleHref } from '@remix-run/css-bundle'
-import { lazy, Suspense, useEffect } from 'react'
-import rdtStylesheet from 'remix-development-tools/stylesheet.css'
+import stylesheet from '~/tailwind.css?url'
+import { useEffect } from 'react'
 import { getMenu, getTestimonial } from './api'
 import * as gtag from '~/helpers/google.client'
 import Column from './components/column'
@@ -24,9 +21,6 @@ import Testimonials from './components/home/testimonials'
 import LargeNav from './components/nav/large'
 import SmallNav from './components/nav/small'
 import ToTop from './components/to-top'
-
-const RemixDevTools =
-  process.env.NODE_ENV === 'development' ? lazy(() => import('remix-development-tools')) : undefined
 
 export const meta = () => [
   { charset: 'utf-8' },
@@ -59,15 +53,11 @@ export const links: LinksFunction = () => {
       rel: 'stylesheet',
       href: 'https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap'
     },
-    ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
     // {
     //   rel: "stylesheet",
     //   href: styles,
     // },
     { rel: 'stylesheet', href: stylesheet },
-    ...(rdtStylesheet && process.env.NODE_ENV === 'development'
-      ? [{ rel: 'stylesheet', href: rdtStylesheet }]
-      : [])
   ]
 }
 
@@ -75,8 +65,8 @@ interface Env {
   GA_TRACKING_ID: string | undefined
 }
 
-export const loader = async ({ context }: LoaderArgs) => {
-  const env = context.env as Env
+export const loader = async ({ context }: LoaderFunctionArgs) => {
+  const env = (context.env || {}) as Env
 
   // For child routes/components
   const menu = await getMenu()
@@ -100,7 +90,8 @@ export default function App() {
         <Links />
       </head>
       <body>
-        {process.env.NODE_ENV === 'development' || !gaTrackingId ? null : (
+        <script type="text/javascript" src="https://widget.clutch.co/static/js/widget.js" async />
+        {!gaTrackingId ? null : (
           <>
             <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaTrackingId}`} />
             <script
@@ -142,13 +133,8 @@ export default function App() {
         </>
 
         <ScrollRestoration />
-        {false && <Scripts />}
-        <LiveReload />
-        {RemixDevTools && (
-          <Suspense>
-            <RemixDevTools />
-          </Suspense>
-        )}
+        <Scripts />
+
       </body>
     </html>
   )

@@ -3,33 +3,33 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "build": "remix build",
-    "deploy": "remix build && wrangler publish",
-    "dev": "remix dev --manual -c \"npm start\"",
-    "start": "wrangler dev ./build/index.js",
+    "build": "remix vite:build",
+    "deploy": "wrangler deploy",
+    "dev": "remix vite:dev",
+    "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
+    "start": "wrangler dev ./server.js",
+    "typegen": "wrangler types",
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.17",
-    "@remix-run/cloudflare": "1.19.3",
-    "@remix-run/cloudflare-workers": "1.19.3",
-    "@remix-run/css-bundle": "1.19.3",
-    "@remix-run/react": "1.19.3",
-    "classnames": "^2.3.2",
+    "@apollo/client": "^3.10.4",
+    "@remix-run/cloudflare": "^2.9.2",
+    "@remix-run/react": "^2.9.2",
+    "classnames": "^2.5.1",
     "deep-map-keys": "^2.0.1",
     "he": "^1.2.0",
-    "html-react-parser": "^4.2.0",
-    "isbot": "^3.6.13",
+    "html-react-parser": "^5.1.10",
+    "isbot": "^5.1.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
-    "remix-sitemap": "^2.2.7"
+    "remix-sitemap": "^3.2.0"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^3.19.0",
-    "@remix-run/dev": "1.19.3",
-    "@remix-run/eslint-config": "1.19.3",
-    "@tailwindcss/forms": "^0.5.4",
+    "@cloudflare/workers-types": "^4.20240603.0",
+    "@remix-run/dev": "^2.9.2",
+    "@remix-run/eslint-config": "^2.9.2",
+    "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/typography": "^0.5.9",
     "@types/he": "^1.2.0",
     "@types/react": "^18.2.17",
@@ -38,16 +38,17 @@
     "@typescript-eslint/parser": "^6.6.0",
     "eslint": "^8.45.0",
     "eslint-plugin-unused-imports": "^3.0.0",
-    "miniflare": "^3.20230724.0",
+    "miniflare": "^3.20240524.2",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.8.8",
-    "react-html-props": "^2.0.3",
-    "remix-development-tools": "^1.4.1",
-    "tailwindcss": "^3.3.3",
-    "typescript": "^5.1.6",
-    "wrangler": "^3.8.0"
+    "react-html-props": "^2.0.9",
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.12",
+    "vite-tsconfig-paths": "^4.3.2",
+    "wrangler": "^3.59.0"
   },
   "engines": {
-    "node": ">=16.13"
+    "node": ">=20.0.0"
   }
 }
