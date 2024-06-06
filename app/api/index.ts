@@ -308,8 +308,9 @@ const getPageBySlug = async (slug: string): Promise<WPPage> => {
 export const getPostPreview = async(id: string, nonce: string): Promise<Post> => {
   console.log('sending nonce', nonce)
   const response = await fetch(
-    `https://content.gotripod.com/wp-json/wp/v2/posts?_embed=1&id=${id}`,
+    `https://content.gotripod.com/wp-json/wp/v2/posts${id}?preview=true&_wpnonce=${nonce}&_embed=1`,
     {
+      credentials: "include",
       headers: {
         'X-WP-Nonce': nonce
       }
