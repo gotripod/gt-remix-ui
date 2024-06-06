@@ -15,9 +15,9 @@
 import Column from '../components/column'
 import Single from './insights/single'
 import { useLoaderData } from '@remix-run/react'
-import type { LoaderArgs } from '@remix-run/cloudflare'
+import type { LoaderFunctionArgs } from '@remix-run/cloudflare'
 import { json } from '@remix-run/cloudflare'
-import { getPostBySlug, getTestimonial } from '~/api'
+import { getPostBySlug, getPostPreview, getTestimonial } from '~/api'
 import { invariant } from '@apollo/client/utilities/globals'
 import { mergeMeta, parentTitles } from '~/helpers/seo'
 import type { SitemapFunction } from 'remix-sitemap'
@@ -56,7 +56,23 @@ export const meta = mergeMeta(
   }
 )
 
-export const loader = async ({ params }: LoaderArgs) => {
+export const loader = async ({ params, request }: LoaderFunctionArgs) => {
+  console.log('preview')
+const url = new URL(request.url)
+  if(url.searchParams.has('preview')) {
+    const id  =url.searchParams.get('post')
+    const nonce = url.searchParams.get('nonce')
+    invariant(id)
+    invariant(nonce)
+    const post  = await getPostPreview(id, nonce)
+
+
+    return json({
+      post: post
+    })
+  }
+
+
   invariant(params.slug)
 
   const testimonial = await getTestimonial()
