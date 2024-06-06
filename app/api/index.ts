@@ -305,11 +305,31 @@ const getPageBySlug = async (slug: string): Promise<WPPage> => {
   }
 }
 
+export const getPostPreview = async(id: string, nonce: string): Promise<Post> => {
+  console.log('sending nonce', nonce)
+  const response = await fetch(
+    `https://content.gotripod.com/wp-json/wp/v2/posts?_embed=1&id=${id}`,
+    {
+      headers: {
+        'X-WP-Nonce': nonce
+      }
+    }
+  )
+  const json = (await response.json()) as any
+  console.log(json)
+  return postResponseToPost(json)
+}
+
 const getPostBySlug = async (slug: string): Promise<Post> => {
   const response = await fetch(
     `https://content.gotripod.com/wp-json/wp/v2/posts?_embed=1&slug=${slug}`
   )
   const json = (await response.json()) as any
+  
+  return postResponseToPost(json)
+}
+
+const postResponseToPost = async(json: any): Promise<Post> => {
   const post = json[0]
   const teamMemberId = post.acf.article_author.ID
   let teamMemberJson
