@@ -30,7 +30,7 @@ const Label = (props: LabelProps) => (
 const Contact = () => (
   <Column>
     <div className="bg-gradient-to-r from-[#4291ce] to-[#6ba9d9] text-[#ededed] text-center my-8 py-8 md:my-16 md:py-24">
-      <h1 className="font-bold text-4xl">Got an idea for a project?</h1>
+      <h4 className="font-bold text-4xl">Got an idea for a project?</h4>
 
       <p className="mx-8 my-8 md:my-0 md:mx-0">
         Need a website? Web-enabled software to streamline your business? Just some advice?
