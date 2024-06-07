@@ -16,7 +16,7 @@ import type { Post, Testimonial } from '~/types'
 import Column from '../components/column'
 import List from './insights/list'
 import { useLoaderData } from '@remix-run/react'
-import type { LoaderArgs } from '@remix-run/cloudflare'
+import type { LoaderFunctionArgs} from '@remix-run/cloudflare';
 import { json } from '@remix-run/cloudflare'
 import type { PostPageParams } from '~/api'
 import { getCategoryBySlug, getPageBySlug, getPostsPage, getTagBySlug } from '~/api'
@@ -49,7 +49,7 @@ export const meta = mergeMeta<typeof loader>(
   }
 )
 
-export const loader = async ({ params }: LoaderArgs) => {
+export const loader = async ({ params }: LoaderFunctionArgs) => {
   const postParams: PostPageParams = {}
 
   let category, pageNumber, tag

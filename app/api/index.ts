@@ -305,19 +305,17 @@ const getPageBySlug = async (slug: string): Promise<WPPage> => {
   }
 }
 
-export const getPostPreview = async(id: string, nonce: string): Promise<Post> => {
-  console.log('sending nonce', nonce)
+export const getPostPreview = async(id: string, nonce: string, request: Request): Promise<Post> => {
+  console.log('sending nonce and cookies', nonce, request.headers.get('cookie'))
+
+
   const response = await fetch(
-    `https://content.gotripod.com/wp-json/wp/v2/posts${id}?preview=true&_wpnonce=${nonce}&_embed=1`,
+    `https://content.gotripod.com/wp-json/wp/v2/posts/${id}?preview=true&_wpnonce=${nonce}&_embed=1`,
     {
-      credentials: "include",
-      headers: {
-        'X-WP-Nonce': nonce
-      }
+      headers: { cookie: request.headers.get("cookie") || '' }
     }
   )
   const json = (await response.json()) as any
-  console.log(json)
   return postResponseToPost(json)
 }
 
@@ -327,12 +325,42 @@ const getPostBySlug = async (slug: string): Promise<Post> => {
   )
   const json = (await response.json()) as any
   
-  return postResponseToPost(json)
+  return postResponseToPost(json[0])
 }
 
-const postResponseToPost = async(json: any): Promise<Post> => {
-  const post = json[0]
-  const teamMemberId = post.acf.article_author.ID
+interface PostResponse {
+  acf?: {
+    article_author: {
+      ID: number
+    } | false
+  }
+  yoast_head: string
+  id: number
+  title: {
+    rendered: string
+  }
+  content: {
+    rendered: string
+  }
+  date: string
+  slug: string
+  link: string
+  _embedded: {
+    'wp:term': Array<{
+      name: string
+      link: string
+      taxonomy: string
+      slug: string
+      id: number
+    }>
+  }
+
+}
+
+const postResponseToPost = async(post: PostResponse): Promise<Post> => {
+  console.log('post.acf', post.acf)
+  const teamMemberId = post.acf?.article_author ? post.acf.article_author.ID : null
+  console.log('teamMemberId', teamMemberId)
   let teamMemberJson
   if (teamMemberId) {
     const tmUrl = `https://content.gotripod.com/wp-json/wp/v2/team_member/${teamMemberId}`
@@ -350,7 +378,7 @@ const postResponseToPost = async(json: any): Promise<Post> => {
     link: post.link,
     taxonomies: post._embedded['wp:term']
       .flat()
-      .map(({ name, link, taxonomy, slug }: any) => ({ name, link, taxonomy, slug })),
+      .map(({ id, name, link, taxonomy, slug }) => ({ id, name, link, taxonomy, slug })),
     teamMember: teamMemberJson
       ? {
           name: teamMemberJson.title.rendered as string,

@@ -7,7 +7,7 @@ import BaseCard from '~/components/home/base-card'
 import Column from '../components/column'
 import { mergeMeta } from '~/helpers/seo'
 
-export const meta = mergeMeta(
+export const meta = mergeMeta<typeof loader>(
   () => [],
   ({ data }) => {
     return [

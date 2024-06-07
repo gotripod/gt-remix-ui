@@ -4,24 +4,10 @@ import { getPageBySlug } from '~/api'
 
 import Column from '../components/column'
 import { mergeMeta } from '~/helpers/seo'
-import type { LoaderArgs } from '@remix-run/cloudflare'
+import type { LoaderFunctionArgs } from '@remix-run/cloudflare'
 import { json } from '@remix-run/cloudflare'
 
-const nth = function (d: number) {
-  if (d > 3 && d < 21) return 'th'
-  switch (d % 10) {
-    case 1:
-      return 'st'
-    case 2:
-      return 'nd'
-    case 3:
-      return 'rd'
-    default:
-      return 'th'
-  }
-}
-
-export const meta = mergeMeta(
+export const meta = mergeMeta<typeof loader>(
   () => [],
   ({ data }) => {
     return [
@@ -35,11 +21,15 @@ export const meta = mergeMeta(
 )
 
 const PageUI = () => {
-  const { page } = useLoaderData()
+  const { page } = useLoaderData<typeof loader>()
 
   return (
     <Column className="mt-8">
-      <main dangerouslySetInnerHTML={{ __html: page.body }}></main>
+      <main className="card-base cardflare">
+        <div
+          className="card-inner prose max-w-none"
+          dangerouslySetInnerHTML={{ __html: page.body }}></div>
+      </main>
     </Column>
   )
 }
@@ -48,7 +38,7 @@ const PageUI = () => {
 //   ${theme.contentStyles}
 // `
 
-export const loader = async ({ params }: LoaderArgs) => {
+export const loader = async ({ params }: LoaderFunctionArgs) => {
   const filePath = params['*']
 
   if (!filePath) {
