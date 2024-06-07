@@ -10,7 +10,7 @@ export interface WPPost {
   slug: string
   title: {
     rendered: string
-  },
+  }
   status: 'publish' | 'draft'
 }
 
@@ -24,12 +24,12 @@ export interface WPPage {
   yoast: {
     metaDesc: string
     metaKeywords: string
-  },
+  }
   section: {
     body: string
     subtitle: string
     title: string
-  },
+  }
   subTitle: string
   hero: GQLMediaItem
 }
@@ -63,7 +63,6 @@ export interface Service {
   title: string
   imageUrl: string
 }
-
 
 export interface Tag {
   id: number
@@ -101,6 +100,7 @@ export interface Project {
   id: number
   heroMedia: MediaItem
   title: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   blocks: any[]
   logoUrl?: string
 }
@@ -206,11 +206,11 @@ export interface Links {
 
 export interface MediaItem {
   id: number
-  date: Date
-  date_gmt: Date
+  date: string
+  date_gmt: string
   guid: Guid
-  modified: Date
-  modified_gmt: Date
+  modified: string
+  modified_gmt: string
   slug: string
   status: string
   type: string

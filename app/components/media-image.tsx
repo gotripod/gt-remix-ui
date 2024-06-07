@@ -1,4 +1,4 @@
-import { MediaItem } from '~/types'
+import type { MediaItem } from '~/types'
 
 interface Props {
   media: MediaItem

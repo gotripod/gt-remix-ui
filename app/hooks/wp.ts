@@ -1,12 +1,16 @@
+import type { SerializeFrom } from '@remix-run/cloudflare'
 import { useMatches } from '@remix-run/react'
+import type { loader } from '~/routes/insights'
 import type { Category, Taxonomy, WPPage } from '~/types'
 
 export const useHero = () => {
   const matches = useMatches()
 
-  const match = matches.find((x) => 'page' in x.data)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const match = matches.find((x: any) => 'page' in x.data)
   if (match) {
-    const page = match.data.page as WPPage
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const page = (match.data as any).page as WPPage
     return page.hero as GQLMediaItem
   }
 
@@ -34,9 +38,14 @@ const buildTitle = (
 export const usePageTitles = () => {
   const matches = useMatches()
 
-  const postsMatch = matches.find((x) => 'posts' in x.data)
-  const postMatch = matches.find((x) => 'post' in x.data)
-  const pageMatch = matches.find((x) => 'page' in x.data)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const postsMatch = matches.find((x: any) => 'posts' in x.data)
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const postMatch = matches.find((x: any) => 'post' in x.data)
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const pageMatch = matches.find((x: any) => 'page' in x.data)
 
   if (postMatch) {
     const { post } = postMatch.data as { post: { title: string } }
@@ -46,14 +55,14 @@ export const usePageTitles = () => {
       subTitle: undefined
     }
   } else if (postsMatch) {
-    const { category, tag, pageNumber } = postsMatch.data
+    const { category, tag, pageNumber } = postsMatch.data as SerializeFrom<typeof loader>
 
     return {
       title: buildTitle(category, tag, pageNumber),
       subTitle: undefined
     }
   } else if (pageMatch) {
-    const page = pageMatch.data.page as WPPage
+    const { page } = pageMatch.data as SerializeFrom<typeof loader>
 
     return {
       title: page.title,

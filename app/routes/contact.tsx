@@ -9,7 +9,7 @@ import Map from '../components/contact/map'
 import type { AddressProps, ULProps } from 'react-html-props'
 import { mergeMeta } from '~/helpers/seo'
 
-export const meta = mergeMeta(
+export const meta = mergeMeta<typeof loader>(
   () => [],
   ({ data }) => {
     return [

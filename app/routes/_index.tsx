@@ -20,7 +20,7 @@ export const headers: HeadersFunction = () => {
   }
 }
 
-export const meta = mergeMeta(
+export const meta = mergeMeta<typeof loader>(
   () => [],
   ({ data }) => {
     return [

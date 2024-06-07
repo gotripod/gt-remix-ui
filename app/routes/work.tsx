@@ -16,7 +16,7 @@ const ProjectItemLink = (props: DivProps) => (
   </div>
 )
 
-export const meta = mergeMeta(
+export const meta = mergeMeta<typeof loader>(
   () => {
     return []
   },

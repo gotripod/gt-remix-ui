@@ -5,11 +5,9 @@ export const cardClasses = (alternate = false, cardflare = true) =>
   `card-base ${cardflare ? 'cardflare' : ''} ${alternate ? 'cardflare-alt' : ''}`
 
 const BaseCard = (props: DivProps & { alternate?: boolean; cardflare?: boolean }) => {
-  const { alternate, ...other } = props
+  const { alternate, cardflare, ...other } = props
   return (
-    <div
-      {...other}
-      className={classNames(cardClasses(alternate, props.cardflare), props.className)}>
+    <div {...other} className={classNames(cardClasses(alternate, cardflare), props.className)}>
       <div className="card-inner">{props.children}</div>
     </div>
   )

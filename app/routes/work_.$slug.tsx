@@ -1,5 +1,5 @@
 //#region imports
-import type { LoaderArgs } from '@remix-run/cloudflare'
+import type { LoaderFunctionArgs } from '@remix-run/cloudflare'
 import { json } from '@remix-run/cloudflare'
 import { useLoaderData } from '@remix-run/react'
 import type { SitemapFunction } from 'remix-sitemap'
@@ -53,7 +53,7 @@ export const meta = mergeMeta<typeof loader>(
 //#region component
 
 const SinglePostPage = () => {
-  const { project } = useLoaderData()
+  const { project } = useLoaderData<typeof loader>()
 
   return project ? (
     <Column className="mt-8 pt-12 md:pt-0 md:-mt-[21rem]">
@@ -92,7 +92,7 @@ export default SinglePostPage
 
 //#region data
 
-export const loader = async (context: LoaderArgs) => {
+export const loader = async (context: LoaderFunctionArgs) => {
   const slug = Array.isArray(context.params.slug) ? context.params.slug[0] : context.params.slug
 
   const [project, page] = await Promise.all([getProjectBySlug(slug), getPageBySlug('work')])

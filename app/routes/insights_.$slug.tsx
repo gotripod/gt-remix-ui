@@ -43,7 +43,7 @@ export const sitemap: SitemapFunction = async ({ config }) => {
   }))
 }
 
-export const meta = mergeMeta(
+export const meta = mergeMeta<typeof loader>(
   () => [],
   ({ data, matches }) => {
     return [
@@ -57,21 +57,19 @@ export const meta = mergeMeta(
 )
 
 export const loader = async ({ params, request }: LoaderFunctionArgs) => {
-  console.log('preview')
-const url = new URL(request.url)
-  if(url.searchParams.has('preview')) {
-    const id  =url.searchParams.get('post')
+  const url = new URL(request.url)
+  if (url.searchParams.has('preview')) {
+    const id = url.searchParams.get('post')
     const nonce = url.searchParams.get('nonce')
     invariant(id)
     invariant(nonce)
-    const post  = await getPostPreview(id, nonce)
 
+    const post = await getPostPreview(id, nonce, request)
 
     return json({
       post: post
     })
   }
-
 
   invariant(params.slug)
 
