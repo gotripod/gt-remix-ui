@@ -87,6 +87,7 @@ export interface Post {
   link: string
   id: number
   title: string
+  featuredMedia: MediaDetails
   content: string
   taxonomies: Taxonomy[]
   teamMember?: {

@@ -7,7 +7,8 @@ import {
   Scripts,
   ScrollRestoration,
   useLoaderData,
-  useLocation
+  useLocation,
+  useRouteError
 } from '@remix-run/react'
 import stylesheet from '~/tailwind.css?url'
 import { useEffect } from 'react'
@@ -57,12 +58,30 @@ export const links: LinksFunction = () => {
     //   rel: "stylesheet",
     //   href: styles,
     // },
-    { rel: 'stylesheet', href: stylesheet },
+    { rel: 'stylesheet', href: stylesheet }
   ]
 }
 
 interface Env {
   GA_TRACKING_ID: string | undefined
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError()
+  console.error(error)
+  return (
+    <html>
+      <head>
+        <title>Oh no!</title>
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <h1>There was an unexpected error!</h1>
+        <Scripts />
+      </body>
+    </html>
+  )
 }
 
 export const loader = async ({ context }: LoaderFunctionArgs) => {
@@ -134,7 +153,6 @@ export default function App() {
 
         <ScrollRestoration />
         <Scripts />
-
       </body>
     </html>
   )

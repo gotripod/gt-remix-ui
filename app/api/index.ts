@@ -4,6 +4,7 @@ import he from 'he'
 import { keysToCamelDeep } from '~/helpers/keys-to-camel'
 import type {
   Category,
+  MediaDetails,
   MediaItem,
   Menu,
   Pagination,
@@ -305,14 +306,17 @@ const getPageBySlug = async (slug: string): Promise<WPPage> => {
   }
 }
 
-export const getPostPreview = async(id: string, nonce: string, request: Request): Promise<Post> => {
+export const getPostPreview = async (
+  id: string,
+  nonce: string,
+  request: Request
+): Promise<Post> => {
   console.log('sending nonce and cookies', nonce, request.headers.get('cookie'))
-
 
   const response = await fetch(
     `https://content.gotripod.com/wp-json/wp/v2/posts/${id}?preview=true&_wpnonce=${nonce}&_embed=1`,
     {
-      headers: { cookie: request.headers.get("cookie") || '' }
+      headers: { cookie: request.headers.get('cookie') || '' }
     }
   )
   const json = (await response.json()) as any
@@ -324,15 +328,17 @@ const getPostBySlug = async (slug: string): Promise<Post> => {
     `https://content.gotripod.com/wp-json/wp/v2/posts?_embed=1&slug=${slug}`
   )
   const json = (await response.json()) as any
-  
+
   return postResponseToPost(json[0])
 }
 
 interface PostResponse {
   acf?: {
-    article_author: {
-      ID: number
-    } | false
+    article_author:
+      | {
+          ID: number
+        }
+      | false
   }
   yoast_head: string
   id: number
@@ -346,6 +352,12 @@ interface PostResponse {
   slug: string
   link: string
   _embedded: {
+    'wp:featuredmedia': Array<{
+      title: {
+        rendered: string
+      }
+      media_details: MediaDetails
+    }>
     'wp:term': Array<{
       name: string
       link: string
@@ -354,10 +366,9 @@ interface PostResponse {
       id: number
     }>
   }
-
 }
 
-const postResponseToPost = async(post: PostResponse): Promise<Post> => {
+const postResponseToPost = async (post: PostResponse): Promise<Post> => {
   console.log('post.acf', post.acf)
   const teamMemberId = post.acf?.article_author ? post.acf.article_author.ID : null
   console.log('teamMemberId', teamMemberId)
@@ -371,6 +382,8 @@ const postResponseToPost = async(post: PostResponse): Promise<Post> => {
   return {
     yoastHtml: post.yoast_head,
     id: post.id,
+    featuredMedia:
+      post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'][0].media_details,
     title: he.decode(post.title.rendered),
     content: post.content.rendered,
     date: post.date,

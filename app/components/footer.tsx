@@ -7,6 +7,7 @@ import {
 import Link from './link'
 import type { FooterProps, NavProps, PProps } from 'react-html-props'
 import { useMenu } from '~/hooks/menu'
+import { ClientOnly } from 'remix-utils/client-only'
 
 const Footer = () => {
   const menu = useMenu()
@@ -65,8 +66,20 @@ const Footer = () => {
       </div>
 
       <ul className="list-none px-8 xl:p-0 flex justify-center md:justify-end max-w-[1140px] md:text-base mx-auto mb-4 mt-0 items-center">
-        <li className='flex-1'>
-          <div className="clutch-widget" data-url="https://widget.clutch.co" data-widget-type="1" data-height="40" data-nofollow="true" data-expandifr="true" data-scale="100" data-clutchcompany-id="1916066"></div>
+        <li className="flex-1">
+          <ClientOnly>
+            {() => (
+              <div
+                className="clutch-widget"
+                data-url="https://widget.clutch.co"
+                data-widget-type="1"
+                data-height="40"
+                data-nofollow="true"
+                data-expandifr="true"
+                data-scale="100"
+                data-clutchcompany-id="1916066"></div>
+            )}
+          </ClientOnly>
         </li>
         <li className="mr-2">
           <a
@@ -95,7 +108,6 @@ const Footer = () => {
             <Linkedin size={18} color={'white'} />
           </a>
         </li>
-        
       </ul>
 
       <Rights className="bg-zinc-800 text-sm py-4 px-4 md:px-8">

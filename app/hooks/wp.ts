@@ -1,17 +1,26 @@
 import type { SerializeFrom } from '@remix-run/cloudflare'
 import { useMatches } from '@remix-run/react'
 import type { loader } from '~/routes/insights'
-import type { Category, Taxonomy, WPPage } from '~/types'
+import type { Category, Post, Taxonomy, WPPage } from '~/types'
 
 export const useHero = () => {
   const matches = useMatches()
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const match = matches.find((x: any) => 'page' in x.data)
-  if (match) {
+  const pageMatch = matches.find((x: any) => 'page' in x.data)
+  if (pageMatch) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const page = (match.data as any).page as WPPage
+    const page = (pageMatch.data as any).page as WPPage
     return page.hero as GQLMediaItem
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const postMatch = matches.find((x: any) => 'post' in x.data)
+
+  if (postMatch) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const post = (postMatch.data as any).post as Post
+    return post.featuredMedia
   }
 
   return undefined

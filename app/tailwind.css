@@ -12,6 +12,10 @@ h2 {
 }
 
 @layer utilities {
+  .is-layout-flex {
+    @apply md:flex gap-8;
+  }
+
   .fancy {
     position: relative;
   }

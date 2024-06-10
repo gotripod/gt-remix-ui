@@ -30,9 +30,9 @@ const Header = React.memo(() => {
           setLoaded(true)
         }}
         alt=""
-        src={hero?.guid}
-        srcSet={hero?.srcSet}
-        className="absolute md:object-cover object-top md:object-center grayscale-[50%] opacity-60 blur-[1px] md:blur-[3px]"
+        src={hero && ('srcSet' in hero ? hero.guid : hero.sizes.full.source_url)}
+        srcSet={hero && 'srcSet' in hero ? hero?.srcSet : ''}
+        className="absolute object-cover object-top grayscale-[30%] opacity-90 blur-[1px] md:blur-[2px]"
       />
     </header>
   )

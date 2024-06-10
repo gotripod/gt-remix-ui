@@ -31,5 +31,5 @@ export default {
     }
   },
   plugins: [forms, typography],
-  safelist: ['fancy']
+  safelist: ['fancy', 'is-layout-flex']
 } satisfies Config
