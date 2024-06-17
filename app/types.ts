@@ -82,6 +82,10 @@ export interface Taxonomy {
 
 export interface Post {
   yoastHtml: string
+  yoastHeadJson: {
+    title: string
+    description: string
+  }
   date: string
   slug: string
   link: string

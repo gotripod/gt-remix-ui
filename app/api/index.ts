@@ -341,6 +341,10 @@ interface PostResponse {
       | false
   }
   yoast_head: string
+  yoast_head_json: {
+    title: string
+    description: string
+  }
   id: number
   title: {
     rendered: string
@@ -380,6 +384,10 @@ const postResponseToPost = async (post: PostResponse): Promise<Post> => {
     teamMemberJson = (await teamMemberResponse.json()) as any
   }
   return {
+    yoastHeadJson: {
+      title: post.yoast_head_json.title,
+      description: post.yoast_head_json.description
+    },
     yoastHtml: post.yoast_head,
     id: post.id,
     featuredMedia:
@@ -444,13 +452,13 @@ const getPostsPage = async (
 
 export {
   getCategoryBySlug,
-  getTagBySlug,
-  getTestimonial,
-  getTestimonialById,
   getMediaById,
-  getProjects,
-  getProjectBySlug,
+  getPageBySlug,
   getPostBySlug,
   getPostsPage,
-  getPageBySlug
+  getProjectBySlug,
+  getProjects,
+  getTagBySlug,
+  getTestimonial,
+  getTestimonialById
 }

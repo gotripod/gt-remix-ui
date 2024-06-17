@@ -12,16 +12,16 @@
  * /insights/topic/topic-name/page/2
  **/
 
-import Column from '../components/column'
-import Single from './insights/single'
-import { useLoaderData } from '@remix-run/react'
+import { invariant } from '@apollo/client/utilities/globals'
 import type { LoaderFunctionArgs } from '@remix-run/cloudflare'
 import { json } from '@remix-run/cloudflare'
-import { getPostBySlug, getPostPreview, getTestimonial } from '~/api'
-import { invariant } from '@apollo/client/utilities/globals'
-import { mergeMeta, parentTitles } from '~/helpers/seo'
+import type { MetaFunction } from '@remix-run/react'
+import { useLoaderData } from '@remix-run/react'
 import type { SitemapFunction } from 'remix-sitemap'
+import { getPostBySlug, getPostPreview, getTestimonial } from '~/api'
 import type { WPPost } from '~/types'
+import Column from '../components/column'
+import Single from './insights/single'
 
 export const sitemap: SitemapFunction = async ({ config }) => {
   const postsResponse = await fetch(
@@ -43,18 +43,15 @@ export const sitemap: SitemapFunction = async ({ config }) => {
   }))
 }
 
-export const meta = mergeMeta<typeof loader>(
-  () => [],
-  ({ data, matches }) => {
-    return [
-      {
-        name: 'description',
-        content: data?.post?.title
-      },
-      { title: (data?.post?.title || '') + ' | ' + parentTitles(matches) }
-    ]
-  }
-)
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  return [
+    {
+      name: 'description',
+      content: data?.post?.yoastHeadJson.description
+    },
+    { title: data?.post?.yoastHeadJson.title }
+  ]
+}
 
 export const loader = async ({ params, request }: LoaderFunctionArgs) => {
   const url = new URL(request.url)

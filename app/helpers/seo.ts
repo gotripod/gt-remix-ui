@@ -1,5 +1,5 @@
-import type { MetaMatches } from '@remix-run/react/dist/routeModules'
 import type { MetaDescriptor, MetaFunction } from '@remix-run/cloudflare'
+import type { MetaMatches } from '@remix-run/react/dist/routeModules'
 
 export const parentTitles = (matches: MetaMatches<Record<string, unknown>>) => {
   const meta = matches.map((x) => x.meta)
