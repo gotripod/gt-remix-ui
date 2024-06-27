@@ -7,7 +7,7 @@ export const useHero = () => {
   const matches = useMatches()
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const pageMatch = matches.find((x: any) => 'page' in x.data)
+  const pageMatch = matches.find((x: any) => x.data && 'page' in x.data)
   if (pageMatch) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const page = (pageMatch.data as any).page as WPPage
@@ -15,7 +15,7 @@ export const useHero = () => {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const postMatch = matches.find((x: any) => 'post' in x.data)
+  const postMatch = matches.find((x: any) => x.data && 'post' in x.data)
 
   if (postMatch) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -48,13 +48,13 @@ export const usePageTitles = () => {
   const matches = useMatches()
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const postsMatch = matches.find((x: any) => 'posts' in x.data)
+  const postsMatch = matches.find((x: any) => x.data && 'posts' in x.data)
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const postMatch = matches.find((x: any) => 'post' in x.data)
+  const postMatch = matches.find((x: any) => x.data && 'post' in x.data)
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const pageMatch = matches.find((x: any) => 'page' in x.data)
+  const pageMatch = matches.find((x: any) => x.data && 'page' in x.data)
 
   if (postMatch) {
     const { post } = postMatch.data as { post: { title: string } }
@@ -74,8 +74,8 @@ export const usePageTitles = () => {
     const { page } = pageMatch.data as SerializeFrom<typeof loader>
 
     return {
-      title: page.title,
-      subTitle: page.subTitle
+      title: page?.title,
+      subTitle: page?.subTitle
     }
   }
 

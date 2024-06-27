@@ -15,14 +15,22 @@ export default async function handleRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
-  remixContext: EntryContext
+  remixContext: EntryContext,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  cfContext: any
 ) {
   // https://github.com/fedeya/remix-sitemap/issues/68
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   if (isSitemapUrl(request)) return await sitemap(request, remixContext as any)
 
   const body = await renderToReadableStream(
-    <RemixServer context={remixContext} url={request.url} />,
+    <RemixServer
+      context={{
+        ...remixContext,
+        ...cfContext
+      }}
+      url={request.url}
+    />,
     {
       signal: request.signal,
       onError(error: unknown) {

@@ -19,6 +19,7 @@ import type { MetaFunction } from '@remix-run/react'
 import { useLoaderData } from '@remix-run/react'
 import type { SitemapFunction } from 'remix-sitemap'
 import { getPostBySlug, getPostPreview, getTestimonial } from '~/api'
+import { DEFAULT_META } from '~/root'
 import type { WPPost } from '~/types'
 import Column from '../components/column'
 import Single from './insights/single'
@@ -45,11 +46,12 @@ export const sitemap: SitemapFunction = async ({ config }) => {
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
   return [
+    ...DEFAULT_META,
     {
       name: 'description',
-      content: data?.post?.yoastHeadJson.description
+      content: data?.post?.yoastHeadJson.description || data?.post.title
     },
-    { title: data?.post?.yoastHeadJson.title }
+    { title: data?.post?.yoastHeadJson.title || data?.post.title }
   ]
 }
 

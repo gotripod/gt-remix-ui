@@ -10,10 +10,10 @@ import {
   useLocation,
   useRouteError
 } from '@remix-run/react'
-import stylesheet from '~/tailwind.css?url'
 import { useEffect } from 'react'
-import { getMenu, getTestimonial } from './api'
 import * as gtag from '~/helpers/google.client'
+import stylesheet from '~/tailwind.css?url'
+import { getMenu, getTestimonial } from './api'
 import Column from './components/column'
 import Contact from './components/contact'
 import Footer from './components/footer'
@@ -23,12 +23,14 @@ import LargeNav from './components/nav/large'
 import SmallNav from './components/nav/small'
 import ToTop from './components/to-top'
 
-export const meta = () => [
+export const DEFAULT_META = [
   { charset: 'utf-8' },
   { name: 'viewport', content: 'width=device-width,initial-scale=1' },
   { name: 'msapplication-TileColor', content: '#da532c' },
   { name: 'theme-color', content: '#ffffff' }
 ]
+
+export const meta = () => DEFAULT_META
 
 export const links: LinksFunction = () => {
   return [
@@ -85,8 +87,9 @@ export function ErrorBoundary() {
 }
 
 export const loader = async ({ context }: LoaderFunctionArgs) => {
-  const env = (context.env || {}) as Env
-
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const env = ((context?.cloudflare as any)?.env || {}) as Env
+  console.log('context', env)
   // For child routes/components
   const menu = await getMenu()
   const testimonial = await getTestimonial()

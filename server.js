@@ -1,7 +1,8 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 import { createRequestHandler } from "@remix-run/cloudflare";
-import * as remixBuild from "./build/server";
 import __STATIC_CONTENT_MANIFEST from "__STATIC_CONTENT_MANIFEST";
+import path from 'node:path';
+import * as remixBuild from "./build/server";
 
 const MANIFEST = JSON.parse(__STATIC_CONTENT_MANIFEST);
 const handleRemixRequest = createRequestHandler(remixBuild);
@@ -10,7 +11,37 @@ export default {
   async fetch(request, env, ctx) {
     try {
       const url = new URL(request.url);
-      const ttl = url.pathname.startsWith("/assets/")
+
+
+
+      const ext = path.extname(url.pathname)
+
+      // console.log('Detected extension', ext)
+
+      // console.log(url.pathname.endsWith('/'), url.pathname !== '/', ext.length === 0)
+
+      if (url.pathname.endsWith('/') && url.pathname !== '/' && ext.length === 0) {
+        // console.log('Redirecting due to extensionless slash')
+        const isDataRequest = url.searchParams.has('_data')
+        if (isDataRequest) {
+          url.searchParams.delete('_data')
+          const redirectUrl = url.origin + url.pathname.substring(0, url.pathname.length - 1)
+          return new Response(undefined, {
+            headers: {
+              'x-remix-redirect': redirectUrl
+            },
+            status: 204
+          })
+        }
+
+        // console.log('Not trailing slash URL')
+
+        const redirectUrl = url.origin + url.pathname.substring(0, url.pathname.length - 1)
+
+        return Response.redirect(redirectUrl, 301)
+      }
+
+      const ttl = url.pathname.startsWith("/build/")
         ? 60 * 60 * 24 * 365 // 1 year
         : 60 * 5; // 5 minutes
       return await getAssetFromKV(
@@ -30,7 +61,7 @@ export default {
     } catch (error) {
       // No-op
     }
-
+console.log('CF env', env)
     try {
       const loadContext = {
         cloudflare: {

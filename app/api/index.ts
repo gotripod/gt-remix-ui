@@ -239,7 +239,7 @@ export const getMenu = async (): Promise<Menu[]> => {
   })
 }
 
-const getPageBySlug = async (slug: string): Promise<WPPage> => {
+const getPageBySlug = async (slug: string): Promise<WPPage | null> => {
   // console.debug('Getting page with slug', slug)
 
   // // Some pages (such as insights) may not have the section_body acf field
@@ -282,7 +282,9 @@ const getPageBySlug = async (slug: string): Promise<WPPage> => {
   const response = await gQuery
 
   const page = response.data.page
-
+  if (!page) {
+    return null
+  }
   // console.log('Page fetched', JSON.stringify(page))
 
   return {
@@ -373,7 +375,7 @@ interface PostResponse {
 }
 
 const postResponseToPost = async (post: PostResponse): Promise<Post> => {
-  console.log('post.acf', post.acf)
+  console.log('post.acf', post)
   const teamMemberId = post.acf?.article_author ? post.acf.article_author.ID : null
   console.log('teamMemberId', teamMemberId)
   let teamMemberJson

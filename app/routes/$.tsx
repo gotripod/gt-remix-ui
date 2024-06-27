@@ -2,10 +2,10 @@ import { useLoaderData } from '@remix-run/react'
 
 import { getPageBySlug } from '~/api'
 
-import Column from '../components/column'
-import { mergeMeta } from '~/helpers/seo'
 import type { LoaderFunctionArgs } from '@remix-run/cloudflare'
 import { json } from '@remix-run/cloudflare'
+import { mergeMeta } from '~/helpers/seo'
+import Column from '../components/column'
 
 export const meta = mergeMeta<typeof loader>(
   () => [],
@@ -49,6 +49,14 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   }
 
   const page = await getPageBySlug(filePath)
+
+  if (!page) {
+    throw new Response(null, {
+      status: 404,
+      statusText: 'Not Found'
+    })
+  }
+
   return json({
     page
   })

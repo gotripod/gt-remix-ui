@@ -5,6 +5,8 @@ const PageTitle = () => {
   const titles = usePageTitles()
   const { title, subTitle } = titles || { title: '', subTitle: '' }
 
+  if (!title && !subTitle) return <div className="pt-20"></div>
+
   return (
     <Column style={{ zIndex: 10 }} className="md:pb-8 pt-20 md:pt-12">
       <div
