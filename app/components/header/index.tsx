@@ -2,7 +2,6 @@ import { useLocation } from '@remix-run/react'
 import React, { useState } from 'react'
 
 import { useHero } from '~/hooks/wp'
-import PageTitle from '../page-title'
 
 const Header = React.memo(() => {
   const hero = useHero()
@@ -12,29 +11,97 @@ const Header = React.memo(() => {
   const isWorkSubpage = router.pathname.startsWith('/work/')
 
   return (
-    <header
-      className={`bg-black text-center relative z-50 ${
-        isWorkSubpage ? 'md:pb-96' : 'pb-16 md:pb-14'
-      }`}>
-      {isWorkSubpage ? null : <PageTitle />}
-      <img
-        style={{
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%'
-        }}
-        data-loaded={loaded}
-        onLoad={() => {
-          // console.log('hero image loaded')
-          setLoaded(true)
-        }}
-        alt=""
-        src={hero && ('srcSet' in hero ? hero.guid : hero.sizes.full.source_url)}
-        srcSet={hero && 'srcSet' in hero ? hero?.srcSet : ''}
-        className="absolute object-cover object-top grayscale-[30%] opacity-90 blur-[1px] md:blur-[2px]"
-      />
-    </header>
+    <nav
+      className="
+    w-full
+    p-6
+    text-gray-100
+    bg-black
+    bg-opacity-60
+    md:bg-opacity-30 
+    z-10 
+    relative
+  ">
+      <div
+        className="
+      flex 
+      flex-wrap
+      items-center
+      justify-between
+      max-w-screen-xl mx-auto 
+    ">
+        <div>
+          <a href="index.asp">
+            <img
+              src="_img/gotripod-logo.png"
+              alt="Go Tripod"
+              width="200px"
+              className="max-w-[200px] mr-6"
+            />
+          </a>
+        </div>
+
+        <a href="#" id="menu-button" className="md:hidden block">
+          <span className="sr-only">Open or close menu</span>
+          <svg
+            id="menu-button"
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6 cursor-pointer"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </a>
+
+        <div id="menu" className="hidden w-full md:w-auto md:flex md:items-center">
+          <ul
+            className="
+          pt-4
+          text-gray-100
+          font-Raleway font-semibold text-sm uppercase my-auto
+          md:flex
+          md:justify-between 
+          md:pt-0
+        ">
+            <li>
+              <a
+                className="py-1 mx-2 md:mr-5 inline-block hover:text-gt-green-lt"
+                href="solutions.asp">
+                Solutions
+              </a>
+            </li>
+            <li>
+              <a className="py-1 mx-2 md:mx-5 inline-block hover:text-gt-green-lt" href="work.asp">
+                Work
+              </a>
+            </li>
+            <li>
+              <a className="py-1 mx-2 md:mx-5 inline-block hover:text-gt-green-lt" href="#">
+                Insights
+              </a>
+            </li>
+            <li>
+              <a className="py-1 mx-2 md:mx-5 inline-block hover:text-gt-green-lt" href="#">
+                About
+              </a>
+            </li>
+            <li>
+              <a
+                className="py-1 mx-2 md:ml-5 inline-block hover:text-gt-green-lt"
+                href="contact.asp">
+                Contact
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
   )
 })
 

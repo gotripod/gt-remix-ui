@@ -14,13 +14,6 @@ import { useEffect } from 'react'
 import * as gtag from '~/helpers/google.client'
 import stylesheet from '~/tailwind.css?url'
 import { getMenu, getTestimonial } from './api'
-import Column from './components/column'
-import Contact from './components/contact'
-import Footer from './components/footer'
-import Header from './components/header'
-import Testimonials from './components/home/testimonials'
-import LargeNav from './components/nav/large'
-import SmallNav from './components/nav/small'
 import ToTop from './components/to-top'
 
 export const DEFAULT_META = [
@@ -50,11 +43,7 @@ export const links: LinksFunction = () => {
     },
     {
       rel: 'stylesheet',
-      href: 'https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&display=swap'
-    },
-    {
-      rel: 'stylesheet',
-      href: 'https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap'
+      href: 'https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap'
     },
     // {
     //   rel: "stylesheet",
@@ -134,23 +123,10 @@ export default function App() {
           </>
         )}
         <>
-          <main className="bg-main-dots">
-            <LargeNav />
+          <main>
             <ToTop />
-            <SmallNav />
-            <Header />
 
-            <div className="relative z-[250] -mt-8 md:-mt-20">
-              <Outlet />
-            </div>
-
-            <Contact />
-            {testimonial && location.pathname === '/' && (
-              <Column>
-                <Testimonials testimonial={testimonial} />
-              </Column>
-            )}
-            <Footer />
+            <Outlet />
           </main>
         </>
 

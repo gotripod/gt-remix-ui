@@ -58,7 +58,7 @@ const SinglePostPage = () => {
   return project ? (
     <Column className="mt-8 pt-12 md:pt-0 md:-mt-[21rem]">
       <MediaImage className="mb-8" media={project.heroMedia} />
-      <div className="bg-white shadow-card py-4 md:py-24 text-lg">
+      <div className="bg-white py-4 md:py-24 text-lg">
         <section className="px-6 pt-10 md:pt-0 md:px-28 text-lg md:text-xl mb-6">
           <h1 className="text-headingBlue text-4xl font-bold">{project.title} - Case Study</h1>
         </section>

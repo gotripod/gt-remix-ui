@@ -1,32 +1,68 @@
-import type { Config } from 'tailwindcss'
 import forms from '@tailwindcss/forms'
 import typography from '@tailwindcss/typography'
+import type { Config } from 'tailwindcss'
 
 export default {
   content: ['./app/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
-      boxShadow: {
-        card: '0px 0px 1px rgba(0, 0, 0, 0.1)'
-      },
-      backgroundImage: {
-        'footer-texture':
-          "url('https://content.gotripod.com/wp-content/themes/go-tripod/WPGulp/assets/img/bg-footer-stripes.svg')",
-        'main-dots':
-          "url('https://content.gotripod.com/wp-content/themes/go-tripod/WPGulp/assets/img/bg-dots-tile-v2.svg')"
-      },
-      fontFamily: {
-        sans: 'Noto Sans,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Droid Sans,Helvetica Neue,Helvetica,Arial,sans-serif'
-      },
       colors: {
-        gray: {
-          150: '#f7f7f7',
-          175: '#ededed'
-        },
-        linkBlue: '#62bead',
-        headingBlue: '#4291ce',
-        linkOrange: '#ef7852',
-        highlightBlue: '#4eace0'
+        'gt-green': '#58C2B3',
+        'gt-green-lt': '#92D5CB',
+        'gt-green-dk': '#01A690',
+
+        'gt-blue': '#359CD1',
+        'gt-blue-lt': '#3399CF',
+        'gt-blue-dk': '#005293',
+
+        'gt-gray': '#F5F4F4'
+      },
+
+      backgroundImage: {
+        'box-corner-blue': "url('/_img/trim-box-bg-blue.png')",
+        'box-corner-green': "url('/_img/trim-box-bg-green.png')",
+
+        'hero-home': "url('/_img/hero-home.jpg')",
+        'hero-solutions': "url('/_img/hero-solutions.jpg')",
+        'hero-contact': "url('/_img/hero-contact.jpg')",
+
+        'slope-tl-white': "url('/_img/trim-slope-tl-white.png')",
+        'slope-br-white': "url('/_img/trim-slope-br-white.png')",
+        'slope-bl-white': "url('/_img/trim-slope-bl-white.png')",
+        'slope-tr-grey': "url('/_img/trim-slope-tr-grey.png')",
+        'slope-br-grey': "url('/_img/trim-slope-br-grey.png')",
+        'slope-bl-grey': "url('/_img/trim-slope-bl-grey.png')",
+
+        'quote-bg': "url('/_img/bg-quote.jpg')",
+        'stripes-bg': "url('/_img/trim-bg-gt-stripes.png')",
+
+        'wall-green-bg': "url('/_img/bg-wall-green-temp.jpg')",
+        'wall-blue-bg': "url('/_img/bg-wall-blue-temp.jpg')",
+
+        postits: "url('/_img/hero-work-temp.jpg')"
+      },
+
+      fontFamily: {
+        Raleway: [
+          'Raleway',
+          'ui-sans-serif',
+          'system-ui',
+          'sans-serif',
+          'Apple Color Emoji',
+          'Segoe UI Emoji',
+          'Segoe UI Symbol',
+          'Noto Color Emoji'
+        ],
+        Texgyre: [
+          'Tex Gyre Heros',
+          'ui-sans-serif',
+          'system-ui',
+          'sans-serif',
+          'Apple Color Emoji',
+          'Segoe UI Emoji',
+          'Segoe UI Symbol',
+          'Noto Color Emoji'
+        ]
       }
     }
   },

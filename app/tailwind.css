@@ -2,132 +2,111 @@
 @tailwind components;
 @tailwind utilities;
 
-
-@layer base {
-  
-h1,
-h2 {
-  font-family: 'Cabin';
-}
-}
-
 @layer utilities {
-  .is-layout-flex {
-    @apply md:flex gap-8;
-  }
-
-  .fancy {
-    position: relative;
-  }
-  .fancy::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    border-bottom: 3px dotted #f9f871;
-  }
-  .has-white-color {
-    @apply text-white;
-  }
-
-  .cardflare-alt {
-    @apply before:right-0;
-  }
-
-  .card-base {
-    @apply border-b-4 border-b-gray-400 shadow-card bg-white relative;
-  }
-
-  .card-inner {
-    @apply py-6 px-8 md:py-10 md:px-20 overflow-hidden relative;
-  }
-
-  .bg-main-dots::before {
-    content: "";
-  background-image: url("https://content.gotripod.com/wp-content/themes/go-tripod/WPGulp/assets/img/bg-stripes.svg");
-  background-repeat: no-repeat;
-  background-position: -3px -20px;
-  height: 1500px;
-  display: block;
-  position: absolute;
-  top: 0px;
-  bottom: 0px;
-  width: 100%;
-  }
-
-  .go-gradient {
-    @apply bg-gradient-to-r from-[#62beade6] to-[#4291cee6];
-  }
-
-  .clip-work-image {
-      shape-outside: polygon(0 0, 100% 0, 100% 50%, 0 50%);
-      clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
-  }
-
-
-  .cardflare::before {
-    content: '';
-    background: linear-gradient(to bottom, rgba(98, 190, 173, 0.9), rgba(66, 145, 206, 0.9));
-
-    display: block;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-
-    @apply w-[5px] md:w-[13px]
-  }
-
-  .work-bullet::before {
-      top: 8px;
-    
-      left: 0px;
-    
-      position: relative;
-    
-      content: "⋆";
-    
-      color: orange;
-    
-      font-size: 50px;
-    
-      line-height: 0;
-    
-  }
-}
-
-/* 
-let theme = {
-    zIndex: {
-      backToTop: 103,
-      top: 102,
-      middle: 101
-    },
-    colours: {
-      linkBlue: '#62bead',
-      headingBlue: '#4291ce',
-      linkOrange: '#ef7852',
-      highlightBlue: '#4eace0'
-    },
-    gutter: 13,
-    fontSize: {
-      aside: 14,
-      base: 18,
-      prominentText: 20,
-      h2: 40
-    },
-    lineHeight: 26,
-    cardFlare: css`
-      
-    `,
-    greyCardFlare: css`
-      border-bottom: 5px solid rgba(200, 200, 200);
-    `
-  
-    a {
-      color: ${theme.colours.linkOrange};
-      text-decoration: underline;
+        
+    @font-face {
+        font-family: 'Tex Gyre Heros';
+        src: url('/_fonts/texgyreheros-regular-webfont.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
     }
-  } */
-  
+    @font-face {
+        font-family: 'Tex Gyre Heros';
+        src: url('/_fonts/texgyreheros-bold-webfont.woff') format('woff');
+        font-weight: bold;
+        font-style: normal;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: 'Tex Gyre Heros';
+        src: url('/_fonts/texgyreheros-italic-webfont.woff') format('woff');
+        font-weight: normal;
+        font-style: italic;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: 'Tex Gyre Heros';
+        src: url('/_fonts/texgyreheros-bolditalic-webfont.woff') format('woff');
+        font-weight: bold;
+        font-style: italic;
+        font-display: swap;
+    }
+    .perspectiveHero {
+        transform: scale(1.2) perspective(500px) rotateX(0deg) rotateY(0deg);
+        transition: transform 0.3s ease-out;
+      }
+      
+      .perspectiveHero:hover {
+        transform: perspective(200px) rotateX(5deg) rotateY(5deg);
+      }
+    
+
+}
+@layer components {
+
+    .btn-primary-blue {
+        @apply 
+            inline-block 
+            bg-gt-blue 
+            hover:bg-gt-green 
+            hover:border-gt-green 
+            text-white 
+            uppercase
+            font-bold 
+            no-underline 
+            py-2 px-8 
+            rounded-full
+            border-2 
+            border-gt-blue 
+            ease-in-out duration-300;
+    }
+    /*
+    .btn-secondary {
+    }
+    .btn-disabled {
+    }
+    */
+
+    .btn-white-on-green {
+        @apply 
+            inline-block 
+            bg-white 
+            hover:bg-transparent 
+            text-gt-green
+            hover:text-white 
+            uppercase
+            font-bold 
+            no-underline 
+            py-2 px-8 
+            rounded-full
+            border-2 
+            border-white 
+            ease-in-out duration-300;
+    }
+
+    
+    .btn-disabled-white {
+        @apply 
+            inline-block 
+            bg-white 
+            text-gt-blue
+            uppercase
+            font-bold 
+            no-underline 
+            py-2 px-4 
+            rounded-full
+            border-2 
+            border-white 
+    }
+
+
+
+
+
+
+
+
+
+
+}      

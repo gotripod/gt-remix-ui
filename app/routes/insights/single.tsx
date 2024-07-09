@@ -22,7 +22,7 @@ const Single = ({ post }: Props) => {
       <Column>
         {
           <>
-            <div className="m-0 mb-6 max-w-[1000px] mx-auto mt-8 w-full bg-white shadow-card p-8">
+            <div className="m-0 mb-6 max-w-[1000px] mx-auto mt-8 w-full bg-white p-8">
               <div
                 className="prose max-w-full"
                 dangerouslySetInnerHTML={{ __html: post.content }}></div>
