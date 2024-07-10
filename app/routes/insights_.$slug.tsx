@@ -18,9 +18,10 @@ import { json } from '@remix-run/cloudflare'
 import type { MetaFunction } from '@remix-run/react'
 import { useLoaderData } from '@remix-run/react'
 import type { SitemapFunction } from 'remix-sitemap'
-import { getPostBySlug, getPostPreview, getTestimonial } from '~/api'
+import type { Post } from 'types/normalised-responses'
+import { getPostBySlug, getPostPreview } from '~/api/post.server'
+import { getTestimonial } from '~/api/testimonial.server'
 import { DEFAULT_META } from '~/root'
-import type { WPPost } from '~/types'
 import Column from '../components/column'
 import Single from './insights/single'
 
@@ -28,10 +29,10 @@ export const sitemap: SitemapFunction = async ({ config }) => {
   const postsResponse = await fetch(
     'https://content.gotripod.com/wp-json/wp/v2/posts?per_page=100&_fields[]=title&_fields[]=slug&_fields[]=modified'
   )
-  const posts = await postsResponse.json<WPPost[]>()
+  const posts = await postsResponse.json<Post[]>()
   return posts.map((post) => ({
     loc: `/insights/${post.slug}`,
-    lastmod: post.modified,
+    lastmod: post.modified.toISOString(),
     exclude: post.status !== 'publish', // exclude this entry
     // acts only in this loc
     alternateRefs: [

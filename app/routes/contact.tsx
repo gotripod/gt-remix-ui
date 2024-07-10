@@ -1,13 +1,71 @@
 import { json } from '@remix-run/cloudflare'
 import { useLoaderData } from '@remix-run/react'
 
-import { getPageBySlug } from '~/api'
-import BaseCard from '~/components/home/base-card'
+import { getPageBySlug } from '~/api/page.server'
 
-import Column from '../components/column'
-import Map from '../components/contact/map'
-import type { AddressProps, ULProps } from 'react-html-props'
+import Header from '~/components/header'
 import { mergeMeta } from '~/helpers/seo'
+import Map from '../components/contact/map'
+
+const Contact = () => {
+  const { page } = useLoaderData<typeof loader>()
+  return (
+    <>
+      <Header
+        title="Our purpose"
+        ctaText="See what we can do for you"
+        ctaLink="#services"
+        image="/_img/hero-home.jpg"
+        subTitle={
+          <>
+            Let&apos;s create transformative solutions <br />
+            to move your business forward
+          </>
+        }
+      />{' '}
+      <div className="max-w-screen-xl mx-auto">
+        <div className="text-xl mb-20" dangerouslySetInnerHTML={{ __html: page.body }}></div>
+        <div className="md:grid grid-cols-[65%_auto] gap-16">
+          <div style={{ flex: 1 }}>
+            <Map />
+          </div>
+          <div className="mt-8 md:mt-0">
+            <img
+              className="md:mt-1"
+              height={40}
+              width={193}
+              src="https://content.gotripod.com/wp-content/themes/go-tripod/WPGulp/assets/img/gt-logo-colour-on-white.svg"
+              alt="Go Tripod"
+            />
+            <ul>
+              <li>
+                <address className="mb-2 text-lg not-italic">
+                  Go Tripod Ltd.
+                  <br />
+                  Tremough Innovation Centre,
+                  <br />
+                  Penryn, Cornwall, TR10 9TA,
+                  <br />
+                  England, UK
+                </address>
+              </li>
+              <li className="highlight text-2xl font-bold text-headingBlue">
+                {' '}
+                <a href="mailto:hello@gotripod.com">hello@gotripod.com</a>
+              </li>
+              <li className="highlight text-2xl font-bold text-headingBlue">
+                {' '}
+                <a href="tel:+448454752487">0845 475 2487</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
+
+export default Contact
 
 export const meta = mergeMeta<typeof loader>(
   () => [],
@@ -22,119 +80,15 @@ export const meta = mergeMeta<typeof loader>(
   }
 )
 
-const Contact = () => {
-  const { page } = useLoaderData<typeof loader>()
-  return (
-    <Column className="md:mt-12">
-      <BaseCard cardflare={false} className="py-12 px-8">
-        <div className="text-xl mb-20" dangerouslySetInnerHTML={{ __html: page.body }}></div>
-        <div className="md:grid grid-cols-[65%_auto] gap-16">
-          <div style={{ flex: 1 }}>
-            <Map />
-          </div>
-          <div className="mt-8 md:mt-0">
-            <img
-              className="md:mt-1"
-              height={40}
-              width={193}
-              src="https://content.gotripod.com/wp-content/themes/go-tripod/WPGulp/assets/img/gt-logo-colour-on-white.svg"
-              alt="Go Tripod"
-            />
-            <AddressList>
-              <li>
-                <PostalAddress>
-                  Go Tripod Ltd.
-                  <br />
-                  Tremough Innovation Centre,
-                  <br />
-                  Penryn, Cornwall, TR10 9TA,
-                  <br />
-                  England, UK
-                </PostalAddress>
-              </li>
-              <li className="highlight text-2xl font-bold text-headingBlue">
-                {' '}
-                <a href="mailto:hello@gotripod.com">hello@gotripod.com</a>
-              </li>
-              <li className="highlight text-2xl font-bold text-headingBlue">
-                {' '}
-                <a href="tel:+448454752487">0845 475 2487</a>
-              </li>
-            </AddressList>
-          </div>
-        </div>
-      </BaseCard>
-    </Column>
-  )
-}
-
-export default Contact
-
 export const loader = async () => {
   const page = await getPageBySlug('contact')
+
+  if (!page) {
+    throw new Response(null, {
+      status: 404,
+      statusText: 'Not Found'
+    })
+  }
+
   return json({ page })
 }
-
-// const StyledImage = styled.img`
-//   margin-left: ${px2rem(theme.gutter * 4)};
-
-//   ${mqLess(breakpoints.medium)} {
-//     margin-top: ${px2rem(theme.gutter)};
-//   }
-// `
-
-const AddressList = (props: ULProps) => <ul {...props}>{props.children}</ul>
-
-// const AddressList = styled.ul`
-//   list-style: none;
-//   margin-left: ${px2rem(theme.gutter * 4)};
-//   padding: 0;
-
-//   .highlight {
-//     color: ${theme.colours.highlightBlue};
-//     font-size: ${px2rem(theme.fontSize.base * 1.5)};
-//     font-weight: bold;
-//   }
-
-//   ${mqLess(breakpoints.medium)} {
-//     margin-left: 0;
-//   }
-// `
-
-const PostalAddress = (props: AddressProps) => (
-  <address className="mb-2 text-lg not-italic" {...props}>
-    {props.children}
-  </address>
-)
-
-// const PostalAddress = styled.address`
-//   font-style: normal;
-//   margin-bottom: ${px2rem(theme.gutter * 2)};
-// `
-
-// const Card = styled(BaseCard)`
-//   padding: ${px2rem(theme.gutter * 8)};
-//   margin-bottom: ${px2rem(theme.gutter * 6)};
-
-//   ${mqLess(breakpoints.medium)} {
-//     padding: ${px2rem(theme.gutter * 2)};
-//     margin-bottom: ${px2rem(theme.gutter * 2)};
-//   }
-// `
-
-// const Main = styled.div`
-//   ${mqMore(breakpoints.medium)} {
-//     display: flex;
-//     flex-wrap: wrap;
-//   }
-// `
-
-// const Intro = styled.p`
-//   margin: 0 0 ${px2rem(theme.gutter * 6)};
-//   font-size: ${px2rem(20)};
-//   line-height: ${px2rem(26)};
-
-//   ${mqLess(breakpoints.medium)} {
-//     margin: 0 0 ${px2rem(theme.gutter * 2)};
-//   }
-// `

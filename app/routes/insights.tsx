@@ -12,15 +12,17 @@
  * /insights/topic/topic-name/page/2
  **/
 
-import type { Post, Testimonial } from '~/types'
+import type { LoaderFunctionArgs } from '@remix-run/cloudflare'
+import { json } from '@remix-run/cloudflare'
+import { useLoaderData } from '@remix-run/react'
+import type { Post, Testimonial } from 'types/normalised-responses'
+import { getPageBySlug } from '~/api/page.server'
+import type { PostPageParams} from '~/api/post.server';
+import { getPostsPage } from '~/api/post.server'
+import { getCategoryBySlug, getTagBySlug } from '~/api/taxon.server'
+import { mergeMeta } from '~/helpers/seo'
 import Column from '../components/column'
 import List from './insights/list'
-import { useLoaderData } from '@remix-run/react'
-import type { LoaderFunctionArgs} from '@remix-run/cloudflare';
-import { json } from '@remix-run/cloudflare'
-import type { PostPageParams } from '~/api'
-import { getCategoryBySlug, getPageBySlug, getPostsPage, getTagBySlug } from '~/api'
-import { mergeMeta } from '~/helpers/seo'
 
 export const meta = mergeMeta<typeof loader>(
   () => [],

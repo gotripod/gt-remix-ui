@@ -1,11 +1,11 @@
 import { json } from '@remix-run/cloudflare'
 import { useLoaderData } from '@remix-run/react'
 
-import { getPageBySlug } from '~/api'
+import { getPageBySlug } from '~/api/page.server'
 import BaseCard from '~/components/home/base-card'
 
-import Column from '../components/column'
 import { mergeMeta } from '~/helpers/seo'
+import Column from '../components/column'
 
 export const meta = mergeMeta<typeof loader>(
   () => [],
@@ -37,5 +37,13 @@ export default Contact
 
 export const loader = async () => {
   const page = await getPageBySlug('contact/success')
+
+  if (!page) {
+    throw new Response(null, {
+      status: 404,
+      statusText: 'Not Found'
+    })
+  }
+
   return json({ page })
 }

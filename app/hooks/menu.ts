@@ -1,7 +1,7 @@
-import { useMatches } from '@remix-run/react'
-import type { Menu } from '~/types'
-import type { loader as RootLoader } from '~/root'
 import type { SerializeFrom } from '@remix-run/cloudflare'
+import { useMatches } from '@remix-run/react'
+import type { Menu } from 'types/normalised-responses'
+import type { loader as RootLoader } from '~/root'
 
 export const useMenu = () => {
   const matches = useMatches()

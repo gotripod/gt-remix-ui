@@ -31,16 +31,7 @@
         font-weight: bold;
         font-style: italic;
         font-display: swap;
-    }
-    .perspectiveHero {
-        transform: scale(1.2) perspective(500px) rotateX(0deg) rotateY(0deg);
-        transition: transform 0.3s ease-out;
-      }
-      
-      .perspectiveHero:hover {
-        transform: perspective(200px) rotateX(5deg) rotateY(5deg);
-      }
-    
+    }  
 
 }
 @layer components {

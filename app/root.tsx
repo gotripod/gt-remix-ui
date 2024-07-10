@@ -13,7 +13,8 @@ import {
 import { useEffect } from 'react'
 import * as gtag from '~/helpers/google.client'
 import stylesheet from '~/tailwind.css?url'
-import { getMenu, getTestimonial } from './api'
+import { getMenu } from './api/menu.server'
+import { getTestimonial } from './api/testimonial.server'
 import ToTop from './components/to-top'
 
 export const DEFAULT_META = [
@@ -69,6 +70,7 @@ export function ErrorBoundary() {
       </head>
       <body>
         <h1>There was an unexpected error!</h1>
+        {error instanceof Error ? <pre>{error.message}</pre> : null}
         <Scripts />
       </body>
     </html>
@@ -95,12 +97,19 @@ export default function App() {
   }, [location, gaTrackingId])
 
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <head>
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="flex flex-col h-screen font-Texgyre">
+        {!gaTrackingId && (
+          <div>
+            <p className="bg-red-500 text-white font-bold p-4 text-center">
+              GA_TRACKING_ID not set
+            </p>
+          </div>
+        )}
         <script type="text/javascript" src="https://widget.clutch.co/static/js/widget.js" async />
         {!gaTrackingId ? null : (
           <>

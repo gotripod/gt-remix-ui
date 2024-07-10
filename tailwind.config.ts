@@ -22,7 +22,6 @@ export default {
         'box-corner-blue': "url('/_img/trim-box-bg-blue.png')",
         'box-corner-green': "url('/_img/trim-box-bg-green.png')",
 
-        'hero-home': "url('/_img/hero-home.jpg')",
         'hero-solutions': "url('/_img/hero-solutions.jpg')",
         'hero-contact': "url('/_img/hero-contact.jpg')",
 

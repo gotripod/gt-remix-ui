@@ -1,6 +1,6 @@
 import { useLoaderData } from '@remix-run/react'
 
-import { getPageBySlug } from '~/api'
+import { getPageBySlug } from '~/api/page.server'
 
 import type { LoaderFunctionArgs } from '@remix-run/cloudflare'
 import { json } from '@remix-run/cloudflare'
