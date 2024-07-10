@@ -3,6 +3,7 @@ import { json, type LinksFunction } from '@remix-run/cloudflare'
 import {
   Links,
   Meta,
+  NavLink,
   Outlet,
   Scripts,
   ScrollRestoration,
@@ -136,6 +137,167 @@ export default function App() {
             <ToTop />
 
             <Outlet />
+
+            <nav className="bg-black text-white p-6">
+              <div className="max-w-screen-xl mx-auto">
+                <div className="flex items-center my-5">
+                  <img
+                    src="_img/chevron.svg"
+                    alt=""
+                    width="30px"
+                    className="inline max-w-[30px] mr-2"
+                  />
+                  <NavLink className="text-4xl font-bold hover:text-gt-green" to="#">
+                    Subscribe
+                  </NavLink>
+                </div>
+
+                <div
+                  className="
+                    py-12     
+                    border-y border-gray-400 
+                    md:flex 
+                    md:flex-row 
+                    md:items-center 
+                    md:justify-between
+                ">
+                  <div>
+                    <NavLink to="/">
+                      <img
+                        src="_img/gotripod-logo.png"
+                        alt="Go Tripod"
+                        width="130px"
+                        className="max-w-[130px]"
+                      />
+                    </NavLink>
+                  </div>
+                  <div className="w-full md:w-auto md:flex md:items-center">
+                    <ul
+                      className="
+                            py-4
+                            my-auto
+                            font-Raleway font-semibold text-sm uppercase 
+                            md:flex
+                            md:justify-between 
+                            md:py-0
+                        ">
+                      <li>
+                        <NavLink
+                          className="py-1 mx-2 md:mr-5 inline-block hover:text-gt-green-lt"
+                          to="/solutions">
+                          Solutions
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink
+                          className="py-1 mx-2 md:mx-5 inline-block hover:text-gt-green-lt"
+                          to="/work">
+                          Work
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink
+                          className="py-1 mx-2 md:mx-5 inline-block hover:text-gt-green-lt"
+                          to="/insights">
+                          Insights
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink
+                          className="py-1 mx-2 md:mx-5 inline-block hover:text-gt-green-lt"
+                          to="/about">
+                          About
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink
+                          className="py-1 mx-2 md:ml-5 inline-block hover:text-gt-green-lt"
+                          to="/contact">
+                          Contact
+                        </NavLink>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="flex">
+                    <NavLink
+                      className="ml-2"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      to="https://www.facebook.com/gotripod">
+                      <img
+                        src="_img/social-li.svg"
+                        alt="Visit us on Facebook"
+                        width="20px"
+                        className="max-w-[20px]"
+                      />
+                    </NavLink>
+                    <NavLink
+                      className="ml-2"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      to="https://twitter.com/gotripod">
+                      <img
+                        src="_img/social-x.svg"
+                        alt="Visit us on Twitter"
+                        width="20px"
+                        className="max-w-[20px]"
+                      />
+                    </NavLink>
+                    <NavLink
+                      className="ml-2"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      to="https://www.linkedin.com/company/go-tripod-ltd">
+                      <img
+                        src="_img/social-fb.svg"
+                        alt="Visit us on LinkedIn"
+                        width="20px"
+                        className="max-w-[20px]"
+                      />
+                    </NavLink>
+                  </div>
+                </div>
+
+                <div
+                  className="
+                    text-xs
+                    md:flex
+                    md:flex-row
+                    md:items-center
+                    md:justify-between
+                ">
+                  <div className="pt-6">
+                    <ul
+                      className="
+                            font-semibold tracking-tight                         
+                            md:flex
+                        ">
+                      <li>
+                        <NavLink className="py-1 mr-10 inline-block hover:text-gt-green-lt" to="#">
+                          Privacy policy
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink className="py-1 mr-10 inline-block hover:text-gt-green-lt" to="#">
+                          Cookie policy
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink className="py-1 mr-10 inline-block hover:text-gt-green-lt" to="#">
+                          Accessibility statement
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink className="py-1 mr-10 inline-block hover:text-gt-green-lt" to="#">
+                          Sitemap
+                        </NavLink>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="pt-6">&copy; Go Tripod Ltd. All rights reserved</div>
+                </div>
+              </div>
+            </nav>
           </main>
         </>
 

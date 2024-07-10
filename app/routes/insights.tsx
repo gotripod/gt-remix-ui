@@ -17,12 +17,33 @@ import { json } from '@remix-run/cloudflare'
 import { useLoaderData } from '@remix-run/react'
 import type { Post, Testimonial } from 'types/normalised-responses'
 import { getPageBySlug } from '~/api/page.server'
-import type { PostPageParams} from '~/api/post.server';
+import type { PostPageParams } from '~/api/post.server'
 import { getPostsPage } from '~/api/post.server'
 import { getCategoryBySlug, getTagBySlug } from '~/api/taxon.server'
+import Header from '~/components/header'
 import { mergeMeta } from '~/helpers/seo'
-import Column from '../components/column'
 import List from './insights/list'
+
+const Index = () => {
+  const { pageNumber, page, posts, pagination } = useLoaderData<typeof loader>()
+  return (
+    <>
+      <Header
+        title="Our purpose"
+        ctaText="See what we can do for you"
+        ctaLink="#services"
+        image="/_img/hero-home.jpg"
+        subTitle={
+          <>
+            Let&apos;s create transformative solutions <br />
+            to move your business forward
+          </>
+        }
+      />
+      <List pageNumber={pageNumber} insightsPage={page} posts={posts} pagination={pagination} />
+    </>
+  )
+}
 
 export const meta = mergeMeta<typeof loader>(
   () => [],
@@ -86,15 +107,6 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
     tag,
     pageNumber
   })
-}
-
-const Index = () => {
-  const { pageNumber, page, posts, pagination } = useLoaderData<typeof loader>()
-  return (
-    <Column className="-mt-28 md:mt-0">
-      <List pageNumber={pageNumber} insightsPage={page} posts={posts} pagination={pagination} />
-    </Column>
-  )
 }
 
 export interface PostBaseProps {

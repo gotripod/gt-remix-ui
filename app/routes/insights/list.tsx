@@ -1,13 +1,13 @@
 import Column from '~/components/column'
 
+import { useLocation } from '@remix-run/react'
+import type { Page, Pagination as PaginationType, Post } from 'types/normalised-responses'
 import Item from './list-item'
 import Pagination from './pagination'
-import type { Pagination as PaginationType, Post, WPPage } from '~/types'
-import { useLocation } from '@remix-run/react'
 
 interface PostListProps {
   posts: Post[]
-  insightsPage: WPPage
+  insightsPage: Page
   pagination?: PaginationType
   pageNumber: number | undefined
 }

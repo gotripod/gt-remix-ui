@@ -7,7 +7,7 @@ const PostSchema = z.object({
   id: z.number(),
   yoast_head_json: z.object({
     title: z.string(),
-    description: z.string()
+    description: z.string().optional()
   }),
   yoast_head: z.string(),
   date: z.coerce.date(),

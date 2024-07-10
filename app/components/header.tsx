@@ -118,7 +118,7 @@ const Header = ({
             </div>
           </nav>
           <div className="relative z-10">
-            <div className="bg-slope-bl-white bg-bottom bg-no-repeat bg-contain p-6 pb-24 pointer-events-none">
+            <div className="bg-slope-bl-white bg-bottom bg-no-repeat bg-contain p-6 pb-24">
               <div className="max-w-screen-xl mx-auto pb-4 md:pb-12">
                 <h1 className="text-3xl font-bold text-gt-green pb-2 border-b border-white bg-black bg-opacity-50 p-2 md:bg-transparent">
                   {title}

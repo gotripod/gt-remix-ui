@@ -149,6 +149,6 @@ export const TeamMemberSchema = z.object({
   acf: acfSchema,
   yoast_head: z.string(),
   yoast_head_json: yoastHeadJsonSchema,
-  team_member_image: z.object({ '168': teamMemberImageSchema }),
+  // team_member_image: z.object({ '168': teamMemberImageSchema }).optional(),
   _links: linksSchema
 })
