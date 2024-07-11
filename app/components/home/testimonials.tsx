@@ -1,8 +1,8 @@
 import { BlueLink } from '~/components/link'
 
-import type { Testimonial } from '~/types'
-import { cardClasses } from './base-card'
 import classNames from 'classnames'
+import type { Testimonial } from 'types/normalised-responses'
+import { cardClasses } from './base-card'
 
 interface Props {
   testimonial: Testimonial

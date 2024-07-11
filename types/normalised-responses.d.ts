@@ -23,6 +23,23 @@ export interface ProjectListItem {
   logoHoverUrl: string
   link: string
   title: string
+  projectHero: {
+    large: {
+      src: string
+      srcset: string | false
+      sizes: string
+    }
+    medium: {
+      src: string
+      srcset: string | false
+      sizes: string
+    }
+    mediumLarge: {
+      src: string
+      srcset: string | false
+      sizes: string
+    }
+  }
 }
 
 export interface Testimonial {

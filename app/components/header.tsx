@@ -8,7 +8,7 @@ const Header = ({
   subTitle,
   cta
 }: {
-  image: string
+  image?: string
   title: string
   subTitle: string | ReactNode
   cta: ReactNode
@@ -136,10 +136,14 @@ const Header = ({
               transform: `perspective(1000px) rotateY(${x}deg) rotateX(${y}deg)`
             }}>
             <div
-              style={{
-                backgroundImage: `url(${image})`
-              }}
-              className=" bg-black scale-125 bg-[center_40%] bg-no-repeat bg-cover min-h-[75vh] z-0"></div>
+              style={
+                image
+                  ? {
+                      backgroundImage: `url(${image})`
+                    }
+                  : {}
+              }
+              className=" bg-white scale-125 bg-[center_40%] bg-no-repeat bg-cover min-h-[75vh] z-0"></div>
           </div>
         </div>
       </div>

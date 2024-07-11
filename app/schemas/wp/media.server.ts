@@ -1,5 +1,21 @@
 import { z } from 'zod'
 
+export const AttachmentMetadataSchema = z.object({
+  width: z.number(),
+  height: z.number(),
+  file: z.string(),
+  sizes: z.record(
+    z.object({
+      file: z.string(),
+      width: z.number(),
+      height: z.number(),
+      mime_type: z.string(),
+      source_url: z.string().url()
+    })
+  ),
+  image_meta: z.record(z.unknown())
+})
+
 const FeaturedMediaSchema = z.object({
   id: z.number(),
   date: z.coerce.date(),
@@ -12,21 +28,7 @@ const FeaturedMediaSchema = z.object({
   alt_text: z.string(),
   media_type: z.string(),
   mime_type: z.string(),
-  media_details: z.object({
-    width: z.number(),
-    height: z.number(),
-    file: z.string(),
-    sizes: z.record(
-      z.object({
-        file: z.string(),
-        width: z.number(),
-        height: z.number(),
-        mime_type: z.string(),
-        source_url: z.string().url()
-      })
-    ),
-    image_meta: z.record(z.unknown())
-  }),
+  media_details: AttachmentMetadataSchema,
   source_url: z.string().url(),
   _links: z.record(z.unknown())
 })

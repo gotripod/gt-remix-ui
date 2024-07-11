@@ -1,6 +1,6 @@
 import Testimonials from '~/components/home/testimonials'
 
-import type { Testimonial } from '~/types'
+import type { Testimonial } from 'types/normalised-responses'
 
 interface Props {
   testimonial: Testimonial

@@ -1,7 +1,23 @@
 import { z } from 'zod'
 
+const SizesAndSrcSetSchema = z.object({
+  src: z.string().url(),
+  sizes: z.string(),
+  srcset: z.string().or(z.literal(false))
+})
+
+const MediaSizesSchema = z.object({
+  thumbnail: SizesAndSrcSetSchema,
+  medium: SizesAndSrcSetSchema,
+  medium_large: SizesAndSrcSetSchema,
+  large: SizesAndSrcSetSchema,
+  '1536x1536': SizesAndSrcSetSchema,
+  '2048x2048': SizesAndSrcSetSchema
+})
+
 export const ProjectListSchema = z.object({
   id: z.number(),
+  project_hero: MediaSizesSchema,
   acf: z.object({
     project_logo: z.string().url(),
     project_logo_unhover: z.string().url(),
@@ -77,7 +93,10 @@ export const ProjectBlockSchema = z.union([
   z.object({
     acf_fc_layout: z.literal('testimonial_block'),
     testimonial: z.object({
-      ID: z.number()
+      ID: z.number(),
+      projectUrl: z.string().optional(),
+      quote: z.string(),
+      quoteAuthor: z.string()
     })
   }),
   z.object({

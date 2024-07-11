@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import AuthorSchema from './author'
-import FeaturedMediaSchema from './featured-media'
+import FeaturedMediaSchema from './media.server'
 import TermSchema from './term'
 
 const PostSchema = z.object({

@@ -1,5 +1,5 @@
 import type { MediaItem } from 'types/normalised-responses'
-import FeaturedMediaSchema from '~/schemas/wp/featured-media'
+import FeaturedMediaSchema from '~/schemas/wp/media.server'
 
 export const getMediaById = async (mediaId: number): Promise<MediaItem> => {
   const response = await fetch(`https://content.gotripod.com/wp-json/wp/v2/media/${mediaId}`)
