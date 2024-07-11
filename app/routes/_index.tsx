@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { HeadersFunction } from '@remix-run/cloudflare'
-import { json } from '@remix-run/cloudflare'
 import { Link, PrefetchPageLinks, useLoaderData } from '@remix-run/react'
 import { getPageBySlug } from '~/api/page.server'
 import { getPostsPage } from '~/api/post.server'
+import { getServices } from '~/api/services.server'
 import { getTestimonial } from '~/api/testimonial.server'
 import Header from '~/components/header'
-import { keysToCamelDeep } from '~/helpers/keys-to-camel'
+import ServiceCard from '~/components/service-card'
 import { mergeMeta } from '~/helpers/seo'
 import { getProjects } from '../api/projects.server'
 
@@ -24,8 +24,11 @@ const Index = () => {
       <PrefetchPageLinks page="/" />
       <Header
         title="Our purpose"
-        ctaText="See what we can do for you"
-        ctaLink="#services"
+        cta={
+          <Link to="/#services" className="btn-primary-blue my-2">
+            See what we can do for you
+          </Link>
+        }
         image="/_img/hero-home.jpg"
         subTitle={
           <>
@@ -47,17 +50,13 @@ const Index = () => {
               </p>
 
               <div className="mb-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-10">
-                {services.map((service: any) => (
-                  <div
+                {services.map((service) => (
+                  <ServiceCard
                     key={service.id}
-                    className="pt-3 pr-3 bg-right-top bg-no-repeat bg-box-corner-blue hover:bg-box-corner-green flex">
-                    <a href="solutions.asp#design" className="inline-flex">
-                      <div className="bg-gt-gray p-5 text-gray-800 hover:bg-gray-800 hover:text-white ease-in-out duration-300">
-                        <h3 className="font-Raleway text-2xl font-extrabold">{service.title}.</h3>
-                        <p className="mt-5" dangerouslySetInnerHTML={{ __html: service.body }}></p>
-                      </div>
-                    </a>
-                  </div>
+                    body={service.excerpt}
+                    link="/solutions"
+                    title={service.title}
+                  />
                 ))}
               </div>
             </div>
@@ -75,9 +74,9 @@ const Index = () => {
                     <div className="flex flex-row lg:flex-col bg-white">
                       <div
                         className={`
-									hidden 
-									md:block 
-									min-w-80 
+									hidden
+									md:block
+									min-w-80
 									min-h-64
 									lg:min-w-full
 									bg-center bg-cover
@@ -165,9 +164,9 @@ const Index = () => {
                       className={`flex flex-row lg:flex-col bg-gradient-to-br ${workCardClasses[i]}`}>
                       <div
                         className="
-hidden 
-md:block 
-min-w-80 
+hidden
+md:block
+min-w-80
 min-h-72
 lg:min-w-full
 bg-center bg-cover
@@ -258,27 +257,19 @@ export const loader = async () => {
     getProjects(),
     getPageBySlug('home'),
     getPostsPage({ perPage: 3 }),
-    fetch('https://content.gotripod.com/wp-json/acf/v3/pages/5'),
+    getServices(),
     getTestimonial()
   ])
 
-  const [projects, page, postPage, acfResponse, testimonial] = results
+  const [projects, page, postPage, services, testimonial] = results
 
-  let acfData = (await acfResponse.json()) as any
-
-  acfData = keysToCamelDeep(acfData.acf)
-
-  return json({
+  return {
     projects: projects.slice(0, 3),
     page,
-    services: acfData.serviceBuilder.map((s: any) => ({
-      imageUrl: s.serviceImage,
-      title: s.serviceTitle,
-      body: s.serviceBody
-    })),
+    services,
     articles: postPage.posts,
     testimonial
-  })
+  }
 }
 
 export default Index

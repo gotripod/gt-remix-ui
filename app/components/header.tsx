@@ -6,14 +6,12 @@ const Header = ({
   image,
   title,
   subTitle,
-  ctaText,
-  ctaLink
+  cta
 }: {
   image: string
   title: string
   subTitle: string | ReactNode
-  ctaText: string
-  ctaLink: string
+  cta: ReactNode
 }) => {
   const ref = useRef(null)
   const mouse = useMouse(ref)
@@ -126,9 +124,7 @@ const Header = ({
                 <p className="font-Raleway text-4xl font-bold text-white mb-14 bg-black bg-opacity-50 p-2 md:bg-transparent">
                   {subTitle}
                 </p>
-                <Link to={ctaLink} className="btn-primary-blue my-2">
-                  {ctaText}
-                </Link>
+                {cta}
               </div>
             </div>
           </div>

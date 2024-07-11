@@ -1,3 +1,12 @@
+export interface GTService {
+  id: number
+  title: string
+  excerpt: string
+  link: string
+  slug: string
+  parent: number
+}
+
 export interface Project {
   id: number
   heroMedia: MediaItem

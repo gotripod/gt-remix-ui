@@ -1,6 +1,5 @@
 import { json } from '@remix-run/cloudflare'
-import { useLoaderData } from '@remix-run/react'
-
+import { Link, useLoaderData } from '@remix-run/react'
 import { getPageBySlug } from '~/api/page.server'
 
 import Header from '~/components/header'
@@ -12,14 +11,18 @@ const Contact = () => {
   return (
     <>
       <Header
-        title="Our purpose"
-        ctaText="See what we can do for you"
-        ctaLink="#services"
-        image="/_img/hero-home.jpg"
+        title="Contact us"
+        cta={
+          <Link to="/contact" className="btn-primary-blue my-2">
+            Get in touch
+          </Link>
+        }
+        image="/_img/hero-contact.jpg"
         subTitle={
           <>
-            Let&apos;s create transformative solutions <br />
-            to move your business forward
+            We&apos;re located in Cornwall
+            <br />
+            Our reach is global
           </>
         }
       />{' '}

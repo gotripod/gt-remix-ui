@@ -9,4 +9,14 @@ public/robots.txt
 .cache
 build
 public/build
+.wrangler# Devenv
+.devenv*
+devenv.local.nix
+
+# direnv
+.direnv
+
+# pre-commit
+.pre-commit-config.yaml
+
 .wrangler
