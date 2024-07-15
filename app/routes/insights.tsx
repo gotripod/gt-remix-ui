@@ -1,7 +1,6 @@
 /**
  * This is a catch-all route for posts, handling the index page (with + without pagination),
- * category indexes, and single post. For more on catch-all routes, see:
- * https://nextjs.org/docs/routing/dynamic-routes#catch-all-routes
+ * category indexes, and single post.
  *
  * /insights/
  * /insights/post-name/
@@ -14,18 +13,26 @@
 
 import type { LoaderFunctionArgs } from '@remix-run/cloudflare'
 import { json } from '@remix-run/cloudflare'
-import { useLoaderData } from '@remix-run/react'
-import type { Post, Testimonial } from 'types/normalised-responses'
+import { Link, useLoaderData, useLocation } from '@remix-run/react'
 import { getPageBySlug } from '~/api/page.server'
 import type { PostPageParams } from '~/api/post.server'
 import { getPostsPage } from '~/api/post.server'
 import { getCategoryBySlug, getTagBySlug } from '~/api/taxon.server'
 import Header from '~/components/header'
 import { mergeMeta } from '~/helpers/seo'
-import List from './insights/list'
+import Pagination from './insights/pagination'
 
 const Index = () => {
   const { pageNumber, page, posts, pagination } = useLoaderData<typeof loader>()
+  const location = useLocation()
+  let rootUrl = location.pathname
+
+  rootUrl = rootUrl.replace(/\/?$/, '')
+
+  if (pageNumber) {
+    rootUrl = rootUrl.replace(/(:?\/page\/\d+)/, '')
+  }
+
   return (
     <>
       <Header
@@ -40,7 +47,28 @@ const Index = () => {
           </>
         }
       />
-      <List pageNumber={pageNumber} insightsPage={page} posts={posts} pagination={pagination} />
+      <div className="max-w-screen-xl mx-auto">
+        <div className="mt-16 mb-16 md:grid grid-cols-3 gap-8">
+          {posts &&
+            posts.map((post) => (
+              <li key={post.id} className={`list-none before:hidden p-6 mb-6 md:mb-0`}>
+                <article className="flex flex-col justify-between h-full">
+                  <span className="text-lg text-neutral-400">{post.date}</span>
+
+                  <h3 className="text-lg font-bold my-8 hover:underline">
+                    <Link to={post.link.replace('https://gotripod.com', '')}>{post.title}</Link>
+                  </h3>
+                </article>
+              </li>
+            ))}
+        </div>
+        <Pagination
+          rootUrl={rootUrl}
+          pageCount={pagination?.pageCount || 0}
+          totalItems={pagination?.totalItems || 0}
+          currentPage={pagination?.currentPage}
+        />
+      </div>
     </>
   )
 }
@@ -107,14 +135,6 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
     tag,
     pageNumber
   })
-}
-
-export interface PostBaseProps {
-  testimonial: Testimonial
-}
-
-export interface SinglePostProps {
-  post: Post
 }
 
 export default Index

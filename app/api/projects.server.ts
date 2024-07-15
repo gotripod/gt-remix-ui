@@ -8,7 +8,7 @@ import { getTestimonialById } from './testimonial.server'
 
 export const getProjects = async (): Promise<ProjectListItem[]> => {
   const response = await fetch(
-    'https://content.gotripod.com/wp-json/wp/v2/project?_fields=project_hero,acf.project_logo,acf.project_logo_unhover,acf.project_logo_hover,id,slug,title&orderby=menu_order&order=asc'
+    'https://content.gotripod.com/wp-json/wp/v2/project?_fields=excerpt,project_hero,acf.project_logo,acf.project_logo_unhover,acf.project_logo_hover,id,slug,title&orderby=menu_order&order=asc'
   )
 
   const projects = await response.json()
@@ -17,6 +17,7 @@ export const getProjects = async (): Promise<ProjectListItem[]> => {
 
   return parsedProjects.map((p) => ({
     id: p.id,
+    excerpt: p.excerpt.rendered,
     logoSpriteUrl: p.acf.project_logo,
     logoUrl: p.acf.project_logo_unhover,
     logoHoverUrl: p.acf.project_logo_hover,

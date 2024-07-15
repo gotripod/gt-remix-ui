@@ -5,9 +5,9 @@ import Column from '~/components/column'
 // import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 // import { coy } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 import { AiOutlineMail } from 'react-icons/ai'
-import { FaFacebookF, FaGooglePlusG, FaLinkedinIn, FaTwitter } from 'react-icons/fa'
+import { FaFacebookF, FaLinkedinIn, FaTwitter } from 'react-icons/fa'
+import type { Post, Taxonomy } from 'types/normalised-responses'
 import Link from '~/components/link'
-import type { Post, Taxonomy } from '~/types'
 // import { SinglePostProps } from 'pages/insights/[[...slug]]'
 
 interface Props {
@@ -54,15 +54,6 @@ const Single = ({ post }: Props) => {
                       rel="noopener noreferrer"
                       title="Share this article on LinkedIn (opens in new window)">
                       <FaLinkedinIn size={18} color={'black'} />
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href={`https://plus.google.com/share?url=${link}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      title="Share this article on Google+ (opens in new window)">
-                      <FaGooglePlusG size={18} color={'black'} />
                     </a>
                   </li>
                   <li>

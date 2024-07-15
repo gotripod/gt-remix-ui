@@ -17,6 +17,9 @@ const MediaSizesSchema = z.object({
 
 export const ProjectListSchema = z.object({
   id: z.number(),
+  excerpt: z.object({
+    rendered: z.string()
+  }),
   project_hero: MediaSizesSchema,
   acf: z.object({
     project_logo: z.string().url(),

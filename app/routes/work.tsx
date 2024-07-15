@@ -1,5 +1,4 @@
 import { Link, json, useLoaderData } from '@remix-run/react'
-import type { ProjectListItem } from 'types/normalised-responses'
 import { getPageBySlug } from '~/api/page.server'
 import { getProjects } from '~/api/projects.server'
 import Header from '~/components/header'
@@ -33,7 +32,7 @@ export const loader = async () => {
 const Index = () => {
   const loaderData = useLoaderData<typeof loader>()
 
-  const projects = loaderData.projects as ProjectListItem[]
+  const projects = loaderData.projects
 
   return (
     <>
@@ -123,15 +122,7 @@ const Index = () => {
                         <h3 className="font-Raleway text-xl font-bold my-5">
                           Fuelling intelligent operations in the cloud
                         </h3>
-                        <p className="mb-5">
-                          Lorem ipsum dolor sit amet, consectetur adipiscingelit, sed do eiusmod
-                          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                          veniam.
-                        </p>
-                        <p className="mb-5">
-                          Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                          ad minim veniam.
-                        </p>
+                        <div dangerouslySetInnerHTML={{ __html: project.excerpt }}></div>
                         <a href="#" className="text-gt-green text-sm font-bold underline">
                           Read more
                         </a>
