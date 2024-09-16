@@ -17,13 +17,17 @@ import type { LoaderFunctionArgs } from '@remix-run/cloudflare'
 import { json } from '@remix-run/cloudflare'
 import type { MetaFunction } from '@remix-run/react'
 import { useLoaderData } from '@remix-run/react'
+import { Fragment } from 'react'
+import { AiOutlineMail } from 'react-icons/ai'
+import { FaFacebookF, FaLinkedinIn, FaTwitter } from 'react-icons/fa'
 import type { SitemapFunction } from 'remix-sitemap'
-import type { Post } from 'types/normalised-responses'
+import type { Post, Taxonomy } from 'types/normalised-responses'
 import { getPostBySlug, getPostPreview } from '~/api/post.server'
 import { getTestimonial } from '~/api/testimonial.server'
+import Header from '~/components/header'
+import Link from '~/components/link'
 import { DEFAULT_META } from '~/root'
 import Column from '../components/column'
-import Single from './insights/single'
 
 export const sitemap: SitemapFunction = async ({ config }) => {
   const postsResponse = await fetch(
@@ -84,10 +88,99 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
 
 const Index = () => {
   const { post } = useLoaderData<typeof loader>()
+  const link = encodeURIComponent(post.link)
+
   return (
-    <Column>
-      <Single post={post} />
-    </Column>
+    <>
+      <Header cta={<></>} subTitle="" title="" image={post.featuredMedia?.sizes.large.sourceUrl} />
+      <Column>
+        <>
+          <div className="m-0 mb-6 max-w-[1000px] mx-auto mt-8 w-full bg-white p-8">
+            <div
+              className="prose max-w-full"
+              dangerouslySetInnerHTML={{ __html: post.content }}></div>
+            <div className="mt-4">
+              Sharing is caring:
+              <ul className="flex gap-4 py-4">
+                <li>
+                  <a
+                    href={`https://twitter.com/intent/tweet/?url=${link}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Share this article on Twitter (opens in new window)">
+                    <FaTwitter size={18} color={'black'} />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`https://www.facebook.com/sharer/sharer.php?u=${link}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Share this article on Facebook (opens in new window)">
+                    <FaFacebookF size={18} color={'black'} />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`https://www.linkedin.com/shareArticle?mini=true&url=${link}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Share this article on LinkedIn (opens in new window)">
+                    <FaLinkedinIn size={18} color={'black'} />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`mailto:?subject=I thought you might be interested in this article on the Go Tripod website&body=${link}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Share this article by email (opens in new window)">
+                    <AiOutlineMail size={18} color={'black'} />
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {post.teamMember && (
+              <div className="flex justify-center m-0 mt-4">
+                <img
+                  className="rounded-full mr-4 block"
+                  alt={`Avatar of ${post.teamMember.name}, ${post.teamMember.position}`}
+                  src={post.teamMember.imageUrl}
+                  width={100}
+                  height={100}
+                />
+                <div className="ml-10 text-gray-500">
+                  By {post.teamMember.name}, {post.teamMember.position}
+                  <br />
+                  Filed under:{' '}
+                  {post.taxonomies
+                    .filter((t: Taxonomy) => t.taxonomy === 'category')
+                    .map((t: Taxonomy, idx: number, arr: Taxonomy[]) => (
+                      <Fragment key={t.slug}>
+                        <Link to={`/insights/category/${t.slug}`}>{t.name}</Link>
+                        {idx < arr.length - 1 ? ', ' : ''}
+                      </Fragment>
+                    ))}
+                  <br />
+                  Topics:{' '}
+                  {post.taxonomies
+                    .filter((t: Taxonomy) => t.taxonomy === 'post_tag')
+                    .map((t: Taxonomy, idx: number, arr: Taxonomy[]) => (
+                      <Fragment key={t.slug}>
+                        <Link key={t.slug} to={`/insights/topic/${t.slug}`}>
+                          {t.name}
+                        </Link>
+                        {idx < arr.length - 1 ? ', ' : ''}
+                      </Fragment>
+                    ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </>
+      </Column>
+    </>
   )
 }
 

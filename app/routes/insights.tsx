@@ -36,38 +36,86 @@ const Index = () => {
   return (
     <>
       <Header
-        title="Our purpose"
-        ctaText="See what we can do for you"
-        ctaLink="#services"
+        plain
+        title="Our insights"
+        cta={
+          <div className="flex gap-2">
+            <Link to="/#services" className="btn-primary-blue my-2">
+              Tips
+            </Link>
+            <Link to="/#services" className="btn-primary-blue my-2">
+              Technology
+            </Link>
+            <Link to="/#services" className="btn-primary-blue my-2">
+              Software
+            </Link>
+            <Link to="/#services" className="btn-primary-blue my-2">
+              Go Tripod News
+            </Link>
+            <Link to="/#services" className="btn-primary-blue my-2">
+              All
+            </Link>
+          </div>
+        }
         image="/_img/hero-home.jpg"
         subTitle={
           <>
-            Let&apos;s create transformative solutions <br />
-            to move your business forward
+            The latest from our world and beyond.
+            <br />
+            Read, watch and go deeper into what&apos;s happening.
           </>
         }
       />
-      <div className="max-w-screen-xl mx-auto">
-        <div className="mt-16 mb-16 md:grid grid-cols-3 gap-8">
-          {posts &&
-            posts.map((post) => (
-              <li key={post.id} className={`list-none before:hidden p-6 mb-6 md:mb-0`}>
-                <article className="flex flex-col justify-between h-full">
-                  <span className="text-lg text-neutral-400">{post.date}</span>
-
-                  <h3 className="text-lg font-bold my-8 hover:underline">
-                    <Link to={post.link.replace('https://gotripod.com', '')}>{post.title}</Link>
-                  </h3>
-                </article>
-              </li>
-            ))}
+      <div className="relative w-full bg-gray-100 overflow-hidden ">
+        <div className="max-w-screen-xl mx-auto px-4 pb-16">
+          <div className="md:grid grid-cols-2 gap-8">
+            {posts &&
+              posts.map((post) => (
+                <li key={post.id} className="list-none before:hidden mb-6 md:mb-0">
+                  <article className="bg-white shadow-md rounded-lg overflow-hidden">
+                    {post.featuredMedia && post.featuredMedia.sizes.mediumLarge?.sourceUrl && (
+                      <img
+                        src={post.featuredMedia.sizes.mediumLarge.sourceUrl}
+                        alt={post.title}
+                        className="w-full h-48 object-cover"
+                      />
+                    )}
+                    <div className="p-6">
+                      <span className="text-sm text-neutral-400">
+                        {new Date(post.date).toLocaleDateString('en-GB', {
+                          day: 'numeric',
+                          month: 'long',
+                          year: 'numeric'
+                        })}
+                      </span>
+                      <h3 className="text-xl font-bold mt-2 mb-4 hover:text-gt-blue transition-colors">
+                        <Link to={post.link.replace('https://gotripod.com', '')}>{post.title}</Link>
+                      </h3>
+                      <div
+                        className="text-sm text-neutral-600 mb-4"
+                        dangerouslySetInnerHTML={{ __html: post.excerpt }}
+                      />
+                      <div className="flex flex-wrap gap-2">
+                        {post.taxonomies.map((category) => (
+                          <span
+                            key={category.id}
+                            className="text-gt-blue-lt border-gt-blue-lt border-2 uppercase bg-white text-xs px-3 py-2 rounded-full">
+                            {category.name}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </article>
+                </li>
+              ))}
+          </div>
+          <Pagination
+            rootUrl={rootUrl}
+            pageCount={pagination?.pageCount || 0}
+            totalItems={pagination?.totalItems || 0}
+            currentPage={pagination?.currentPage}
+          />
         </div>
-        <Pagination
-          rootUrl={rootUrl}
-          pageCount={pagination?.pageCount || 0}
-          totalItems={pagination?.totalItems || 0}
-          currentPage={pagination?.currentPage}
-        />
       </div>
     </>
   )

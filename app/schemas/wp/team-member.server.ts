@@ -88,7 +88,7 @@ const yoastHeadJsonSchema = z.object({
   twitter_site: z.string(),
   schema: z.object({
     '@context': z.string().url(),
-    '@graph': graphSchema
+    '@graph': z.any() // review graphSchema as it was throwing an error
   })
 })
 

@@ -19,6 +19,7 @@ export interface Project {
 export interface ProjectListItem {
   id: number
   logoSpriteUrl: string
+  excerpt: string
   logoUrl: string
   logoHoverUrl: string
   link: string
@@ -133,7 +134,7 @@ export interface Post {
   yoastHtml: string
   yoastHeadJson: {
     title: string
-    description: string
+    description: string | undefined
   }
   modified: Date
   status: 'publish' | 'future' | 'draft' | 'pending' | 'private'

@@ -104,7 +104,10 @@ const postResponseToPost = async (post: z.infer<typeof PostSchema>): Promise<Pos
               sourceUrl: featured.media_details.sizes.medium.source_url
             },
             mediumLarge: {
-              sourceUrl: featured.media_details.sizes.medium_large.source_url
+              sourceUrl: featured.media_details.sizes?.medium_large?.source_url
+            },
+            large: {
+              sourceUrl: featured.media_details.sizes?.large?.source_url
             }
           }
         }

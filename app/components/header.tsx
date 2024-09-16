@@ -6,12 +6,14 @@ const Header = ({
   image,
   title,
   subTitle,
-  cta
+  cta,
+  plain = false
 }: {
   image?: string
   title: string
   subTitle: string | ReactNode
   cta: ReactNode
+  plain?: boolean
 }) => {
   const ref = useRef(null)
   const mouse = useMouse(ref)
@@ -19,7 +21,7 @@ const Header = ({
   let x,
     y = 0
 
-  if (mouse) {
+  if (mouse && !plain) {
     const sx = mouse.screenX || 0
     const sy = mouse.screenY || 0
     const ew = mouse.elementWidth || 0
@@ -29,21 +31,21 @@ const Header = ({
     y = (sy / eh) * 5
   }
 
-  return (
+  const headerContent = (
     <header ref={ref}>
-      <div className="relative min-h-[75vh] overflow-hidden bg-black">
-        <div className="min-h-[75vh] flex flex-col justify-between">
+      <div
+        className={`relative ${plain ? '' : 'min-h-[75vh] overflow-hidden'} ${
+          plain ? 'bg-white' : 'bg-black'
+        }`}>
+        <div className={`${plain ? '' : 'min-h-[75vh]'} flex flex-col justify-between`}>
           <nav
-            className="
+            className={`
     w-full
     p-6
-    text-gray-100
-    bg-black
-    bg-opacity-60
-    md:bg-opacity-30 
+    ${plain ? 'bg-gray-800 text-white' : 'bg-black bg-opacity-60 md:bg-opacity-30 text-gray-100'}
     z-10 
     relative
-  ">
+  `}>
             <div
               className="
       flex 
@@ -83,14 +85,14 @@ const Header = ({
 
               <div id="menu" className="hidden w-full md:w-auto md:flex md:items-center">
                 <ul
-                  className="
+                  className={`
           pt-4
-          text-gray-100
+          text-white
           font-Raleway font-semibold text-sm uppercase my-auto
           md:flex
           md:justify-between 
           md:pt-0
-        ">
+        `}>
                   {[
                     ['/', 'Home'],
                     ['/solutions', 'Solutions'],
@@ -116,12 +118,21 @@ const Header = ({
             </div>
           </nav>
           <div className="relative z-10">
-            <div className="bg-slope-bl-white bg-bottom bg-no-repeat bg-contain p-6 pb-24">
+            <div
+              className={`bg-slope-bl-white bg-bottom bg-no-repeat bg-contain p-6 ${
+                plain ? '' : 'pb-24'
+              }`}>
               <div className="max-w-screen-xl mx-auto pb-4 md:pb-12">
-                <h1 className="text-3xl font-bold text-gt-green pb-2 border-b border-white bg-black bg-opacity-50 p-2 md:bg-transparent">
+                <h1
+                  className={`text-3xl font-bold text-gt-green pb-2 border-b ${
+                    plain ? 'border-black' : 'border-white'
+                  } ${plain ? '' : 'bg-black bg-opacity-50'} p-2 md:bg-transparent`}>
                   {title}
                 </h1>
-                <p className="font-Raleway text-4xl font-bold text-white mb-14 bg-black bg-opacity-50 p-2 md:bg-transparent">
+                <p
+                  className={`font-Raleway text-4xl font-bold ${
+                    plain ? 'text-black' : 'text-white'
+                  } mb-14 ${plain ? '' : 'bg-black bg-opacity-50'} p-2 md:bg-transparent`}>
                   {subTitle}
                 </p>
                 {cta}
@@ -129,26 +140,38 @@ const Header = ({
             </div>
           </div>
         </div>
-        <div className="absolute inset-0 z-0 border-2 border-red-400">
-          <div
-            className="perspective-hero transform transition-transform duration-600 ease-out"
-            style={{
-              transform: `perspective(1000px) rotateY(${x}deg) rotateX(${y}deg)`
-            }}>
+        {!plain && (
+          <div className="absolute inset-0 z-0 border-2 border-red-400">
             <div
-              style={
-                image
-                  ? {
-                      backgroundImage: `url(${image})`
-                    }
-                  : {}
-              }
-              className=" bg-white scale-125 bg-[center_40%] bg-no-repeat bg-cover min-h-[75vh] z-0"></div>
+              className="perspective-hero transform transition-transform duration-600 ease-out"
+              style={{
+                transform: `perspective(1000px) rotateY(${x}deg) rotateX(${y}deg)`
+              }}>
+              <div
+                style={
+                  image
+                    ? {
+                        backgroundImage: `url(${image})`
+                      }
+                    : {}
+                }
+                className=" bg-white scale-125 bg-[center_40%] bg-no-repeat bg-cover min-h-[75vh] z-0"></div>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </header>
   )
+
+  if (plain) {
+    return (
+      <div className="bg-slope-br-grey bg-bottom bg-no-repeat bg-contain pb-24">
+        {headerContent}
+      </div>
+    )
+  }
+
+  return headerContent
 }
 
 export default Header
