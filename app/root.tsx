@@ -205,7 +205,7 @@ export default function App() {
                       <li>
                         <NavLink
                           className="py-1 mx-2 md:mx-5 inline-block hover:text-gt-green-lt"
-                          to="/about">
+                          to="/who-are-go-tripod">
                           About
                         </NavLink>
                       </li>

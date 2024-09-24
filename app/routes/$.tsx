@@ -44,7 +44,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   if (!filePath) {
     throw new Response(null, {
       status: 404,
-      statusText: 'Not Found'
+      statusText: 'Not Found (filePath)'
     })
   }
 
@@ -53,7 +53,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   if (!page) {
     throw new Response(null, {
       status: 404,
-      statusText: 'Not Found'
+      statusText: 'Not Found (page) ' + filePath
     })
   }
 

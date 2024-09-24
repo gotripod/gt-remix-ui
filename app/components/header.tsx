@@ -98,7 +98,7 @@ const Header = ({
                     ['/solutions', 'Solutions'],
                     ['/work', 'Work'],
                     ['/insights', 'Insights'],
-                    ['/about', 'About'],
+                    ['/who-are-go-tripod', 'About'],
                     ['/contact', 'Contact']
                   ].map(([link, text]) => (
                     <li key={link}>

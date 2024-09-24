@@ -37,6 +37,7 @@ const Index = () => {
   return (
     <>
       <Header
+        plain
         title="Our work"
         cta={
           <>

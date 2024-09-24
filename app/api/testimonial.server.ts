@@ -8,7 +8,7 @@ export const getTestimonial = async (): Promise<Testimonial> => {
   )
 
   if (response.status !== 200) {
-    console.error(await response.text())
+    console.error('testimonial error', await response.text())
   }
   try {
     const json = await response.json()

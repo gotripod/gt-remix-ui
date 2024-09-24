@@ -1,3 +1,7 @@
+# TODO
+
+- insights_$slug.tsx - styling
+
 # Introduction
 
 This is a (Remix)[https://remix.run] frontend to Wordpress.
