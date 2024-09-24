@@ -23,7 +23,7 @@ import { mergeMeta } from '~/helpers/seo'
 import Pagination from './insights/pagination'
 
 const Index = () => {
-  const { pageNumber, page, posts, pagination } = useLoaderData<typeof loader>()
+  const { pageNumber, posts, pagination } = useLoaderData<typeof loader>()
   const location = useLocation()
   let rootUrl = location.pathname
 
@@ -68,55 +68,69 @@ const Index = () => {
       />
       <div className="relative w-full bg-gray-100 overflow-hidden ">
         <div className="max-w-screen-xl mx-auto px-4 pb-16">
+          <h2 className="text-2xl font-bold text-gt-blue">Our tips</h2>
+          <p className="font-Raleway text-4xl font-bold text-gray-800 mb-14">
+            Helping you stay ahead of change
+          </p>
           <div className="md:grid grid-cols-2 gap-8">
             {posts &&
               posts.map((post) => (
                 <li key={post.id} className="list-none before:hidden mb-6 md:mb-0">
-                  <article className="bg-white shadow-md rounded-lg overflow-hidden">
-                    {post.featuredMedia && post.featuredMedia.sizes.mediumLarge?.sourceUrl && (
-                      <img
-                        src={post.featuredMedia.sizes.mediumLarge.sourceUrl}
-                        alt={post.title}
-                        className="w-full h-48 object-cover"
-                      />
-                    )}
-                    <div className="p-6">
-                      <span className="text-sm text-neutral-400">
-                        {new Date(post.date).toLocaleDateString('en-GB', {
-                          day: 'numeric',
-                          month: 'long',
-                          year: 'numeric'
-                        })}
-                      </span>
-                      <h3 className="text-xl font-bold mt-2 mb-4 hover:text-gt-blue transition-colors">
-                        <Link to={post.link.replace('https://gotripod.com', '')}>{post.title}</Link>
-                      </h3>
-                      <div
-                        className="text-sm text-neutral-600 mb-4"
-                        dangerouslySetInnerHTML={{ __html: post.excerpt }}
-                      />
-                      <div className="flex flex-wrap gap-2">
-                        {post.taxonomies.map((category) => (
-                          <span
-                            key={category.id}
-                            className="text-gt-blue-lt border-gt-blue-lt border-2 uppercase bg-white text-xs px-3 py-2 rounded-full">
-                            {category.name}
-                          </span>
-                        ))}
+                  <Link
+                    to={post.link.replace('https://gotripod.com', '')}
+                    className="block group/card">
+                    <article className="bg-white overflow-hidden">
+                      {
+                        <div className="min-w-80 h-64 overflow-hidden">
+                          <img
+                            src={
+                              post.featuredMedia?.sizes?.mediumLarge?.sourceUrl ||
+                              'https://picsum.photos/300/200'
+                            }
+                            alt={post.title}
+                            className="w-full object-cover min-w-80 min-h-64"
+                          />
+                        </div>
+                      }
+                      <div className="p-6">
+                        <span className="text-sm underline underline-offset-8 decoration-2 decoration-gt-green">
+                          {new Date(post.date).toLocaleDateString('en-GB', {
+                            day: 'numeric',
+                            month: 'long',
+                            year: 'numeric'
+                          })}
+                        </span>
+                        <h3 className="text-xl font-bold mt-2 mb-4 group-hover/card:text-gt-blue transition-colors">
+                          {post.title}
+                        </h3>
+                        <div className="mb-4" dangerouslySetInnerHTML={{ __html: post.excerpt }} />
+                        <p className="text-gt-green text-sm font-bold underline invisible group-hover/card:visible">
+                          Read more
+                        </p>
+                        <div className="flex flex-wrap gap-2 mt-8">
+                          {post.taxonomies.map((category) => (
+                            <span
+                              key={category.id}
+                              className="text-gt-blue-lt border-gt-blue-lt border-2 uppercase bg-white text-xs px-3 py-2 rounded-full">
+                              {category.name}
+                            </span>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  </article>
+                    </article>
+                  </Link>
                 </li>
               ))}
           </div>
-          <Pagination
-            rootUrl={rootUrl}
-            pageCount={pagination?.pageCount || 0}
-            totalItems={pagination?.totalItems || 0}
-            currentPage={pagination?.currentPage}
-          />
         </div>
       </div>
+
+      <Pagination
+        rootUrl={rootUrl}
+        pageCount={pagination?.pageCount || 0}
+        totalItems={pagination?.totalItems || 0}
+        currentPage={pagination?.currentPage}
+      />
     </>
   )
 }

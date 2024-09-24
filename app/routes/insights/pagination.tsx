@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react'
 
+import { Link } from '@remix-run/react'
 import type { Pagination as PaginationType } from '~/types'
-import { LinkButton } from '~/components/button'
 
 const NewerLink = (props: { rootUrl: string; pagination: PaginationType }) => {
   const { rootUrl, pagination } = props
@@ -15,7 +15,11 @@ const NewerLink = (props: { rootUrl: string; pagination: PaginationType }) => {
     return null
   }
 
-  return <LinkButton to={url}>Newer posts →</LinkButton>
+  return (
+    <Link className="btn-primary-blue m-6" to={url}>
+      See newer insights
+    </Link>
+  )
 }
 
 const OlderLink = (props: { rootUrl: string; pagination: PaginationType }) => {
@@ -28,18 +32,21 @@ const OlderLink = (props: { rootUrl: string; pagination: PaginationType }) => {
     return null
   }
 
-  return <LinkButton to={`${rootUrl}/page/${targetPage}`}>← Older posts</LinkButton>
+  return (
+    <Link className="btn-primary-blue m-6" to={`${rootUrl}/page/${targetPage}`}>
+      See older insights
+    </Link>
+  )
 }
 
 const Pagination = (props: PaginationType & { rootUrl: string }): ReactElement => {
   const { rootUrl } = props
   return (
-    <div className="flex justify-between">
-      {/* If there's a next page, render this link */}
-      <OlderLink rootUrl={rootUrl} pagination={props} />
-
-      {/* If there's a previous page, render this link */}
-      <NewerLink rootUrl={rootUrl} pagination={props} />
+    <div className="bg-white bg-slope-tr-grey bg-top bg-no-repeat bg-contain p-24 pb-20">
+      <p className="text-left lg:text-center">
+        <OlderLink rootUrl={rootUrl} pagination={props} />
+        <NewerLink rootUrl={rootUrl} pagination={props} />
+      </p>
     </div>
   )
 }

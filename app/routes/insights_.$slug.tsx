@@ -92,7 +92,13 @@ const Index = () => {
 
   return (
     <>
-      <Header cta={<></>} subTitle="" title="" image={post.featuredMedia?.sizes.large.sourceUrl} />
+      <Header
+        plain
+        cta={<></>}
+        subTitle=""
+        title=""
+        image={post.featuredMedia?.sizes.large.sourceUrl}
+      />
       <Column>
         <>
           <div className="m-0 mb-6 max-w-[1000px] mx-auto mt-8 w-full bg-white p-8">
