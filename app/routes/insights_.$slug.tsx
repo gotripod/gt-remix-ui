@@ -27,7 +27,6 @@ import { getTestimonial } from '~/api/testimonial.server'
 import Header from '~/components/header'
 import Link from '~/components/link'
 import { DEFAULT_META } from '~/root'
-import Column from '../components/column'
 
 export const sitemap: SitemapFunction = async ({ config }) => {
   const postsResponse = await fetch(
@@ -89,21 +88,29 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
 const Index = () => {
   const { post } = useLoaderData<typeof loader>()
   const link = encodeURIComponent(post.link)
-
+  console.log('POST', post.featuredMedia)
   return (
     <>
       <Header
         plain
         cta={<></>}
-        subTitle=""
-        title=""
-        image={post.featuredMedia?.sizes.large.sourceUrl}
+        subTitle="Transformation from every angle"
+        title="Go Tripod News / Software"
       />
-      <Column>
+      <div className="max-w-screen-xl mx-auto">
+        <div
+          className={`sm:min-h-[640px] bg-cover bg-center flex flex-col justify-between`}
+          style={{
+            backgroundImage: `url(${post.featuredMedia?.sizes.large.sourceUrl})`
+          }}>
+          <div className="lg:bg-stripes-bg bg-[right_top_50px] bg-no-repeat bg-[length:300px]">
+            <div className="min-h-80"></div>
+          </div>
+        </div>
         <>
-          <div className="m-0 mb-6 max-w-[1000px] mx-auto mt-8 w-full bg-white p-8">
+          <div className="m-0 mb-6 max-w-screen-xl mx-auto mt-8 w-full bg-white p-8">
             <div
-              className="prose max-w-full"
+              className="prose max-w-3xl"
               dangerouslySetInnerHTML={{ __html: post.content }}></div>
             <div className="mt-4">
               Sharing is caring:
@@ -185,7 +192,7 @@ const Index = () => {
             )}
           </div>
         </>
-      </Column>
+      </div>
     </>
   )
 }
