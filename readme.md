@@ -1,6 +1,10 @@
 # TODO
 
 - insights_$slug.tsx - styling
+- swap root quote "learn our approach" for real image
+- fix subheadings on solutions page
+- fix content on solutions page
+- fix work page error
 
 # Introduction
 

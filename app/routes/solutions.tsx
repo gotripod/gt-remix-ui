@@ -1,5 +1,6 @@
 import { Link, useLoaderData } from '@remix-run/react'
 import { getServices } from '~/api/services.server'
+import GrowCta from '~/components/grow-cta'
 import Header from '~/components/header'
 import ServiceCard from '~/components/service-card'
 
@@ -67,6 +68,7 @@ const Solutions = () => {
             </section>
           )
         })}
+      <GrowCta />
     </>
   )
 }

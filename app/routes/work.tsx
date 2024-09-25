@@ -40,7 +40,7 @@ const Index = () => {
         plain
         title="Our work"
         cta={
-          <>
+          <div className="flex gap-2">
             <Link to="#websites" className="btn-primary-blue my-2">
               Web sites
             </Link>
@@ -53,7 +53,7 @@ const Index = () => {
             <Link to="#websites" className="btn-primary-blue my-2">
               Mobile
             </Link>
-          </>
+          </div>
         }
         subTitle={
           <>
@@ -124,11 +124,13 @@ const Index = () => {
                           Fuelling intelligent operations in the cloud
                         </h3>
                         <div dangerouslySetInnerHTML={{ __html: project.excerpt }}></div>
-                        <a href="#" className="text-gt-green text-sm font-bold underline">
+                        <Link
+                          to={`/work/${project.link}`}
+                          className="text-gt-green text-sm font-bold underline">
                           Read more
-                        </a>
+                        </Link>
                       </div>
-                      <div className="p-6 pt-0">
+                      <div className="p-6 pt-0 gap-2 flex">
                         <span className="btn-disabled-white text-xs font-light mt-1">Design</span>
                         <span className="btn-disabled-white text-xs font-light mt-1">
                           Development

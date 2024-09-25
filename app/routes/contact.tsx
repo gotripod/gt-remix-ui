@@ -2,6 +2,7 @@ import { json } from '@remix-run/cloudflare'
 import { Link, useLoaderData } from '@remix-run/react'
 import { getPageBySlug } from '~/api/page.server'
 
+import GrowCta from '~/components/grow-cta'
 import Header from '~/components/header'
 import { mergeMeta } from '~/helpers/seo'
 import Map from '../components/contact/map'
@@ -26,8 +27,8 @@ const Contact = () => {
           </>
         }
       />{' '}
-      <div className="max-w-screen-xl mx-auto">
-        <div className="text-xl mb-20" dangerouslySetInnerHTML={{ __html: page.body }}></div>
+      <div className="max-w-screen-xl mx-auto mb-20">
+        <div className="text-xl mb-10" dangerouslySetInnerHTML={{ __html: page.body }}></div>
         <div className="md:grid grid-cols-[65%_auto] gap-16">
           <div style={{ flex: 1 }}>
             <Map />
@@ -64,6 +65,7 @@ const Contact = () => {
           </div>
         </div>
       </div>
+      <GrowCta />
     </>
   )
 }
