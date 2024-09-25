@@ -142,7 +142,7 @@ export default function App() {
               <div className="max-w-screen-xl mx-auto">
                 <div className="flex items-center my-5">
                   <img
-                    src="_img/chevron.svg"
+                    src="/_img/chevron.svg"
                     alt=""
                     width="30px"
                     className="inline max-w-[30px] mr-2"
@@ -164,7 +164,7 @@ export default function App() {
                   <div>
                     <NavLink to="/">
                       <img
-                        src="_img/gotripod-logo.png"
+                        src="/_img/gotripod-logo.png"
                         alt="Go Tripod"
                         width="130px"
                         className="max-w-[130px]"
@@ -225,7 +225,7 @@ export default function App() {
                       rel="noopener noreferrer"
                       to="https://www.facebook.com/gotripod">
                       <img
-                        src="_img/social-li.svg"
+                        src="/_img/social-li.svg"
                         alt="Visit us on Facebook"
                         width="20px"
                         className="max-w-[20px]"
@@ -237,7 +237,7 @@ export default function App() {
                       rel="noopener noreferrer"
                       to="https://twitter.com/gotripod">
                       <img
-                        src="_img/social-x.svg"
+                        src="/_img/social-x.svg"
                         alt="Visit us on Twitter"
                         width="20px"
                         className="max-w-[20px]"
@@ -249,7 +249,7 @@ export default function App() {
                       rel="noopener noreferrer"
                       to="https://www.linkedin.com/company/go-tripod-ltd">
                       <img
-                        src="_img/social-fb.svg"
+                        src="/_img/social-fb.svg"
                         alt="Visit us on LinkedIn"
                         width="20px"
                         className="max-w-[20px]"

@@ -57,7 +57,7 @@ const Header = ({
               <div>
                 <Link to="/">
                   <img
-                    src="_img/gotripod-logo.png"
+                    src="/_img/gotripod-logo.png"
                     alt="Go Tripod"
                     width="200px"
                     className="max-w-[200px] mr-6"
