@@ -17,13 +17,7 @@ import stylesheet from '~/tailwind.css?url'
 import { getMenu } from './api/menu.server'
 import { getTestimonial } from './api/testimonial.server'
 import ToTop from './components/to-top'
-
-export const DEFAULT_META = [
-  { charset: 'utf-8' },
-  { name: 'viewport', content: 'width=device-width,initial-scale=1' },
-  { name: 'msapplication-TileColor', content: '#da532c' },
-  { name: 'theme-color', content: '#ffffff' }
-]
+import { DEFAULT_META } from './constants'
 
 export const meta = () => DEFAULT_META
 
@@ -47,10 +41,6 @@ export const links: LinksFunction = () => {
       rel: 'stylesheet',
       href: 'https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap'
     },
-    // {
-    //   rel: "stylesheet",
-    //   href: styles,
-    // },
     { rel: 'stylesheet', href: stylesheet }
   ]
 }
@@ -61,7 +51,7 @@ interface Env {
 
 export function ErrorBoundary() {
   const error = useRouteError()
-  console.error(error)
+  console.error('ErrorBoundary', error)
   return (
     <html>
       <head>
@@ -81,7 +71,6 @@ export function ErrorBoundary() {
 export const loader = async ({ context }: LoaderFunctionArgs) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const env = ((context?.cloudflare as any)?.env || {}) as Env
-  console.log('context', env)
   // For child routes/components
   const menu = await getMenu()
   const testimonial = await getTestimonial()

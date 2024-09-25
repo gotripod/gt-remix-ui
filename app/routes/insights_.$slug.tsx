@@ -26,7 +26,7 @@ import { getPostBySlug, getPostPreview } from '~/api/post.server'
 import { getTestimonial } from '~/api/testimonial.server'
 import Header from '~/components/header'
 import Link from '~/components/link'
-import { DEFAULT_META } from '~/root'
+import { DEFAULT_META } from '~/constants'
 
 export const sitemap: SitemapFunction = async ({ config }) => {
   const postsResponse = await fetch(

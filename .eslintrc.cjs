@@ -23,11 +23,11 @@ module.exports = {
         ecmaVersion: 12,
         sourceType: 'commonjs',
     },
-    plugins: ['react', '@typescript-eslint', 'unused-imports'],
+    plugins: ['react', '@typescript-eslint', 'unused-imports', 'react-refresh'],
     rules: {
         "unused-imports/no-unused-imports": "error",
         '@typescript-eslint/consistent-type-imports': 'error',
         '@typescript-eslint/no-non-null-assertion': 'off',
-
+        'react-refresh/only-export-components': 'warn',
     },
 }
