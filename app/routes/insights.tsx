@@ -36,6 +36,7 @@ const Index = () => {
   return (
     <>
       <Header
+        swoosh
         plain
         title="Our insights"
         cta={

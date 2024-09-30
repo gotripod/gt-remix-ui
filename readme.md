@@ -5,6 +5,10 @@
 - fix subheadings on solutions page
 - fix content on solutions page
 - fix work page error
+- make pills on work cards "dynamic"
+- make pills on insights cards "dynamic"
+- image/title on about page
+- 
 
 # Introduction
 

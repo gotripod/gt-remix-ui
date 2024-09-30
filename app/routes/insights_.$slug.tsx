@@ -101,7 +101,7 @@ const Index = () => {
         <div
           className={`sm:min-h-[640px] bg-cover bg-center flex flex-col justify-between`}
           style={{
-            backgroundImage: `url(${post.featuredMedia?.sizes.large.sourceUrl})`
+            backgroundImage: `url(${post.featuredMedia?.sizes.mediumLarge.sourceUrl})`
           }}>
           <div className="lg:bg-stripes-bg bg-[right_top_50px] bg-no-repeat bg-[length:300px]">
             <div className="min-h-80"></div>
@@ -109,8 +109,18 @@ const Index = () => {
         </div>
         <>
           <div className="m-0 mb-6 max-w-screen-xl mx-auto mt-8 w-full bg-white p-8">
+            <time className="text-2xl font-bold text-gt-blue" dateTime="">
+              {new Date(post.date).toLocaleDateString('en-GB', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+              })}
+            </time>
+
+            <h2 className="font-Raleway text-2xl text-gray-800 my-5 font-medium">{post.title}.</h2>
+
             <div
-              className="prose max-w-3xl"
+              className="prose max-w-3xl font-Raleway"
               dangerouslySetInnerHTML={{ __html: post.content }}></div>
             <div className="mt-4">
               Sharing is caring:

@@ -7,13 +7,15 @@ const Header = ({
   title,
   subTitle,
   cta,
-  plain = false
+  plain = false,
+  swoosh = false
 }: {
   image?: string
   title: string
   subTitle: string | ReactNode
   cta: ReactNode
   plain?: boolean
+  swoosh?: boolean
 }) => {
   const ref = useRef(null)
   const mouse = useMouse(ref)
@@ -35,7 +37,7 @@ const Header = ({
     <header ref={ref}>
       <div
         className={`relative ${plain ? '' : 'min-h-[75vh] overflow-hidden'} ${
-          plain ? 'bg-white' : 'bg-black'
+          plain ? '' : 'bg-black'
         }`}>
         <div className={`${plain ? '' : 'min-h-[75vh]'} flex flex-col justify-between`}>
           <nav
@@ -118,10 +120,7 @@ const Header = ({
             </div>
           </nav>
           <div className="relative z-10">
-            <div
-              className={`bg-slope-bl-white bg-bottom bg-no-repeat bg-contain p-6 ${
-                plain ? '' : 'pb-24'
-              }`}>
+            <div className={`p-6 ${plain ? '' : 'pb-24'}`}>
               <div className="max-w-screen-xl mx-auto pb-4 md:pb-12">
                 <h1
                   className={`text-3xl font-bold text-gt-green pb-2 border-b ${
@@ -165,7 +164,8 @@ const Header = ({
 
   if (plain) {
     return (
-      <div className="bg-slope-br-grey bg-bottom bg-no-repeat bg-contain pb-24">
+      <div
+        className={`${swoosh ? 'bg-slope-br-grey pb-24' : ''} bg-bottom bg-no-repeat bg-contain`}>
         {headerContent}
       </div>
     )
